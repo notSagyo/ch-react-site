@@ -1,3 +1,7 @@
+# Other
+*.map
+*.ignore*
+
 # Logs
 logs
 *.log
