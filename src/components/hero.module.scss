@@ -1,0 +1,9 @@
+@use "/src/styles/abstracts" as *;
+@use "/src/styles/base/typography" as t;
+
+.hero {
+	.content { margin-top: 10vh; }
+	.title { @extend t, .page-title !optional; }
+	.brand { font-size: inherit; }
+	.info { font-weight: 200; }
+}

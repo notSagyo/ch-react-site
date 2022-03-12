@@ -14,7 +14,7 @@
     },
     "rules": {
         "linebreak-style": ["error", "windows"],
-        "quotes": ["warn", "double"],
+        "quotes": ["warn", "single"],
         "semi": ["warn", "always"],
         "prefer-const": "off",
         "@typescript-eslint/no-unused-vars": ["warn"],

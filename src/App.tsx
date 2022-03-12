@@ -1,11 +1,22 @@
-import "./styles/main.scss";
+import { MantineProvider } from '@mantine/core';
+import Home from './pages/Home';
+import '/src/styles/main.scss';
 
 function App() {
 	return (
-		<div className="App">
-			<header className="App-header">
-			</header>
-		</div>
+		<MantineProvider
+			theme={{
+				colorScheme: 'dark',
+				colors: { brand: ['#ef4444', '#ef4444', '#ef4444', '#ef4444', '#ef4444', '#ef4444', '#ef4444', '#ef4444', '#ef4444', '#ef4444'] },
+				white: '#fafaff',
+				black: '#1b1e21',
+				primaryColor: 'brand',
+				fontFamily: 'Poppins, sans-serif'
+			}}>
+			<div className="app">
+				<Home />
+			</div>
+		</MantineProvider>
 	);
 }
 
