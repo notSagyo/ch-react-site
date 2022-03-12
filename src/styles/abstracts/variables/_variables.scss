@@ -27,8 +27,8 @@ $bg: $background-color;
 $fg: $foreground-color;
 
 // Breakpoints ===============================================================//
-$sm: f.em(576);
-$md: f.em(768);
-$lg: f.em(992);
-$xl: f.em(1200);
-$xxl: f.em(1400);
+$xs: f.em(540);
+$sm: f.em(720);
+$md: f.em(960);
+$lg: f.em(1140);
+$xl: f.em(1320);
