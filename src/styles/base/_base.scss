@@ -1,0 +1,29 @@
+@use "../abstracts" as *;
+@use "typography" as *;
+@use "scrollbar" as *;
+
+body {
+	line-height: 1;
+	background-color: $background-color;
+	color: $foreground-color;
+}
+
+a { color: $primary-color; }
+
+.app {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+}
+
+.v-center { @include v-align; }
+
+.container {
+	@include xs-up { max-width: 540px; }
+	@include sm-up { max-width: 720px; }
+	@include md-up { max-width: 960px; }
+	@include lg-up { max-width: 1140px; }
+	@include xl-up { max-width: 1320px; }
+}
+
+.muted { color: $muted; }

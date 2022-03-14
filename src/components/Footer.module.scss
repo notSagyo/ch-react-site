@@ -1,0 +1,72 @@
+@use "../styles/abstracts" as *;
+@use "../styles/base/base" as base;
+@use "sass:color";
+
+.footer, .wrapper, .content {
+	height: $footer-height;
+}
+
+.footer {
+	a {
+		color: $fg;
+		&:hover { color: $primary; }
+	}
+}
+
+.wrapper {
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+
+	background-color: color.scale($dark, $lightness: 2.5%);
+}
+
+.content {
+	width: 100%;
+	display: flex;
+
+	& > * { flex-basis: 33.3%; }
+}
+
+// Groups ====================================================================//
+.header { @include h5; }
+
+.social {
+	justify-content: center;
+
+	ul {
+		display: flex;
+		.socialIcon { padding: 0 1rem; }
+	}
+}
+
+.links {
+	justify-content: end;
+	flex-wrap: nowrap;
+	ul { padding: 0 2rem; }
+}
+
+// MEDIA =====================================================================//
+@include md-down {
+	.footer, .wrapper, .content {
+		height: $footer-height-column;
+	}
+
+	.content {
+		flex-direction: column;
+		& > * { margin: 1rem 0; }
+	}
+
+	.social { order: 1; }
+
+	.links {
+		justify-content: center;
+		order: 1;
+	}
+
+	.author {
+		order: 2;
+		justify-content: center;
+	}
+}
