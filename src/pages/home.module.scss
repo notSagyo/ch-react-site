@@ -23,6 +23,4 @@
 	min-height: calc(100vh - $nav-height);
 
 	padding-bottom: $nav-height;
-
-	@include xl-down { padding-bottom: 0; }
 }

@@ -13,7 +13,7 @@ function Navbar() {
 			<ul className={style.links}>
 				{/* OPEN APP BUTTON */}
 				<li><UnstyledButton className={classes(style.link, style.cta)}>
-					<Text color={'brand'} inherit>Go to App</Text>
+					<Text inherit>Go to App</Text>
 				</UnstyledButton></li>
 
 				{/* PRICING BUTTON */}
