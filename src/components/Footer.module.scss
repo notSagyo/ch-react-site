@@ -1,0 +1,56 @@
+@use "../styles/abstracts" as *;
+@use "../styles/base/base" as base;
+
+.footer {
+	padding: 2rem 0;
+
+	a {
+		color: $fg;
+		&:hover { color: $primary; }
+	}
+}
+
+.content {
+	width: 100%;
+	display: flex;
+
+	& > * { flex-basis: 33.3%; }
+}
+
+// Groups ====================================================================//
+.header { @include h5; }
+
+.social {
+	justify-content: center;
+
+	ul {
+		display: flex;
+		.socialIcon { padding: 0 1rem; }
+	}
+}
+
+.links {
+	justify-content: end;
+	flex-wrap: nowrap;
+	ul { padding: 0 2rem; }
+}
+
+// MEDIA =====================================================================//
+@include md-down {
+	.content {
+		flex-direction: column;
+		& > * { margin: 1rem 0; }
+	}
+
+	.social { order: 1; }
+
+	.links {
+		justify-content: center;
+		order: 1;
+	}
+
+	.author {
+		order: 2;
+		justify-content: center;
+	}
+}

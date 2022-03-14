@@ -1,22 +1,35 @@
 @use "/src/styles/abstracts" as *;
+@use "/src/styles/base/typography" as t;
+@use "sass:math";
 
+// Nav
 .nav {
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
 
 	width: 100%;
-	height: 8rem;
+	height: $nav-height;
+}
 
-	.links {
+// List items
+.logo img { height: math.div($nav-height, 2) !important; }
+
+.links {
+	display: flex;
+
+	.link {
+		@include h4;
+
 		display: flex;
-
-		.link {
-			@include h4;
-			margin-left: 4rem;
-			color: $fg;
-		}
+		align-items: center;
+		margin-left: 4rem;
+		color: $fg;
 	}
+}
 
-	.logo img { height: 4rem !important; }
+// Dropdown
+.menuIcon {
+	@extend t, .material-icons !optional;
+	font-size: 1rem !important;
 }

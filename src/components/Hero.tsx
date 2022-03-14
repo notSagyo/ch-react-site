@@ -1,32 +1,47 @@
-import { Text, Group, Space } from '@mantine/core';
-import style from './hero.module.scss';
+import { Text, Group, Space, Button } from '@mantine/core';
+import { classes } from '../utils';
+import style from './Hero.module.scss';
 
 function Hero() {
 	return (
-		<section className={style.hero}>
-			<Group className={style.content} direction="column">
+		<div className={style.hero}>
+			<Group direction='column'>
 				<Group>
-					<h1 className={style.title}>
+					<h1 className={classes(style.title, style.fadeIn)}>
 						Welcome to
 						<Text
-							component="span"
+							component='span'
 							className={style.brand}
-							variant="gradient"
-							gradient={{from: 'brand', to: 'pink', deg: 135}}
+							variant='gradient'
+							gradient={{from: 'base', to: 'pink', deg: 135}}
+							inherit
 						> portfol.io </Text>
 					</h1>
-					<h2 className="h1">Connect, create, learn, practice, grow.</h2>
+					<h2 className={classes(style.subtitle, style.fadeIn)}>
+						Connect, create, learn, practice, grow.
+					</h2>
 				</Group>
 				<Space h={'xl'} />
 				<Group>
-					<h3 className={'h3 ' + style.info}>
-						Connect with people just like you. Learn to work as part of a team.
-						<Space h={'xl'} />
+					<h3 className={classes(style.info, style.fadeIn)}>
+						Connect with people
+						<em className={style.infoStrong}> just like you</em>.
+						Learn to work as part of a team.
+						<br />
 						Get first hand experience and show off the final result in your portfolio.
 					</h3>
 				</Group>
+				<Space h={'xl'} />
+				<Group className={classes(style.buttons, style.fadeIn)}>
+					<Button
+						size='xl'
+						variant='gradient'
+						radius={'lg'}
+						gradient={{from: 'base', to: 'pink', deg: 135}}
+					>Open app</Button>
+				</Group>
 			</Group>
-		</section>
+		</div>
 	);
 }
 

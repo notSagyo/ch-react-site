@@ -1,13 +1,15 @@
 @use "../functions" as f;
+@use "../variables" as v;
 // Custom ====================================================================//
 
 // Typography ================================================================//
-@mixin h1 { font-size: f.rem(50); font-weight: 500; }
-@mixin h2 { font-size: f.rem(42); font-weight: 500; }
-@mixin h3 { font-size: f.rem(36); font-weight: 500; }
-@mixin h4 { font-size: f.rem(30); font-weight: 500; }
-@mixin h5 { font-size: f.rem(24); font-weight: 500; }
-@mixin h6 { font-size: f.rem(16); font-weight: 500; }
+@mixin page-title { font-size: v.$page-title-fs; font-weight: 600; }
+@mixin h1 { font-size: v.$h1-fs; font-weight: 500; }
+@mixin h2 { font-size: v.$h2-fs; font-weight: 500; }
+@mixin h3 { font-size: v.$h3-fs; font-weight: 500; }
+@mixin h4 { font-size: v.$h4-fs; font-weight: 500; }
+@mixin h5 { font-size: v.$h5-fs; font-weight: 500; }
+@mixin h6 { font-size: v.$h6-fs; font-weight: 500; }
 
 // Hacks / Fixes =============================================================//
 @mixin v-align {
@@ -33,7 +35,7 @@
 	height: $height;
 }
 
-// Padding / Margin ==================//
+// padding / Margin ==================//
 @mixin reset-pm {
 	padding: 0;
 	margin: 0;

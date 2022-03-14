@@ -1,1 +1,23 @@
 @use "/src/styles/abstracts" as *;
+
+.home, .main {
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	flex-grow: 1;
+}
+
+.main { margin: 0 auto; }
+
+.footer { margin-top: 2rem; }
+
+.hero {
+	display: flex;
+	align-items: center;
+	flex-grow: 1;
+	min-height: calc(100vh - $nav-height);
+
+	padding-bottom: $nav-height;
+
+	@include xl-down { padding-bottom: 0; }
+}
