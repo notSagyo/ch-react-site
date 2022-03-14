@@ -18,6 +18,7 @@ a { color: $primary-color; }
 .v-center { @include v-align; }
 
 .container {
+	@include xs-up { max-width: 540px; }
 	@include sm-up { max-width: 720px; }
 	@include md-up { max-width: 960px; }
 	@include lg-up { max-width: 1140px; }

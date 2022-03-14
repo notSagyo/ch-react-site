@@ -1,15 +1,20 @@
 @use "/src/styles/abstracts" as *;
 
 .home, .main {
+	position: relative;
 	display: flex;
 	flex-direction: column;
 	width: 100%;
 	flex-grow: 1;
 }
 
-.main { margin: 0 auto; }
+.mainWrapper {
+	width: 100%;
+	padding: 0;
+	z-index: 1;
+}
 
-.footer { margin-top: 2rem; }
+.main { margin: 0 auto; }
 
 .hero {
 	display: flex;

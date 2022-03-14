@@ -1,4 +1,4 @@
-import { MantineProvider, Container, ScrollArea } from '@mantine/core';
+import { MantineProvider, Container } from '@mantine/core';
 import Home from './pages/Home';
 import '/src/styles/main.scss';
 
@@ -13,17 +13,11 @@ function App() {
 				primaryColor: 'brand',
 				fontFamily: 'Poppins, sans-serif'
 			}}
-			withGlobalStyles
 			withNormalizeCSS
 		>
-			<ScrollArea sx={{height: '100vh'}}><Container className="app"
-				sx={(theme) => ({
-					backgroundColor: theme.black,
-					color: theme.white
-				})} fluid
-			>
+			<Container px='0' fluid>
 				<Home />
-			</Container></ScrollArea>
+			</Container>
 		</MantineProvider>
 	);
 }

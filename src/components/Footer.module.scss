@@ -1,8 +1,9 @@
 @use "../styles/abstracts" as *;
 @use "../styles/base/base" as base;
+@use "sass:color";
 
 .footer {
-	padding: 2rem 0;
+	height: $footer-height;
 
 	a {
 		color: $fg;
@@ -10,9 +11,20 @@
 	}
 }
 
+.wrapper {
+	position: fixed;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	height: $footer-height;
+
+	background-color: color.scale($dark, $lightness: 2.5%);
+}
+
 .content {
 	width: 100%;
 	display: flex;
+	height: $footer-height;
 
 	& > * { flex-basis: 33.3%; }
 }
