@@ -1,5 +1,5 @@
 import { Image, UnstyledButton, Menu, Text } from '@mantine/core';
-import { classes } from '../utils';
+import { classList } from '../utils';
 import style from './Navbar.module.scss';
 import logoUrl from '/img/logo.svg';
 
@@ -12,7 +12,7 @@ function Navbar() {
 				alt="logo image" />
 			<ul className={style.links}>
 				{/* OPEN APP BUTTON */}
-				<li><UnstyledButton className={classes(style.link, style.cta)}>
+				<li><UnstyledButton className={classList(style.link)}>
 					<Text inherit>Go to App</Text>
 				</UnstyledButton></li>
 

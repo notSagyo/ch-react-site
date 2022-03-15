@@ -1,5 +1,5 @@
 import { Text, Group, Space, Button } from '@mantine/core';
-import { classes } from '../utils';
+import { classList } from '../utils';
 import style from './Hero.module.scss';
 
 function Hero() {
@@ -7,7 +7,7 @@ function Hero() {
 		<div className={style.hero}>
 			<Group direction='column'>
 				<Group>
-					<h1 className={classes(style.title, style.fadeIn)}>
+					<h1 className={classList(style.title, style.fadeIn)}>
 						Welcome to
 						<Text
 							component='span'
@@ -17,13 +17,13 @@ function Hero() {
 							inherit
 						> portfol.io </Text>
 					</h1>
-					<h2 className={classes(style.subtitle, style.fadeIn)}>
+					<h2 className={classList(style.subtitle, style.fadeIn)}>
 						Connect, create, learn, practice, grow.
 					</h2>
 				</Group>
 				<Space h={'xl'} />
 				<Group>
-					<h3 className={classes(style.info, style.fadeIn)}>
+					<h3 className={classList(style.info, style.fadeIn)}>
 						Connect with people
 						<em className={style.infoStrong}> just like you</em>.
 						Learn to work as part of a team.
@@ -32,7 +32,7 @@ function Hero() {
 					</h3>
 				</Group>
 				<Space h={'xl'} />
-				<Group className={classes(style.buttons, style.fadeIn)}>
+				<Group className={classList(style.buttons, style.fadeIn)}>
 					<Button
 						size='xl'
 						variant='gradient'
