@@ -22,6 +22,9 @@
 	flex-grow: 1;
 
 	padding-bottom: $nav-height;
-	margin-top: $nav-sm-height + $nav-padding;
 	min-height: calc(100vh - $nav-height);
+}
+
+@include sm-down {
+	.hero { margin-top: $nav-sm-height + $nav-padding; }
 }

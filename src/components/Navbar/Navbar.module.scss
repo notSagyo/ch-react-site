@@ -2,6 +2,7 @@
 @use "/src/styles/base/base" as base;
 @use "sass:math";
 
+// TODO: Improve burger visibility
 .content {
 	justify-content: space-between;
 	height: $nav-height;
