@@ -1,19 +1,14 @@
-@use "../styles/abstracts" as *;
-@use "../styles/base/base" as base;
+@use "/src/styles/abstracts" as *;
+@use "/src/styles/base/base" as base;
 @use "sass:color";
 
-.footer, .wrapper, .content {
+.footer, .contentWrapper, .content {
 	height: $footer-height;
 }
 
-.footer {
-	a {
-		color: $fg;
-		&:hover { color: $primary; }
-	}
-}
+.footer a { @extend base, .light-hover-primary !optional; }
 
-.wrapper {
+.contentWrapper {
 	position: fixed;
 	left: 0;
 	bottom: 0;
@@ -49,7 +44,7 @@
 
 // MEDIA =====================================================================//
 @include md-down {
-	.footer, .wrapper, .content {
+	.footer, .contentWrapper, .content {
 		height: $footer-height-column;
 	}
 
@@ -58,15 +53,11 @@
 		& > * { margin: 1rem 0; }
 	}
 
-	.social { order: 1; }
-
-	.links {
-		justify-content: center;
-		order: 1;
-	}
-
-	.author {
-		order: 2;
+	.social, .links, .author {
 		justify-content: center;
 	}
+
+	.social { order: 0; }
+	.links { order: 1; }
+	.author { order: 2; }
 }

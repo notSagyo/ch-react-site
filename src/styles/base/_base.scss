@@ -8,17 +8,14 @@ body {
 	color: $foreground-color;
 }
 
-a { color: $primary-color; }
-
 .app {
 	display: flex;
 	flex-direction: column;
 	min-height: 100vh;
 }
 
-.v-center { @include v-align; }
-
 .container {
+	max-width: 90%;
 	@include xs-up { max-width: 540px; }
 	@include sm-up { max-width: 720px; }
 	@include md-up { max-width: 960px; }
@@ -26,4 +23,10 @@ a { color: $primary-color; }
 	@include xl-up { max-width: 1320px; }
 }
 
+.light-hover-primary {
+	color: $light;
+	&:hover { color: $primary; }
+}
+
+.v-center { @include v-align; }
 .muted { color: $muted; }

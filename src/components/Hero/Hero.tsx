@@ -1,5 +1,5 @@
 import { Text, Group, Space, Button } from '@mantine/core';
-import { classList } from '../utils';
+import { classList } from '../../utils';
 import style from './Hero.module.scss';
 
 function Hero() {

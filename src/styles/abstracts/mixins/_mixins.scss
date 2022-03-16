@@ -1,6 +1,10 @@
 @use "../functions" as f;
 @use "../variables" as v;
+@use "media" as *;
+
 // Custom ====================================================================//
+@mixin hide-sm-down { @include sm-down { display: none; } }
+@mixin hide-sm-up { @include sm-up { display: none; } }
 
 // Typography ================================================================//
 @mixin page-title { font-size: v.$page-title-fs; font-weight: 600; }

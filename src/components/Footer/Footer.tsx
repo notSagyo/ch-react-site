@@ -1,16 +1,16 @@
 import { Group, Text, Anchor, Container } from '@mantine/core';
 import { BrandFacebook, BrandInstagram, BrandTelegram, BrandTwitter, Mail } from 'tabler-icons-react';
-import { classList } from '../utils';
+import { classList } from '../../utils';
 import style from './Footer.module.scss';
 
 function Footer() {
 	return (
 		<footer className={style.footer}>
-			<div className={style.wrapper}>
+			<div className={style.contentWrapper}>
 				<Container className={classList('container', style.content)}>
 					{/* AUTHOR */}
 					<Group className={style.author} align='center'>
-						<Anchor>© Boris Stecko - 2022</Anchor>
+						<Anchor href='https://github.com/notSagyo'>© Boris Stecko - 2022</Anchor>
 					</Group>
 
 					{/* SOCIAL */}

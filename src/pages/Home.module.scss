@@ -20,7 +20,8 @@
 	display: flex;
 	align-items: center;
 	flex-grow: 1;
-	min-height: calc(100vh - $nav-height);
 
 	padding-bottom: $nav-height;
+	margin-top: $nav-sm-height + $nav-padding;
+	min-height: calc(100vh - $nav-height);
 }

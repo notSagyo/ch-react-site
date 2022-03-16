@@ -1,8 +1,8 @@
 import { Container } from '@mantine/core';
 import { classList } from '../utils';
-import Navbar from '../components/Navbar';
-import Hero from '../components/Hero';
-import Footer from '../components/Footer';
+import Navbar from '../components/Navbar/Navbar';
+import Hero from '../components/Hero/Hero';
+import Footer from '../components/Footer/Footer';
 import style from './Home.module.scss';
 
 function Home() {
