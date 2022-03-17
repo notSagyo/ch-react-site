@@ -1,0 +1,21 @@
+@use "/src/styles/abstracts" as *;
+@use "/src/styles/base/typography" as t;
+
+.home, .main {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	flex-grow: 1;
+}
+
+.mainWrapper {
+	width: 100%;
+	z-index: 1;
+}
+
+.logo {
+	@extend t, .h2 !optional;
+}
+
+.main { margin: 0 auto; }

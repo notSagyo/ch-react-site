@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { ReactNode, useState } from 'react';
 import { Burger, Group, Anchor } from '@mantine/core';
 import { useScrollLock, useClickOutside } from '@mantine/hooks';
 import { classList } from '../../utils';
@@ -6,7 +6,7 @@ import DropdownItem from './DropdownItem';
 import style from './Navbar.module.scss';
 
 type Props = {
-	logo?: string;
+	logo?: ReactNode;
 }
 
 function Navbar({logo = ''}: Props) {
@@ -21,9 +21,8 @@ function Navbar({logo = ''}: Props) {
 	}
 
 	function closeNav() { isOpen && toggleNav(); }
-
 	return (
-		<div ref={navRef}>
+		<div className={style.navWrapper} ref={navRef}>
 			<Burger
 				className={style.burger}
 				opened={isOpen}
@@ -38,9 +37,9 @@ function Navbar({logo = ''}: Props) {
 				)}
 			>
 				<Group className={style.content}>
-					{logo
-						? <img className={style.logo} src={logo} alt="logo image" />
-						: <div></div>}
+					<div className={style.logo}>
+						{logo}
+					</div>
 					<ul className={style.linkList}>
 						<li><Anchor className={style.link}>Go to App</Anchor></li>
 						<li>

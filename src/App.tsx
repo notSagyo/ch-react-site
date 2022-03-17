@@ -1,5 +1,5 @@
 import { MantineProvider, Container } from '@mantine/core';
-import Home from './pages/Home';
+import Home from './pages/Home/Home';
 import '/src/styles/main.scss';
 
 function App() {

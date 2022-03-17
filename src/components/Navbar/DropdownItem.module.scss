@@ -3,10 +3,7 @@
 @use "/src/styles/base/base" as base;
 @use "./Navbar.module.scss" as navbar;
 
-.link {
-	@extend navbar, .link !optional;
-	padding-bottom: 0;
-}
+.link { @extend navbar, .link !optional; }
 
 // Desktop ===================================================================//
 .dropDownMenu { @include hide-sm-down; }

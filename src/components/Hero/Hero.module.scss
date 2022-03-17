@@ -1,5 +1,10 @@
 @use "/src/styles/abstracts" as *;
 
+.title, .subtitle {
+	display: block;
+	line-height: 1.25;
+}
+
 .title {
 	@include page-title;
 	@include lg-up { font-size: min(5vw, $page-title-fs); }
@@ -17,11 +22,6 @@
 	font-weight: 200;
 
 	@include lg-up { font-size: min(2.5vw, $h3-fs); }
-}
-
-.title,
-.subtitle {
-	line-height: 1.25;
 }
 
 // Animation =========================//

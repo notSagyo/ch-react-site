@@ -1,4 +1,5 @@
 @use "../functions" as f;
+@use "sass:color";
 
 // Custom ====================================================================//
 // Navbar ============================//
@@ -25,6 +26,8 @@ $secondary-color: #67697c;
 
 $light: #fafaff;
 $dark: #1b1e21;
+$dark-lighten: color.scale($dark, $lightness: 2.5%);
+$dark-darken: color.scale($dark, $lightness: -20%);
 
 $background-color: $dark;
 $foreground-color: $light;

@@ -14,7 +14,7 @@
 	bottom: 0;
 	width: 100%;
 
-	background-color: color.scale($dark, $lightness: 2.5%);
+	background-color: $dark-lighten;
 }
 
 .content {

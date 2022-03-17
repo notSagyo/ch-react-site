@@ -8,13 +8,19 @@ body {
 	color: $foreground-color;
 }
 
+br { height: 0; }
+
 .app {
 	display: flex;
 	flex-direction: column;
 	min-height: 100vh;
 }
 
+.hide-sm-up { @include hide-sm-up; }
+.hide-sm-down { @include hide-sm-down; }
+
 .container {
+	margin: 0 auto;
 	max-width: 90%;
 	@include xs-up { max-width: 540px; }
 	@include sm-up { max-width: 720px; }
