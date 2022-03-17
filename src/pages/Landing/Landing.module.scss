@@ -1,0 +1,14 @@
+@use "/src/styles/abstracts" as *;
+
+.hero {
+	display: flex;
+	align-items: center;
+	flex-grow: 1;
+
+	padding-bottom: $nav-height;
+	min-height: calc(100vh - $nav-height);
+}
+
+@include sm-down {
+	.hero { margin-top: $nav-sm-height; }
+}

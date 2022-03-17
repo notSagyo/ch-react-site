@@ -1,0 +1,51 @@
+@use "../functions" as f;
+@use "sass:color";
+
+// Custom ====================================================================//
+// Navbar ============================//
+$nav-height: 8rem;
+$nav-sm-height: 4rem;
+$nav-padding: 2rem;
+
+// Footer ============================//
+$footer-height: 15rem;
+$footer-height-column: 25rem;
+
+// Typography ================================================================//
+$page-title-fs: f.rem(64);
+$h1-fs: f.rem(50);
+$h2-fs: f.rem(42);
+$h3-fs: f.rem(36);
+$h4-fs: f.rem(30);
+$h5-fs: f.rem(24);
+$h6-fs: f.rem(16);
+
+// Colors ====================================================================//
+$primary-color: #ef4444;
+$secondary-color: #67697c;
+
+$light: #fafaff;
+$dark: #1b1e21;
+$dark-lighten: color.scale($dark, $lightness: 2.5%);
+$dark-darken: color.scale($dark, $lightness: -20%);
+
+$background-color: $dark;
+$foreground-color: $light;
+$muted: #67697c;
+
+// Shortforms
+$primary: $primary-color;
+$secondary: $secondary-color;
+
+$background: $background-color;
+$foreground: $foreground-color;
+
+$bg: $background-color;
+$fg: $foreground-color;
+
+// Breakpoints ===============================================================//
+$xs: f.em(576);
+$sm: f.em(768);
+$md: f.em(992);
+$lg: f.em(1200);
+$xl: f.em(1400);

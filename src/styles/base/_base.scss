@@ -1,0 +1,38 @@
+@use "../abstracts" as *;
+@use "typography" as *;
+@use "scrollbar" as *;
+
+body {
+	line-height: 1;
+	background-color: $background-color;
+	color: $foreground-color;
+}
+
+br { height: 0; }
+
+.app {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+}
+
+.hide-sm-up { @include hide-sm-up; }
+.hide-sm-down { @include hide-sm-down; }
+
+.container {
+	margin: 0 auto;
+	max-width: 90%;
+	@include xs-up { max-width: 540px; }
+	@include sm-up { max-width: 720px; }
+	@include md-up { max-width: 960px; }
+	@include lg-up { max-width: 1140px; }
+	@include xl-up { max-width: 1320px; }
+}
+
+.light-hover-primary {
+	color: $light;
+	&:hover { color: $primary; }
+}
+
+.v-center { @include v-align; }
+.muted { color: $muted; }
