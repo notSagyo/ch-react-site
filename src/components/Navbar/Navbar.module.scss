@@ -1,14 +1,18 @@
 @use "/src/styles/abstracts" as *;
 @use "/src/styles/base/base" as base;
 @use "sass:math";
+@use "sass:color";
 
-// TODO: Improve burger visibility
+.burger, .navTop {
+	@include hide-sm-up;
+}
+
 .content {
 	justify-content: space-between;
 	height: $nav-height;
 }
 
-.logo img { height: math.div($nav-height, 2); }
+.logo { height: math.div($nav-height, 2); }
 
 .linkList {
 	display: flex;
@@ -22,69 +26,55 @@
 	display: flex;
 	align-items: center;
 	margin-left: 4rem;
-
+	padding: 0.5rem 0;
 	border-radius: 8px;
 }
 
 // Media =====================================================================//
 @include sm-down {
-	.nav {
-		display: flex;
-		flex-direction: column;
-		align-items: flex-end;
-
+	.burger {
 		position: fixed;
-		top: 0;
-		left: 0;
-		z-index: 2;
-
-		width: 100vw;
-		padding: $nav-padding;
+		right: $nav-padding;
+		z-index: 3;
+		margin-top: $nav-padding;
+		background-color: $dark;
 	}
 
-	.navTop {
-		display: flex;
-		justify-content: flex-end;
-		align-items: center;
-
-		height: $nav-sm-height;
+	.nav {
 		width: 100%;
+		position: fixed;
+		top: 0;
+		right: 0;
+		z-index: 2;
+
+		background-color: $dark;
+		transition: transform 1s;
+		transform: translateX(100%);
 	}
 
 	.content {
-		display: none;
-		height: 100vh;
-		width: 100%;
+		@include size(100%, 100vh);
+		justify-content: center;
+		padding: $nav-padding;
+		overflow: auto;
 	}
 
 	.logo {
-		display: none;
 		position: absolute;
-		top: 0;
-		left: 50%;
-
-		padding-top: $nav-padding;
-		transform: translateX(-50%);
-
-		img { padding: $nav-sm-height * 0.1; }
+		top: $nav-padding * 0.5;
+		left: $nav-padding;
 	}
 
-	.linkList { flex-direction: column; }
-
-	.link {
-		margin: 0;
-		padding: 0.5rem 0;
+	.linkList {
+		flex-direction: column;
+		align-items: center;
 	}
+
+	.link { margin: 0; }
 
 	// OPEN NAV ================================================================//
 	.nav.open {
-		background-color: $dark;
 		position: fixed;
-
-		.content, .logo { display: block; }
+		transform: translate(0);
 	}
-
-	.hideSmDown { display: none; }
 }
-
-@include sm-up { .hideSmUp { display: none; } }

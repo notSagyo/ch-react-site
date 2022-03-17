@@ -26,5 +26,5 @@
 }
 
 @include sm-down {
-	.hero { margin-top: $nav-sm-height + $nav-padding; }
+	.hero { margin-top: $nav-sm-height; }
 }

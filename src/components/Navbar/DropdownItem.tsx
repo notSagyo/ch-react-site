@@ -1,9 +1,8 @@
-import { ReactElement } from 'react';
 import { Menu, Anchor } from '@mantine/core';
 import style from './DropdownItem.module.scss';
 
 // Bruh, lo que costó este component, TypeScript te odio :(
-interface Props {
+type Props = {
 	title: string,
 	items: {
 		content: string,
@@ -14,34 +13,26 @@ interface Props {
 
 function DropdownItem({ title, items }: Props) {
 	// Dropdowm menu for desktop / Static item list for mobile
-	const MENU_ITEMS: ReactElement[] = [];
-	const LIST_ITEMS: ReactElement[] = [];
+	const menuItems = items.map((item, index) => (
+		<Menu.Item
+			key={index}
+			icon={item.materialIcon
+				? <i className={style.menuItemIcon}> {item.materialIcon} </i> : ''}
+			component={'a'} href={item.href || '#!'}
+		>
+			{item.content}
+		</Menu.Item>
+	));
 
-	items.forEach((item) => {
-		MENU_ITEMS.push(
-			<Menu.Item
-				icon={item.materialIcon
-					? <i className={style.menuItemIcon}>{item.materialIcon}</i>
-					: ''
-				}
-				component={'a'} href={item.href || '#!'}
-			>
-				{item.content}
-			</Menu.Item>
-		);
-
-		LIST_ITEMS.push(
-			<li>
-				{item.materialIcon
-					? <i className='material-icons'> {item.materialIcon} </i>
-					: ''
-				}
-				<Anchor className={style.link}>
-					{item.content || '#!'}
-				</Anchor>
-			</li>
-		);
-	});
+	const listItems = items.map((item, index) => (
+		<li key={index}>
+			{item.materialIcon
+				? <i className='material-icons'> {item.materialIcon} </i> : ''}
+			<Anchor className={style.link}>
+				{item.content || '#!'}
+			</Anchor>
+		</li>
+	));
 
 	return (
 		<>
@@ -57,16 +48,16 @@ function DropdownItem({ title, items }: Props) {
 					</Anchor>
 				}
 			>
-				{MENU_ITEMS}
+				{menuItems}
 			</Menu>
 
 			{/* MOBILE: STATIC LIST */}
-			<li className={style.pricingList}>
+			<div className={style.itemListContainer}>
 				<Anchor className={style.link}>{title}</Anchor>
-				<ul>
-					{LIST_ITEMS}
+				<ul className={style.itemList}>
+					{listItems}
 				</ul>
-			</li>
+			</div>
 		</>
 	);
 }

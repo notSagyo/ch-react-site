@@ -17,18 +17,19 @@
 }
 
 // Mobile ====================================================================//
-.pricingList {
-	@include hide-sm-up;
+.itemListContainer { @include hide-sm-up; }
+
+.itemList {
+	padding: 0 1rem;
 
 	li {
 		display: flex;
 		align-items: center;
-		margin-left: 0.5rem;
+	}
 
-		a {
-			flex-grow: 1;
-			padding: 0.5rem;
-			font-size: 1rem;
-		}
+	a {
+		flex-grow: 1;
+		padding: 0.5rem;
+		font-size: 1rem;
 	}
 }

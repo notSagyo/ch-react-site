@@ -1,49 +1,63 @@
 import { useState } from 'react';
-import { Burger, Group, Anchor, Image } from '@mantine/core';
+import { Burger, Group, Anchor } from '@mantine/core';
+import { useScrollLock, useClickOutside } from '@mantine/hooks';
 import { classList } from '../../utils';
 import DropdownItem from './DropdownItem';
 import style from './Navbar.module.scss';
-import logoUrl from '/img/logo.svg';
 
-function Navbar() {
-	const [opened, setOpened] = useState(false);
-	const title = opened ? 'Close navigation' : 'Open navigation';
+type Props = {
+	logo?: string;
+}
+
+function Navbar({logo = ''}: Props) {
+	const [isOpen, setOpened] = useState(false);
+	const [      , setScrollLocked] = useScrollLock();
+	const navRef = useClickOutside(() => closeNav());
+	const burgerTitle = isOpen ? 'Close navigation' : 'Open navigation';
+
+	function toggleNav() {
+		setScrollLocked((c) => !c);
+		setOpened((o) => !o);
+	}
+
+	function closeNav() { isOpen && toggleNav(); }
 
 	return (
-		<nav className={classList( style.nav, opened ? style.open : '' )}>
-			<div className={classList(style.navTop, style.hideSmUp)}>
-				<Burger
-					opened={opened}
-					onClick={() => 	setOpened((o) => !o)}
-					title={title}
-				/>
-			</div>
-
-			<Group className={style.content}>
-				<Image
-					className={classList(style.logo)}
-					src={logoUrl}
-					alt="logo image"
-					width='auto'
-					height=''
-				/>
-
-				<ul className={style.linkList}>
-					<li><Anchor className={style.link}>Go to App</Anchor></li>
-					<li>
-						<DropdownItem
-							title='Pricing'
-							items={[
-								{content: 'Free', materialIcon: 'favorite'},
-								{content: 'Pro', materialIcon: 'star_rate'},
-								{content: 'Pro+', materialIcon: 'hotel_class'}
-							]}
-						/>
-					</li>
-					<li><Anchor className={style.link}>About</Anchor></li>
-				</ul>
-			</Group>
-		</nav>
+		<div ref={navRef}>
+			<Burger
+				className={style.burger}
+				opened={isOpen}
+				onClick={() => toggleNav()}
+				title={burgerTitle}
+			/>
+			<nav
+				className={classList(
+					style.nav,
+					isOpen ? style.open : '',
+					logo ? style.withLogo: ''
+				)}
+			>
+				<Group className={style.content}>
+					{logo
+						? <img className={style.logo} src={logo} alt="logo image" />
+						: <div></div>}
+					<ul className={style.linkList}>
+						<li><Anchor className={style.link}>Go to App</Anchor></li>
+						<li>
+							<DropdownItem
+								title='Pricing'
+								items={[
+									{content: 'Free', materialIcon: 'favorite'},
+									{content: 'Pro', materialIcon: 'star_rate'},
+									{content: 'Pro+', materialIcon: 'hotel_class'}
+								]}
+							/>
+						</li>
+						<li><Anchor className={style.link}>About</Anchor></li>
+					</ul>
+				</Group>
+			</nav>
+		</div>
 	);
 }
 

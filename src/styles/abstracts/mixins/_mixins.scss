@@ -16,6 +16,14 @@
 @mixin h6 { font-size: v.$h6-fs; font-weight: 500; }
 
 // Hacks / Fixes =============================================================//
+// TODO: Add to template
+@mixin clamp-width($min, $max, $width: "") {
+	min-width: $min;
+	max-width: $max;
+
+	@if $width != "" { width: $width; }
+}
+
 @mixin v-align {
 	position: absolute;
 	top: 50%;
