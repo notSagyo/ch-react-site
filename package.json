@@ -6,7 +6,8 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "host": "vite --host"
+    "host": "vite --host",
+    "start": "vite"
   },
   "dependencies": {
     "@mantine/core": "^4.0.1",
