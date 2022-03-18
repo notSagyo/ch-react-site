@@ -3,6 +3,7 @@ import { classList } from '../../utils';
 import Navbar from '../../components/Navbar/Navbar';
 import Footer from '../../components/Footer/Footer';
 import Landing from '../Landing/Landing';
+// import Pricing from '../Pricing/Pricing';
 import style from './Home.module.scss';
 
 function Home() {
@@ -26,6 +27,7 @@ function Home() {
 			>
 				<main className={classList('container', style.main)}>
 					<Landing />
+					{/* <Pricing /> */}
 				</main>
 			</Container>
 			<Footer />
