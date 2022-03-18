@@ -1,5 +1,5 @@
 import { Anchor, Container } from '@mantine/core';
-import { classList } from '../../utils';
+import cn from 'classnames/bind';
 import Navbar from '../../components/Navbar/Navbar';
 import Footer from '../../components/Footer/Footer';
 import Landing from '../Landing/Landing';
@@ -9,7 +9,7 @@ import style from './Home.module.scss';
 function Home() {
 	const logo = (
 		<Anchor
-			className={classList('hide-sm-up', style.logo)}
+			className={cn('hide-sm-up', style.logo)}
 			color={''}
 			variant='gradient'
 			gradient={{from: 'brand', to: 'pink', deg: 135}}
@@ -25,7 +25,7 @@ function Home() {
 				px={0}
 				fluid
 			>
-				<main className={classList('container', style.main)}>
+				<main className={cn('container', style.main)}>
 					<Landing />
 					{/* <Pricing /> */}
 				</main>

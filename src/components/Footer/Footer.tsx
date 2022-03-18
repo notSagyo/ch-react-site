@@ -1,13 +1,13 @@
 import { Group, Text, Anchor, Container } from '@mantine/core';
 import { BrandFacebook, BrandInstagram, BrandTelegram, BrandTwitter, Mail } from 'tabler-icons-react';
-import { classList } from '../../utils';
+import cn from 'classnames/bind';
 import style from './Footer.module.scss';
 
 function Footer() {
 	return (
 		<footer className={style.footer}>
 			<div className={style.contentWrapper}>
-				<Container className={classList('container', style.content)}>
+				<Container className={cn('container', style.content)}>
 					{/* AUTHOR */}
 					<Group className={style.author} align='center'>
 						<Anchor href='https://github.com/notSagyo'>© Boris Stecko - 2022</Anchor>

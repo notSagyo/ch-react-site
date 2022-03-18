@@ -1,7 +1,7 @@
 import { ReactNode, useState } from 'react';
 import { Burger, Group, Anchor } from '@mantine/core';
 import { useScrollLock, useClickOutside } from '@mantine/hooks';
-import { classList } from '../../utils';
+import cn from 'classnames/bind';
 import DropdownItem from './DropdownItem';
 import style from './Navbar.module.scss';
 import NotificationTooltip from '../NotificationTooltip/NotificationTooltip';
@@ -24,7 +24,7 @@ function Navbar({logo, className}: Props) {
 
 	function closeNav() { isOpen && toggleNav(); }
 	return (
-		<div className={classList(style.navWrapper, className)} ref={navRef}>
+		<div className={cn(style.navWrapper, className)} ref={navRef}>
 			<Burger
 				className={style.burger}
 				opened={isOpen}
@@ -32,7 +32,7 @@ function Navbar({logo, className}: Props) {
 				title={burgerTitle}
 			/>
 			<nav
-				className={classList(
+				className={cn(
 					style.nav,
 					isOpen ? style.open : '',
 					logo ? style.withLogo: ''
