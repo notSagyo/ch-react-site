@@ -65,7 +65,7 @@
 		gap: 0;
 
 		padding: $nav-padding;
-		overflow: auto;
+		overflow-y: auto;
 	}
 
 	.linkList {
@@ -80,8 +80,5 @@
 	}
 
 	// OPEN NAV ================================================================//
-	.nav.open {
-		position: fixed;
-		transform: translate(0);
-	}
+	.nav.open { transform: translate(0); }
 }

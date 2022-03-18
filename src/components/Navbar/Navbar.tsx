@@ -4,6 +4,7 @@ import { useScrollLock, useClickOutside } from '@mantine/hooks';
 import { classList } from '../../utils';
 import DropdownItem from './DropdownItem';
 import style from './Navbar.module.scss';
+import NotificationTooltip from '../NotificationTooltip/NotificationTooltip';
 
 interface Props {
 	logo?: ReactNode,
@@ -42,7 +43,11 @@ function Navbar({logo, className}: Props) {
 						{logo}
 					</div>
 					<ul className={style.linkList}>
-						<li><Anchor className={style.link}>Go to App</Anchor></li>
+						<li>
+							<NotificationTooltip>
+								<Anchor className={style.link}>Go to App</Anchor>
+							</NotificationTooltip>
+						</li>
 						<li>
 							<DropdownItem
 								title='Pricing'
