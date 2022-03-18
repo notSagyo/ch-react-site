@@ -17,7 +17,7 @@ function Home() {
 
 	return (
 		<div className={style.home}>
-			<Navbar logo={logo} />
+			<Navbar logo={logo} className={style.nav} />
 			<Container
 				className={style.mainWrapper}
 				sx={(theme) => ({background: theme.black})}

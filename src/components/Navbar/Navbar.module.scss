@@ -5,6 +5,7 @@
 
 .navWrapper {
 	@extend base, .container !optional;
+	background-color: $dark;
 	width: 100%;
 }
 

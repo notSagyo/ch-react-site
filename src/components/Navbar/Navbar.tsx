@@ -5,11 +5,12 @@ import { classList } from '../../utils';
 import DropdownItem from './DropdownItem';
 import style from './Navbar.module.scss';
 
-type Props = {
-	logo?: ReactNode;
+interface Props {
+	logo?: ReactNode,
+	className?: string
 }
 
-function Navbar({logo = ''}: Props) {
+function Navbar({logo, className}: Props) {
 	const [isOpen, setOpened] = useState(false);
 	const [      , setScrollLocked] = useScrollLock();
 	const navRef = useClickOutside(() => closeNav());
@@ -22,7 +23,7 @@ function Navbar({logo = ''}: Props) {
 
 	function closeNav() { isOpen && toggleNav(); }
 	return (
-		<div className={style.navWrapper} ref={navRef}>
+		<div className={classList(style.navWrapper, className)} ref={navRef}>
 			<Burger
 				className={style.burger}
 				opened={isOpen}
