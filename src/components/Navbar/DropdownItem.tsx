@@ -1,5 +1,5 @@
 import { Menu, Anchor } from '@mantine/core';
-import style from './DropdownItem.module.scss';
+import styles from './DropdownItem.module.scss';
 
 // Bruh, lo que costó este component, TypeScript te odio :(
 type Props = {
@@ -17,7 +17,7 @@ function DropdownItem({ title, items }: Props) {
 		<Menu.Item
 			key={index}
 			icon={item.materialIcon
-				? <i className={style.menuItemIcon}> {item.materialIcon} </i> : ''}
+				? <i className={styles.menuItemIcon}> {item.materialIcon} </i> : ''}
 			component={'a'} href={item.href || '#!'}
 		>
 			{item.content}
@@ -28,7 +28,7 @@ function DropdownItem({ title, items }: Props) {
 		<li key={index}>
 			{item.materialIcon
 				? <i className='material-icons'> {item.materialIcon} </i> : ''}
-			<Anchor className={style.link}>
+			<Anchor className={styles.link}>
 				{item.content || '#!'}
 			</Anchor>
 		</li>
@@ -38,12 +38,12 @@ function DropdownItem({ title, items }: Props) {
 		<>
 			{/* DESKTOP: DROPDOWN MENU */}
 			<Menu
-				className={style.dropDownMenu}
+				className={styles.dropDownMenu}
 				trigger='hover'
 				delay={250}
 				size={'sm'}
 				control={
-					<Anchor className={style.link}>
+					<Anchor className={styles.link}>
 						{title} <i className='material-icons'>arrow_drop_down</i>
 					</Anchor>
 				}
@@ -52,9 +52,9 @@ function DropdownItem({ title, items }: Props) {
 			</Menu>
 
 			{/* MOBILE: STATIC LIST */}
-			<div className={style.itemListContainer}>
-				<Anchor className={style.link}>{title}</Anchor>
-				<ul className={style.itemList}>
+			<div className={styles.itemListContainer}>
+				<Anchor className={styles.link}>{title}</Anchor>
+				<ul className={styles.itemList}>
 					{listItems}
 				</ul>
 			</div>

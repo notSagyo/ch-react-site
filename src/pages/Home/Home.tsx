@@ -4,12 +4,12 @@ import Navbar from '../../components/Navbar/Navbar';
 import Footer from '../../components/Footer/Footer';
 import Landing from '../Landing/Landing';
 // import Pricing from '../Pricing/Pricing';
-import style from './Home.module.scss';
+import styles from './Home.module.scss';
 
 function Home() {
 	const logo = (
 		<Anchor
-			className={cn('hide-sm-up', style.logo)}
+			className={cn('hide-sm-up', styles.logo)}
 			color={''}
 			variant='gradient'
 			gradient={{from: 'brand', to: 'pink', deg: 135}}
@@ -17,15 +17,15 @@ function Home() {
 	);
 
 	return (
-		<div className={style.home}>
-			<Navbar logo={logo} className={style.nav} />
+		<div className={styles.home}>
+			<Navbar logo={logo} className={styles.nav} />
 			<Container
-				className={style.mainWrapper}
+				className={styles.mainWrapper}
 				sx={(theme) => ({background: theme.black})}
 				px={0}
 				fluid
 			>
-				<main className={cn('container', style.main)}>
+				<main className={cn('container', styles.main)}>
 					<Landing />
 					{/* <Pricing /> */}
 				</main>

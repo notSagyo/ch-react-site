@@ -1,9 +1,9 @@
 import Hero from '../../components/Hero/Hero';
-import style from './Landing.module.scss';
+import styles from './Landing.module.scss';
 
 function Landing() {
 	return (
-		<section className={style.hero}>
+		<section className={styles.hero}>
 			<Hero />
 		</section>
 	);

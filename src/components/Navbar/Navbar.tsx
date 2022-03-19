@@ -2,9 +2,9 @@ import { ReactNode, useState } from 'react';
 import { Burger, Group, Anchor } from '@mantine/core';
 import { useScrollLock, useClickOutside } from '@mantine/hooks';
 import cn from 'classnames/bind';
-import DropdownItem from './DropdownItem';
-import style from './Navbar.module.scss';
 import NotificationTooltip from '../NotificationTooltip/NotificationTooltip';
+import DropdownItem from './DropdownItem';
+import styles from './Navbar.module.scss';
 
 interface Props {
 	logo?: ReactNode,
@@ -24,28 +24,28 @@ function Navbar({logo, className}: Props) {
 
 	function closeNav() { isOpen && toggleNav(); }
 	return (
-		<div className={cn(style.navWrapper, className)} ref={navRef}>
+		<div className={cn(styles.navWrapper, className)} ref={navRef}>
 			<Burger
-				className={style.burger}
+				className={styles.burger}
 				opened={isOpen}
 				onClick={() => toggleNav()}
 				title={burgerTitle}
 			/>
 			<nav
 				className={cn(
-					style.nav,
-					isOpen ? style.open : '',
-					logo ? style.withLogo: ''
+					styles.nav,
+					isOpen ? styles.open : '',
+					logo ? styles.withLogo: ''
 				)}
 			>
-				<Group className={style.content}>
-					<div className={style.logo}>
+				<Group className={styles.content}>
+					<div className={styles.logo}>
 						{logo}
 					</div>
-					<ul className={style.linkList}>
+					<ul className={styles.linkList}>
 						<li>
 							<NotificationTooltip>
-								<Anchor className={style.link}>Go to App</Anchor>
+								<Anchor className={styles.link}>Go to App</Anchor>
 							</NotificationTooltip>
 						</li>
 						<li>
@@ -58,7 +58,7 @@ function Navbar({logo, className}: Props) {
 								]}
 							/>
 						</li>
-						<li><Anchor className={style.link}>About</Anchor></li>
+						<li><Anchor className={styles.link}>About</Anchor></li>
 					</ul>
 				</Group>
 			</nav>
