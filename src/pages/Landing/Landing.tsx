@@ -1,9 +1,11 @@
 import Hero from '../../components/Hero/Hero';
+import cn from 'classnames';
 import styles from './Landing.module.scss';
+import { DivProps } from '../../utils';
 
-function Landing() {
+function Landing(props: DivProps) {
 	return (
-		<section className={styles.hero}>
+		<section {...props} className={cn(props.className, styles.hero)}>
 			<Hero />
 		</section>
 	);

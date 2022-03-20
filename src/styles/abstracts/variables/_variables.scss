@@ -23,6 +23,7 @@ $h6-fs: f.rem(16);
 // Colors ====================================================================//
 $primary-color: #ef4444;
 $secondary-color: #67697c;
+$pink: #e64980;
 
 $light: #fafaff;
 $dark: #1b1e21;
@@ -31,7 +32,8 @@ $dark-darken: color.scale($dark, $lightness: -20%);
 
 $background-color: $dark;
 $foreground-color: $light;
-$muted: #67697c;
+
+$muted: rgba(#c1c2c5, 50%);
 
 // Shortforms
 $primary: $primary-color;

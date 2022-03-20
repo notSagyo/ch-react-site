@@ -6,7 +6,7 @@ type Props = React.HTMLAttributes<HTMLElement> & Partial<TooltipProps> & {
 	textColor?: string
 };
 
-function NotificationTooltip(props:Props) {
+function NotificationTooltip({textColor, ...props}:Props) {
 	const [messages] = useState(3);
 	const display = messages < 1 ? 'none':'';
 
@@ -22,11 +22,12 @@ function NotificationTooltip(props:Props) {
 			gutter={7.5}
 			arrowSize={3}
 			withArrow={true}
+			// FIXME: Fix position on first load / Portal false only mobile
 			withinPortal={false}
 			opened={true}
 			styles={{
 				body: {
-					color:props.textColor || 'white',
+					color: textColor || 'white',
 					padding: '3px 6px',
 					transform: 'translateY(-10%)',
 					display: display

@@ -2,9 +2,9 @@
 @use "/src/styles/base/typography" as t;
 
 .home, .main {
-	position: relative;
 	display: flex;
 	flex-direction: column;
+	position: relative;
 	width: 100%;
 	flex-grow: 1;
 }
@@ -16,8 +16,16 @@
 	z-index: 1;
 }
 
+.main {
+	justify-content: center;
+	min-height: calc(100vh - $nav-height);
+}
+
+.mainSection {
+	padding-bottom: $nav-height * 0.5;
+}
+
 .logo {
 	@extend t, .h2 !optional;
 }
 
-.main { margin: 0 auto; }

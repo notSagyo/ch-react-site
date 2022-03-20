@@ -1,0 +1,62 @@
+@use "/src/styles/abstracts" as *;
+@use "/src/styles/base/base" as base;
+@use "/src/styles/base/typography" as t;
+
+$border-width: 1px;
+
+.card {
+	max-width: 20rem;
+	position: relative;
+	overflow: visible;
+	margin: $border-width;
+	padding: 1rem;
+
+	// ?TODO: rotating border
+	&::after {
+		content: "";
+		position: absolute;
+		top: -$border-width;
+		left: -$border-width;
+		border-radius: inherit;
+		width: calc(100% + $border-width * 2);
+		height: calc(100% + $border-width * 2);
+		background-image: linear-gradient(135deg, $primary, $pink);
+		z-index: -1;
+	}
+}
+
+.contentWrapper {
+	flex-direction: column;
+	height: 100%;
+}
+
+.title, .price {
+	@extend t, .h4 !optional;
+	color: $light !important;
+}
+
+.price {
+	font-weight: 600;
+}
+
+.priceInterval {
+	@extend base, .muted !optional;
+}
+
+.features {
+	flex-direction: column;
+	flex-grow: 1;
+	align-items: flex-start;
+	width: 100%;
+	padding: 0 1rem;
+}
+
+.feature {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+.divider {
+	width: 90%;
+}

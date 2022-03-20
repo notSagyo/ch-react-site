@@ -3,6 +3,7 @@
 @use "sass:math";
 @use "sass:color";
 
+// FIXME: fix footer overlap (again)
 .navWrapper {
 	@extend base, .container !optional;
 	background-color: $dark;

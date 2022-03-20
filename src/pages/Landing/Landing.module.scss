@@ -4,9 +4,6 @@
 	display: flex;
 	align-items: center;
 	flex-grow: 1;
-
-	padding-bottom: $nav-height;
-	min-height: calc(100vh - $nav-height);
 }
 
 @include sm-down {

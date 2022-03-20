@@ -17,7 +17,8 @@
         "quotes": ["warn", "single"],
         "semi": ["warn", "always"],
         "prefer-const": "off",
-        "@typescript-eslint/no-unused-vars": ["warn"],
+        // TODO: add to template
+        "@typescript-eslint/no-unused-vars": ["warn", { "ignoreRestSiblings": true }],
         "@typescript-eslint/indent": ["error", "tab"]
     }
 }
