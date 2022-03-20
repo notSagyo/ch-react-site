@@ -1,4 +1,4 @@
-import { MantineProvider, Container } from '@mantine/core';
+import { MantineProvider, Container, } from '@mantine/core';
 import Home from './pages/Home/Home';
 import '/src/styles/main.scss';
 
@@ -7,9 +7,11 @@ function App() {
 		<MantineProvider
 			theme={{
 				colorScheme: 'dark',
-				colors: { brand: ['#ef4444', '#ef4444', '#ef4444', '#ef4444', '#ef4444', '#ef4444', '#ef4444', '#ef4444', '#ef4444', '#ef4444'] },
+				colors: {
+					brand: ['#ef4444', '#ef4444', '#ef4444', '#ef4444', '#ef4444', '#ef4444', '#ef4444', '#ef4444', '#ef4444', '#ef4444'],
+				},
 				white: '#fafaff',
-				black: '#1b1e21',
+				black: '#101113',
 				primaryColor: 'brand',
 				fontFamily: 'Poppins, sans-serif'
 			}}

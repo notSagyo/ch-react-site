@@ -22,7 +22,7 @@ function Home() {
 			<Navbar logo={logo} className={styles.nav} />
 			<Container
 				className={styles.mainWrapper}
-				sx={(theme) => ({background: theme.black})}
+				sx={(theme) => ({background: theme.colors.dark[7]})}
 				px={0}
 				fluid
 			>
