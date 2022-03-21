@@ -12,7 +12,7 @@ function Hero() {
 						component='span'
 						className={styles.brand}
 						variant='gradient'
-						gradient={{from: 'brand', to: 'pink', deg: 135}}
+						gradient={{from: 'primary', to: 'pink', deg: 135}}
 						inherit
 					> portfol.io </Text>
 				</h1>

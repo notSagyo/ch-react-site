@@ -12,7 +12,7 @@ function Home() {
 			className={cn('hide-sm-up', styles.logo)}
 			color={''}
 			variant='gradient'
-			gradient={{from: 'brand', to: 'pink', deg: 135}}
+			gradient={{from: 'primary', to: 'pink', deg: 135}}
 		>portfol.io</Anchor>
 	);
 

@@ -16,7 +16,7 @@ function NotificationTooltip({textColor, ...props}:Props) {
 				<Group sx={{gap: 1, alignItems:'flex-start'}}>
 					{messages} <Message size={20}/>
 				</Group>}
-			color={'brand'}
+			color={'primary'}
 			position={'right'}
 			placement={'center'}
 			gutter={7.5}
