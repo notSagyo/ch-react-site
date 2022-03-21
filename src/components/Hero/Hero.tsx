@@ -26,7 +26,7 @@ function Hero() {
 					<em className={styles.infoStrong}> just like you</em>.
 						Learn to work as part of a team.
 					<br />
-						Get first hand experience and show off the final result in your portfolio.
+						Get first hand experience and show off the result in your portfolio.
 				</h3>
 			</Group>
 			<Group className={cn(styles.buttons, styles.fadeIn)}>

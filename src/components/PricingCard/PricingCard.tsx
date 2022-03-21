@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useEffect,  useRef, useState } from 'react';
 import { ActionIcon, Button, Card, CardProps, Divider, Group, NumberInput, NumberInputHandlers, Text } from '@mantine/core';
 import cn from 'classnames/bind';
 import styles from './PricingCard.module.scss';
@@ -12,7 +12,7 @@ type Props =
 		cardTitle: string,
 		cardDescription: string,
 		cardFeatures: string[],
-		cardPrice: string,
+		cardPrice: number,
 	}
 
 function PricingCard({
@@ -22,12 +22,24 @@ function PricingCard({
 	cardPrice,
 	...props}: Props)
 {
-	const [value, setValue] = useState(1);
+	const [quantity, setQuantity] = useState(1);
+	const [timeInterval, setTimeInterval] = useState<'month' | 'year'>('month');
 	const handlers = useRef<NumberInputHandlers>();
 
 	const features = cardFeatures.map((feat) =>
 		<Text className={styles.feature}><Check color='lightgreen'/>{feat}</Text>
 	);
+
+	useEffect(() => {
+		if (quantity >= 12) {
+			setTimeInterval('year');
+			timeInterval === 'month' && setQuantity(1);
+		}
+		else if (quantity == 0 && timeInterval === 'year') {
+			setTimeInterval('month');
+			setQuantity(11);
+		}
+	}, [quantity]);
 
 	return (
 		<Card {...props} className={cn(props.className, styles.card)}>
@@ -42,8 +54,12 @@ function PricingCard({
 				</Group>
 				<Divider className={styles.divider} />
 				<Text className={styles.price}>
-					{cardPrice}
-					<Text className={styles.priceInterval} component='span'> /month</Text>
+					{cardPrice > 0 ?
+						<>
+							{'$' + (timeInterval === 'month' ? cardPrice : cardPrice * 12)}
+							<Text className={styles.priceInterval} component='span'> /{timeInterval}</Text>
+						</> : 'Free'
+					}
 				</Text>
 
 				<Group>
@@ -56,11 +72,10 @@ function PricingCard({
 
 						<NumberInput
 							hideControls
-							value={value}
-							onChange={(val: number) => setValue(val)}
+							value={quantity}
+							onChange={(val: number) => setQuantity(val)}
 							handlersRef={handlers}
-							max={10}
-							min={1}
+							min={0}
 							step={1}
 							styles={{ input: { width: 54, textAlign: 'center' } }}
 						/>

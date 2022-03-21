@@ -10,19 +10,19 @@ function Pricing(props: DivProps) {
 				cardTitle='Free'
 				cardDescription='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eu odio congue, egestas est ac, eleifend urna.'
 				cardFeatures={['Is free', 'Costs no money', 'Free x 100 = Free']}
-				cardPrice='FREE'
+				cardPrice={0}
 			/>
 			<PricingCard
 				cardTitle='Pro'
 				cardDescription='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eu odio congue, egestas est ac, eleifend urna. Aenean scelerisque luctus faucibus.'
 				cardFeatures={['Has good stuff', 'Stuff is good', 'You\'re a good person']}
-				cardPrice='$9.99*'
+				cardPrice={9.99}
 			/>
 			<PricingCard
 				cardTitle='Pro+'
 				cardDescription='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eu odio congue, egestas est ac, eleifend urna. Aenean scelerisque luctus faucibus. Integer rutrum tellus in eros efficitur.'
 				cardFeatures={['Goated', 'Best stuff no cap', 'Walks your dog', 'Loved by Jennifer Aniston']}
-				cardPrice='$19.99*'
+				cardPrice={19.99}
 			/>
 		</section>
 	);

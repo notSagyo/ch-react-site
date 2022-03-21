@@ -6,7 +6,7 @@ const useStyles = createStyles((theme, _params, getRef) => {
 	return {
 		messages: {
 			display: 'flex',
-			flexDirection: 'column-reverse',
+			flexDirection: 'column',
 			color: theme.colors.dark[0]
 		}
 	};
