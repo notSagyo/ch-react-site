@@ -26,7 +26,9 @@ function SidenavLink({
 			href={link}
 		>
 			{LinkIcon && (<LinkIcon className={classes.linkIcon} />)}
-			<span>{children || label}</span>
+			<div className={classes.textWrapper}>
+				<span>{children || label}</span>
+			</div>
 		</a>
 	);
 }

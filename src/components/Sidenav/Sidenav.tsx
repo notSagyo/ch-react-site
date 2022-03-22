@@ -73,10 +73,10 @@ function Sidenav({
 
 			<ScrollArea
 				className={classes.scrollArea}
-				scrollbarSize={8}
+				scrollbarSize={6}
 				classNames={{ scrollbar: classes.scrollScrollbar }}
 			>
-				<Navbar.Section className={classes.links} grow>
+				<Navbar.Section className={classes.links}>
 					{links}
 				</Navbar.Section>
 			</ScrollArea>

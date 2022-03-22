@@ -50,6 +50,14 @@ const useStyles = createStyles((theme, _params, getRef) => {
 					color: activeIconColor,
 				},
 			},
+		},
+
+		textWrapper: {
+			whiteSpace: 'nowrap',
+			width: 0,
+			flexGrow: 1,
+			overflow: 'hidden',
+			textOverflow: 'ellipsis'
 		}
 	};
 });

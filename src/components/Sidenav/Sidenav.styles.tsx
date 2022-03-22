@@ -30,7 +30,7 @@ const useStyles = createStyles((theme, _params, getRef) => {
 		},
 
 		links: {
-			// height: '0'
+			height: '0',
 		},
 
 		footer: {
@@ -53,7 +53,8 @@ const useStyles = createStyles((theme, _params, getRef) => {
 		},
 
 		scrollArea: {
-			marginRight: -spacing
+			flexGrow: 1,
+			marginRight: -spacing * 0.85
 		},
 
 		scrollScrollbar: {
