@@ -26,8 +26,10 @@ function PricingCard({
 	const [timeInterval, setTimeInterval] = useState<'month' | 'year'>('month');
 	const handlers = useRef<NumberInputHandlers>();
 
-	const features = cardFeatures.map((feat) =>
-		<Text className={styles.feature}><Check color='lightgreen'/>{feat}</Text>
+	const features = cardFeatures.map((feat, index) =>
+		<Text className={styles.feature} key={index}>
+			<Check color='lightgreen'/>{feat}
+		</Text>
 	);
 
 	useEffect(() => {

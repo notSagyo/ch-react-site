@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Navbar, Group, SegmentedControl, Box } from '@mantine/core';
+import { Navbar, Group, SegmentedControl, Box, ScrollArea } from '@mantine/core';
 import useStyles from './Sidenav.styles';
 import SidenavLink, { SidenavLinkProps } from './SidenavLink';
 import { DivProps } from '../../utils';
@@ -71,9 +71,15 @@ function Sidenav({
 				)}
 			</Navbar.Section>
 
-			<Navbar.Section className={classes.links} grow>
-				{links}
-			</Navbar.Section>
+			<ScrollArea
+				className={classes.scrollArea}
+				scrollbarSize={8}
+				classNames={{ scrollbar: classes.scrollScrollbar }}
+			>
+				<Navbar.Section className={classes.links} grow>
+					{links}
+				</Navbar.Section>
+			</ScrollArea>
 
 			{footer && (
 				<Navbar.Section className={classes.footer}> {footer} </Navbar.Section>

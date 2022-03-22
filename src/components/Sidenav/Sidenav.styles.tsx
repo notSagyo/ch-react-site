@@ -5,21 +5,22 @@ const useStyles = createStyles((theme, _params, getRef) => {
 	const border = `1px solid ${
 		darkMode ? theme.colors.dark[4] : theme.colors.gray[2]
 	}`;
+	const spacing = theme.spacing.md;
 
 	return {
 		navbar: {
 			backgroundColor: darkMode ? theme.colors.dark[6] : theme.white,
-			padding: theme.spacing.md,
+			padding: spacing,
 			height: '100%',
 			width: 256
 		},
 
 		header: {
-			paddingBottom: theme.spacing.md,
+			paddingBottom: spacing,
 			borderBottom: border,
 
 			[`& ~ .${getRef('controls')}`]: {
-				marginTop: theme.spacing.md,
+				marginTop: spacing,
 			},
 		},
 
@@ -29,12 +30,12 @@ const useStyles = createStyles((theme, _params, getRef) => {
 		},
 
 		links: {
-			padding: `${theme.spacing.md}px 0`,
+			// height: '0'
 		},
 
 		footer: {
-			paddingTop: theme.spacing.md,
-			marginTop: theme.spacing.md,
+			paddingTop: spacing,
+			marginTop: spacing,
 			borderTop: border
 		},
 
@@ -49,7 +50,17 @@ const useStyles = createStyles((theme, _params, getRef) => {
 
 		controlsLabel: {
 			padding: 8,
-		}
+		},
+
+		scrollArea: {
+			marginRight: -spacing
+		},
+
+		scrollScrollbar: {
+			['&:hover']: {
+				backgroundColor: 'transparent',
+			}
+		},
 	};
 });
 

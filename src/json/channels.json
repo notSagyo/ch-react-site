@@ -1,0 +1,98 @@
+{
+	"USERS": [
+		{
+			"label": "Marito Baracus",
+			"icon": "user"
+		},
+		{
+			"label": "Gaspi",
+			"icon": "user"
+		},
+		{
+			"label": "july3p",
+			"icon": "user"
+		},
+		{
+			"label": "El Maestruli",
+			"icon": "user"
+		},
+		{
+			"label": "Macaulay Culkin",
+			"icon": "user"
+		},
+		{
+			"label": "Chanandler Bong",
+			"icon": "user"
+		},
+		{
+			"label": "Princess Consuela Banana-Hammock",
+			"icon": "user"
+		},
+		{
+			"label": "Savlian Matius",
+			"icon": "user"
+		},
+		{
+			"label": "Mannimarco",
+			"icon": "user"
+		},
+		{
+			"label": "Mankar Camoran",
+			"icon": "user"
+		},
+		{
+			"label": "Sheogorath",
+			"icon": "user"
+		},
+		{
+			"label": "Pelinal Whitestrake",
+			"icon": "user"
+		},
+		{
+			"label": "St. Alessia",
+			"icon": "user"
+		},
+		{
+			"label": "Hermaeus Mora",
+			"icon": "user"
+		},
+		{
+			"label": "Adoring Fan",
+			"icon": "user"
+		},
+		{
+			"label": "Vanus Galerion",
+			"icon": "user"
+		},
+		{
+			"label": "Lucien Lachance",
+			"icon": "user"
+		},
+		{
+			"label": "Vicente Valtieri",
+			"icon": "user"
+		}
+	],
+	"TEAMS": [
+			{
+				"label": "SKT T1",
+				"icon": "users"
+			},
+			{
+				"label": "Cloud9",
+				"icon": "users"
+			},
+			{
+				"label": "SSG",
+				"icon": "users"
+			},
+			{
+				"label": "TSM",
+				"icon": "users"
+			},
+			{
+				"label": "Team Liquid",
+				"icon": "users"
+			}
+	]
+}

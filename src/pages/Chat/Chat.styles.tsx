@@ -15,7 +15,8 @@ const useStyles = createStyles((theme, _params, getRef) => {
 		},
 
 		body: {
-			height: '100%'
+			height: 0,
+			flexGrow: 1
 		},
 
 		channel: {

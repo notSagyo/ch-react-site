@@ -21,6 +21,7 @@ const useStyles = createStyles((theme, _params, getRef) => {
 			fontSize: theme.fontSizes.sm,
 			color: darkMode ? theme.colors.dark[1] : theme.colors.gray[7],
 			padding: `${theme.spacing.xs}px ${theme.spacing.sm}px`,
+			margin: '4px 0',
 			borderRadius: theme.radius.sm,
 			fontWeight: 500,
 

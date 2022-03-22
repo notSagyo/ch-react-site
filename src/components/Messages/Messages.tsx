@@ -7,7 +7,7 @@ function Messages(props: DivProps) {
 	return (
 		<Box {...props} className={cx(classes.messages, props.className)}>
 			<Text>
-				This is where I would put my messages... if I had one!!
+				This is where I would put my messages... if I had any!!
 			</Text>
 		</Box>
 	);

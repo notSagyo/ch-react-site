@@ -1,29 +1,24 @@
 import { Group } from '@mantine/core';
-import { Messages, User, Users } from 'tabler-icons-react';
-import { DivProps } from '../../utils';
+import { Messages } from 'tabler-icons-react';
+import { DivProps, iconsMap } from '../../utils';
 import Sidenav, { SidenavPropsTabs } from '../Sidenav/Sidenav';
 import useStyles from './ChannelsBar.styles';
+import json from '../../json/channels.json';
+import { SidenavLinkProps } from '../Sidenav/SidenavLink';
 
-const channels: SidenavPropsTabs = {
-	'USERS': [
-		{ label: 'Marito Baracus', icon: User },
-		{ label: 'Gaspi', icon: User, },
-		{ label: 'Juli3p', icon: User },
-		{ label: 'El Maestruli', icon: User, },
-		{ label: 'Macaulay Culkin', icon: User, },
-	],
-	'TEAMS': [
-		{ label: 'SKT T1', icon: Users },
-		{ label: 'Cloud9', icon: Users },
-		{ label: 'SSG', icon: Users },
-		{ label: 'TSM', icon: Users },
-		{ label: 'Team Liquid', icon: Users },
-	]
-};
-
-function Channels(props: DivProps) {
+function ChannelsBar(props: DivProps) {
 	const { classes, cx } = useStyles();
 	const header = (<Group><Messages/>Inbox</Group>);
+
+	// Pesadillas con TypeScript pt. 100
+	let channels: SidenavPropsTabs = {  };
+	for (const tab in json) {
+		let recoveredTab: SidenavLinkProps[] = [];
+		json[tab as keyof typeof json].forEach((channel) => {
+			recoveredTab.push({ ...channel, icon: iconsMap.get(channel.icon) });
+		});
+		channels[tab] = recoveredTab;
+	}
 
 	return (
 		<Sidenav
@@ -36,4 +31,4 @@ function Channels(props: DivProps) {
 	);
 }
 
-export default Channels;
+export default ChannelsBar;
