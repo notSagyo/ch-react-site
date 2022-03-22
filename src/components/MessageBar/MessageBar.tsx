@@ -1,18 +1,36 @@
 import { TextInput } from '@mantine/core';
-import { Message } from 'tabler-icons-react';
-import { DivProps } from '../../utils';
+import { FormEvent, HTMLAttributes, useRef } from 'react';
+import { Message as MessageIcon } from 'tabler-icons-react';
+import Message from '../Message/Message';
 import useStyles from './MessageBar.styles';
 
-function MessageBar(props: DivProps) {
+type MessageBarProps = { pushMessage: (msg: JSX.Element) => void }
+type Props = MessageBarProps & HTMLAttributes<HTMLFormElement>
+
+function MessageBar({pushMessage, onSubmit, ...props}: Props) {
+	const inputRef = useRef<HTMLInputElement>(null);
 	const { classes, cx } = useStyles();
 
+	function sendMessage (event: FormEvent) {
+		if (!inputRef.current) return (<></>);
+		const content = inputRef.current.value;
+		const now = Date.now();
+		event.preventDefault();
+		inputRef.current.value = '';
+		pushMessage(<Message author='User' time={now} children={content} key={now} />);
+	}
+
 	return (
-		<TextInput
-			classNames={{input: classes.inputInner}}
-			placeholder='Write a message...'
-			icon={<Message className={classes.placeholderIcon} />}
-			{...props}
-			className={cx(props.className, classes.textInput)}></TextInput>
+		<form action={void(0)} className={classes.form} onSubmit={sendMessage}>
+			<TextInput
+				icon={<MessageIcon className={classes.placeholderIcon} />}
+				className={cx(props.className, classes.textInput)}
+				classNames={{input: classes.inputInner}}
+				placeholder='Write a message...'
+				autoComplete='off'
+				ref={inputRef}
+			/>
+		</form>
 	);
 }
 

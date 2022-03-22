@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { Navbar, Group, SegmentedControl, Box, ScrollArea } from '@mantine/core';
 import useStyles from './Sidenav.styles';
 import SidenavLink, { SidenavLinkProps } from './SidenavLink';
@@ -25,10 +25,11 @@ function Sidenav({
 	footer,
 	header,
 	preventSelect,
-	...props}: SidenavProps) {
-	const { classes, cx } = useStyles();
-	const [section, setSection] = useState(defaultSection);
+	...props
+}: SidenavProps) {
 	const [activeLink, setActiveLink] = useState(defaultLink);
+	const [section, setSection] = useState(defaultSection);
+	const { classes, cx } = useStyles();
 
 	const links = tabs[section].map((item, index) => (
 		<SidenavLink
@@ -71,15 +72,17 @@ function Sidenav({
 				)}
 			</Navbar.Section>
 
-			<ScrollArea
+			<Navbar.Section
 				className={classes.scrollArea}
-				scrollbarSize={6}
-				classNames={{ scrollbar: classes.scrollScrollbar }}
+				classNames={{scrollbar: classes.scrollbar}}
+				component={ScrollArea}
+				scrollbarSize={5}
+				grow
 			>
-				<Navbar.Section className={classes.links}>
+				<div className={classes.links}>
 					{links}
-				</Navbar.Section>
-			</ScrollArea>
+				</div>
+			</Navbar.Section>
 
 			{footer && (
 				<Navbar.Section className={classes.footer}> {footer} </Navbar.Section>

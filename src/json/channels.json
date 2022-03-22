@@ -1,34 +1,6 @@
 {
 	"USERS": [
 		{
-			"label": "Marito Baracus",
-			"icon": "user"
-		},
-		{
-			"label": "Gaspi",
-			"icon": "user"
-		},
-		{
-			"label": "july3p",
-			"icon": "user"
-		},
-		{
-			"label": "El Maestruli",
-			"icon": "user"
-		},
-		{
-			"label": "Macaulay Culkin",
-			"icon": "user"
-		},
-		{
-			"label": "Chanandler Bong",
-			"icon": "user"
-		},
-		{
-			"label": "Princess Consuela Banana-Hammock",
-			"icon": "user"
-		},
-		{
 			"label": "Savlian Matius",
 			"icon": "user"
 		},
@@ -70,6 +42,42 @@
 		},
 		{
 			"label": "Vicente Valtieri",
+			"icon": "user"
+		},
+		{
+			"label": "Uriel Septim",
+			"icon": "user"
+		},
+		{
+			"label": "Baurus",
+			"icon": "user"
+		},
+		{
+			"label": "Macaulay Culkin",
+			"icon": "user"
+		},
+		{
+			"label": "Chanandler Bong",
+			"icon": "user"
+		},
+		{
+			"label": "Marito Baracus",
+			"icon": "user"
+		},
+		{
+			"label": "Gaspi",
+			"icon": "user"
+		},
+		{
+			"label": "july3p",
+			"icon": "user"
+		},
+		{
+			"label": "El Maestruli",
+			"icon": "user"
+		},
+		{
+			"label": "Princess Consuela Banana-Hammock",
 			"icon": "user"
 		}
 	],

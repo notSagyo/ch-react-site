@@ -6,6 +6,7 @@ const useStyles = createStyles((theme, _params, getRef) => {
 		darkMode ? theme.colors.dark[4] : theme.colors.gray[2]
 	}`;
 	const spacing = theme.spacing.md;
+	const scrollbarOffset = -spacing * 0.85;
 
 	return {
 		navbar: {
@@ -30,7 +31,7 @@ const useStyles = createStyles((theme, _params, getRef) => {
 		},
 
 		links: {
-			height: '0',
+			marginRight: -scrollbarOffset
 		},
 
 		footer: {
@@ -40,7 +41,8 @@ const useStyles = createStyles((theme, _params, getRef) => {
 		},
 
 		controls: {
-			ref: getRef('controls')
+			ref: getRef('controls'),
+			marginBottom: spacing * 0.5
 		},
 
 		controlsActive: {
@@ -50,14 +52,14 @@ const useStyles = createStyles((theme, _params, getRef) => {
 
 		controlsLabel: {
 			padding: 8,
+			fontWeight: 600
 		},
 
 		scrollArea: {
-			flexGrow: 1,
-			marginRight: -spacing * 0.85
+			marginRight: scrollbarOffset
 		},
 
-		scrollScrollbar: {
+		scrollbar: {
 			['&:hover']: {
 				backgroundColor: 'transparent',
 			}

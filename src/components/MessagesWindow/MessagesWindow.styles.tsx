@@ -1,0 +1,22 @@
+import { createStyles } from '@mantine/core';
+
+const useStyles = createStyles((theme, _params, getRef) => {
+	return {
+		viewport: {
+			color: theme.colors.dark[0],
+
+			['& > *']: {
+				height: '100%'
+			}
+		},
+
+		messages: {
+			display: 'flex',
+			flexDirection: 'column',
+			justifyContent: 'flex-end',
+			height: '100%'
+		}
+	};
+});
+
+export default useStyles;

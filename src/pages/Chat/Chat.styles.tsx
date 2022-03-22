@@ -19,21 +19,16 @@ const useStyles = createStyles((theme, _params, getRef) => {
 			flexGrow: 1
 		},
 
+		main: {
+			padding: 0
+		},
+
 		channel: {
 			height: '100%',
 			flexDirection: 'column',
 			alignContent: 'start',
 			justifyContent: 'start',
 		},
-
-		messages: {
-			width: '100%',
-			flexGrow: 1,
-		},
-
-		messageBar: {
-			width: '100%'
-		}
 	};
 });
 

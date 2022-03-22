@@ -24,6 +24,7 @@ const useStyles = createStyles((theme, _params, getRef) => {
 			margin: '4px 0',
 			borderRadius: theme.radius.sm,
 			fontWeight: 500,
+			lineHeight: 1.5,
 
 			'&:hover': {
 				backgroundColor: hoverBgc,

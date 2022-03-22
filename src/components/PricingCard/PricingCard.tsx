@@ -64,6 +64,7 @@ function PricingCard({
 					}
 				</Text>
 
+				{/* ?TODO: Improve controls style */}
 				<Group>
 					<Group>
 						<ActionIcon

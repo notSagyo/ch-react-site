@@ -16,6 +16,11 @@ const useStyles = createStyles((theme, _params, getRef) => {
 
 		placeholderIcon: {
 			fontWeight: 100
+		},
+
+		form: {
+			width: '100%',
+			height: 'fit-content'
 		}
 	};
 });

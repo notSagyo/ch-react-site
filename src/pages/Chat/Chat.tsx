@@ -1,31 +1,25 @@
-import { AppShell, Group, Header } from '@mantine/core';
+import { AppShell, Header } from '@mantine/core';
+import Channel from '../../components/Channel/Channel';
 import ChannelsBar from '../../components/ChannelsBar/ChannelsBar';
-import MessageBar from '../../components/MessageBar/MessageBar';
-import Messages from '../../components/Messages/Messages';
 import useStyles from './Chat.styles';
 
+// TODO: Participants sidebar
 function Chat() {
 	const { classes } = useStyles();
 
-	const header = (
-		<Header className={classes.header} height={32}>{}</Header>
-	);
+	const header = ( <Header className={classes.header} height={32}>{}</Header> );
 
 	return (
 		<AppShell
-			style={{zIndex: 99}}
-			padding="md"
 			navbar={<><ChannelsBar /></>}
 			header={header}
 			classNames={{
 				root: classes.root,
-				body: classes.body
+				body: classes.body,
+				main: classes.main
 			}}
 		>
-			<Group className={classes.channel}>
-				<Messages className={classes.messages} />
-				<MessageBar className={classes.messageBar}/>
-			</Group>
+			<Channel className={classes.channel}/>
 		</AppShell>
 	);
 }
