@@ -16,8 +16,9 @@ function DropdownItem({ title, items }: Props) {
 	const menuItems = items.map((item, index) => (
 		<Menu.Item
 			key={index}
-			icon={item.materialIcon
-				? <i className={styles.menuItemIcon}> {item.materialIcon} </i> : ''}
+			icon={item.materialIcon ?
+				<i className={styles.menuItemIcon}> {item.materialIcon} </i> : ''
+			}
 			component={'a'} href={item.href || '#!'}
 		>
 			{item.content}
@@ -26,8 +27,9 @@ function DropdownItem({ title, items }: Props) {
 
 	const listItems = items.map((item, index) => (
 		<li key={index}>
-			{item.materialIcon
-				? <i className='material-icons'> {item.materialIcon} </i> : ''}
+			{item.materialIcon ?
+				<i className='material-icons'> {item.materialIcon} </i> : ''
+			}
 			<Anchor className={styles.link}>
 				{item.content || '#!'}
 			</Anchor>

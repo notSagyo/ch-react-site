@@ -3,11 +3,13 @@
 @use "sass:math";
 @use "sass:color";
 
-// FIXME: fix footer overlap (again)
 .navWrapper {
-	@extend base, .container !optional;
 	background-color: $dark;
 	width: 100%;
+}
+
+.nav {
+	@extend base, .container !optional;
 }
 
 .burger { @include hide-sm-up; }
@@ -48,6 +50,7 @@
 
 	.nav {
 		width: 100%;
+		max-width: none;
 		position: fixed;
 		top: 0;
 		right: 0;

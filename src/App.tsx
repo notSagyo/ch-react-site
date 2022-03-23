@@ -22,7 +22,7 @@ function App() {
 		>
 			<Container px='0' fluid>
 				<Home />
-				<Chat />
+				{/* <Chat /> */}
 			</Container>
 		</MantineProvider>
 	);
