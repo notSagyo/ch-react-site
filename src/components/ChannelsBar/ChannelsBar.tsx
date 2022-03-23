@@ -7,13 +7,15 @@ import json from '../../json/channels.json';
 import { SidenavLinkProps } from '../Sidenav/SidenavLink';
 
 type Props = DivProps & {
-	setCurrentChannel: (args: string) => void
+	setCurrentChannel: (args: string) => void,
+	defaultChannel?: string
 }
 
-function ChannelsBar({setCurrentChannel, ...props}: Props) {
+function ChannelsBar({setCurrentChannel, defaultChannel, ...props}: Props) {
 	const { classes, cx } = useStyles();
 	const header = (<Group><Messages/>Inbox</Group>);
 
+	// TODO: Move this to "Channels" component
 	// Recover links tab from JSON | Pesadillas con TypeScript pt. 100
 	const channels: SidenavPropsTabs = {  };
 	for (const tab in json) {
@@ -35,6 +37,7 @@ function ChannelsBar({setCurrentChannel, ...props}: Props) {
 			tabs={channels}
 			header={header}
 			onLinkClick={onChannelClick}
+			defaultLink={defaultChannel}
 		/>
 	);
 }

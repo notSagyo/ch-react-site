@@ -28,7 +28,7 @@ function Home() {
 			>
 				<main className={cn('container', styles.main)}>
 					<Landing className={styles.mainSection} />
-					{/* <Pricing className={styles.mainSection} /> */}
+					<Pricing className={styles.mainSection} />
 				</main>
 			</Container>
 			<Footer />
