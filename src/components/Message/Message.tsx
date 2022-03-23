@@ -4,10 +4,11 @@ import useStyles from './Message.styles';
 
 type MessageProps = HTMLAttributes<HTMLLIElement> & {
 	author: string,
-	time: number
+	time: number,
+	channel: string
 }
 
-function Message({author, time, ...props}: MessageProps) {
+function Message({author, channel, time, ...props}: MessageProps) {
 	const { classes, cx } = useStyles();
 	const timestamp = new Date(time)
 		.toLocaleTimeString([], {hour: 'numeric', minute: '2-digit'});

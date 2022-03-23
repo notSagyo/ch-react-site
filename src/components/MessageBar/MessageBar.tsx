@@ -5,9 +5,11 @@ import Message from '../Message/Message';
 import useStyles from './MessageBar.styles';
 
 type MessageBarProps = { pushMessage: (msg: JSX.Element) => void }
-type Props = MessageBarProps & HTMLAttributes<HTMLFormElement>
+type Props = MessageBarProps & HTMLAttributes<HTMLFormElement> & {
+	currentChannel: string
+}
 
-function MessageBar({pushMessage, onSubmit, ...props}: Props) {
+function MessageBar({currentChannel, pushMessage, onSubmit, ...props}: Props) {
 	const inputRef = useRef<HTMLInputElement>(null);
 	const { classes, cx } = useStyles();
 
@@ -17,7 +19,13 @@ function MessageBar({pushMessage, onSubmit, ...props}: Props) {
 		const now = Date.now();
 		event.preventDefault();
 		inputRef.current.value = '';
-		pushMessage(<Message author='User' time={now} children={content} key={now} />);
+		pushMessage(<Message
+			channel={currentChannel}
+			children={content}
+			author='User'
+			time={now}
+			key={now}
+		/>);
 	}
 
 	return (

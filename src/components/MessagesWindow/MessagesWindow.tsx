@@ -22,7 +22,7 @@ function MessagesWindow({messages, ...props}: Props ) {
 			<ol className={classes.messages}>{
 				messages.length > 0
 					? messages
-					:'This is where I would put my messages... if I had any!!'
+					: <li>This is where I would put my messages... if I had any!!</li>
 			}</ol>
 		</ScrollArea>
 	);

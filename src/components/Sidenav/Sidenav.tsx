@@ -14,17 +14,19 @@ export type SidenavProps = DivProps & {
 	defaultSection?: string,
 	footer?: React.ReactNode,
 	header?: React.ReactNode,
+	onLinkClick?: (link: SidenavLinkProps) => void;
 	preventSelect?: boolean,
 };
 
 function Sidenav({
 	tabs,
 	color,
-	defaultLink,
-	defaultSection = Object.keys(tabs)[0],
 	footer,
 	header,
+	defaultLink,
+	onLinkClick,
 	preventSelect,
+	defaultSection = Object.keys(tabs)[0],
 	...props
 }: SidenavProps) {
 	const [activeLink, setActiveLink] = useState(defaultLink);
@@ -37,8 +39,9 @@ function Sidenav({
 			key={index}
 			activeLink={activeLink}
 			onClick={(event) => {
-				event.preventDefault();
 				!preventSelect && setActiveLink(item.label);
+				onLinkClick && onLinkClick(item);
+				event.preventDefault();
 			}}/>
 	));
 
@@ -50,11 +53,10 @@ function Sidenav({
 		<Navbar {...props} className={cx(classes.navbar, props.className)}>
 			<Navbar.Section>
 				{header && (
-					<Group className={classes.header} position="apart">
-						{header}
-					</Group>
+					<Group className={classes.header} position="apart"> {header} </Group>
 				)}
 
+				{/* TAB CONTROLS =================================================== */}
 				{segments.length > 1 && (
 					<Box className={classes.controls}>
 						<SegmentedControl
@@ -62,28 +64,28 @@ function Sidenav({
 								label: classes.controlsLabel,
 								active: classes.controlsActive
 							}}
-							value={section}
-							onChange={setSection}
 							transitionTimingFunction="ease"
-							fullWidth
+							onChange={setSection}
+							value={section}
 							data={segments}
+							fullWidth
 						/>
 					</Box>
 				)}
 			</Navbar.Section>
 
+			{/* LINKS ============================================================ */}
 			<Navbar.Section
-				className={classes.scrollArea}
 				classNames={{scrollbar: classes.scrollbar}}
+				className={classes.scrollArea}
 				component={ScrollArea}
 				scrollbarSize={5}
 				grow
 			>
-				<div className={classes.links}>
-					{links}
-				</div>
+				<div className={classes.links}> {links} </div>
 			</Navbar.Section>
 
+			{/* FOOTER =========================================================== */}
 			{footer && (
 				<Navbar.Section className={classes.footer}> {footer} </Navbar.Section>
 			)}

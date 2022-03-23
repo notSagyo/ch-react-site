@@ -6,12 +6,16 @@ import useStyles from './ChannelsBar.styles';
 import json from '../../json/channels.json';
 import { SidenavLinkProps } from '../Sidenav/SidenavLink';
 
-function ChannelsBar(props: DivProps) {
+type Props = DivProps & {
+	setCurrentChannel: (args: string) => void
+}
+
+function ChannelsBar({setCurrentChannel, ...props}: Props) {
 	const { classes, cx } = useStyles();
 	const header = (<Group><Messages/>Inbox</Group>);
 
-	// Pesadillas con TypeScript pt. 100
-	let channels: SidenavPropsTabs = {  };
+	// Recover links tab from JSON | Pesadillas con TypeScript pt. 100
+	const channels: SidenavPropsTabs = {  };
 	for (const tab in json) {
 		let recoveredTab: SidenavLinkProps[] = [];
 		json[tab as keyof typeof json].forEach((channel) => {
@@ -20,13 +24,17 @@ function ChannelsBar(props: DivProps) {
 		channels[tab] = recoveredTab;
 	}
 
+	function onChannelClick(link: SidenavLinkProps) {
+		setCurrentChannel(link.label);
+	}
+
 	return (
 		<Sidenav
 			{...props}
 			className={cx(classes.sidenav, props.className)}
 			tabs={channels}
-			defaultLink='Notifications'
 			header={header}
+			onLinkClick={onChannelClick}
 		/>
 	);
 }

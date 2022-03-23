@@ -7,3 +7,7 @@ export let iconsMap = new Map<string, Icon>([
 	['user', User],
 	['users', Users]
 ]);
+
+export function isEmptyObject(obj: object) {
+	return !(Object.keys(obj).length > 0);
+}
