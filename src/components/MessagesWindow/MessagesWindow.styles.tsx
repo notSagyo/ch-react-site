@@ -6,7 +6,8 @@ const useStyles = createStyles((theme, _params, getRef) => {
 			color: theme.colors.dark[0],
 
 			['& > *']: {
-				height: '100%'
+				height: '100%',
+				paddingBottom: 5
 			}
 		},
 

@@ -13,7 +13,6 @@ function MessagesWindow({messages, ...props}: Props ) {
 		viewportRef.current && viewportRef.current.scrollBy(0, 999);
 	}, [messages]);
 
-	// FIXME: scrollbar showing on initial load
 	return (
 		<ScrollArea
 			{...props}
