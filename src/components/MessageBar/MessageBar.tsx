@@ -14,10 +14,13 @@ function MessageBar({currentChannel, pushMessage, onSubmit, ...props}: Props) {
 	const { classes, cx } = useStyles();
 
 	function sendMessage (event: FormEvent) {
-		if (!inputRef.current) return (<></>);
-		const content = inputRef.current.value;
-		const now = Date.now();
 		event.preventDefault();
+		if (!inputRef.current) return ('');
+		const content = inputRef.current.value;
+
+		if (!content) return ('');
+		const now = Date.now();
+
 		inputRef.current.value = '';
 		pushMessage(<Message
 			channel={currentChannel}
