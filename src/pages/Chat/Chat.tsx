@@ -1,20 +1,16 @@
 import { AppShell, Header } from '@mantine/core';
-import { useState } from 'react';
-import Channel from '../../components/Channel/Channel';
-import ChannelsBar from '../../components/ChannelsBar/ChannelsBar';
 import useStyles from './Chat.styles';
 
 // TODO: Participants sidebar
 // TODO: Replace states call stack with context variables
 function Chat() {
-	const [currentChannel, setCurrentChannel] = useState<string>('none');
 	const { classes } = useStyles();
 
 	const header = ( <Header className={classes.header} height={32}>{}</Header> );
 
 	return (
 		<AppShell
-			navbar={<ChannelsBar setCurrentChannel={setCurrentChannel}/>}
+			navbar={<></>}
 			header={header}
 			classNames={{
 				root: classes.root,
@@ -22,7 +18,6 @@ function Chat() {
 				main: classes.main
 			}}
 		>
-			<Channel className={classes.channel} currentChannel={currentChannel || ''}/>
 		</AppShell>
 	);
 }
