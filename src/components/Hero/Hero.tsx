@@ -1,5 +1,7 @@
 import { Text, Group, Button } from '@mantine/core';
 import cn from 'classnames/bind';
+import { Link } from 'react-router-dom';
+import { BASE_URL } from '../../utils';
 import styles from './Hero.module.scss';
 
 function Hero() {
@@ -30,12 +32,14 @@ function Hero() {
 				</h3>
 			</Group>
 			<Group className={cn(styles.buttons, styles.fadeIn)}>
-				<Button
-					size='xl'
-					variant='gradient'
-					radius={'lg'}
-					gradient={{from: 'base', to: 'pink', deg: 135}}
-				>Open app</Button>
+				<Link to={`/${BASE_URL}/chat`}>
+					<Button
+						size='xl'
+						variant='gradient'
+						radius={'lg'}
+						gradient={{from: 'base', to: 'pink', deg: 135}}
+					>Open app</Button>
+				</Link>
 			</Group>
 		</Group>
 	);

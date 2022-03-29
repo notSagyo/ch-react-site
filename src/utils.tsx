@@ -1,6 +1,8 @@
 import { Icon, User, Users } from 'tabler-icons-react';
 import { HTMLAttributes } from 'react';
 
+export const BASE_URL = 'ch-react-site';
+
 export type DivProps = HTMLAttributes<HTMLDivElement>;
 
 export let iconsMap = new Map<string, Icon>([

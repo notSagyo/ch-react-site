@@ -29,7 +29,7 @@ function Home() {
 				<main className={cn('container', styles.main)}>
 					<Routes>
 						<Route path='/' element={<Landing className={styles.mainSection} />} />
-						<Route path='/pricing' element={<Pricing className={styles.mainSection} />}/>
+						<Route path='pricing' element={<Pricing className={styles.mainSection} />}/>
 					</Routes>
 				</main>
 			</Container>

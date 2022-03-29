@@ -2,6 +2,8 @@ import { Group, Text, Anchor, Container } from '@mantine/core';
 import { BrandFacebook, BrandInstagram, BrandTelegram, BrandTwitter, Mail } from 'tabler-icons-react';
 import cn from 'classnames/bind';
 import styles from './Footer.module.scss';
+import { Link } from 'react-router-dom';
+import { BASE_URL } from '../../utils';
 
 function Footer() {
 	return (
@@ -29,9 +31,9 @@ function Footer() {
 						<Group align={'start'}>
 							<ul>
 								<li><Text className={styles.header}>Pricing</Text></li>
-								<li><Anchor>Free</Anchor></li>
-								<li><Anchor>Pro</Anchor></li>
-								<li><Anchor>Pro+</Anchor></li>
+								<li><Link to={`/${BASE_URL}/pricing`}><Anchor>Free</Anchor></Link></li>
+								<li><Link to={`/${BASE_URL}/pricing`}><Anchor>Pro</Anchor></Link></li>
+								<li><Link to={`/${BASE_URL}/pricing`}><Anchor>Pro+</Anchor></Link></li>
 							</ul>
 							<ul>
 								<li><Text className={styles.header}>Info</Text></li>
