@@ -5,6 +5,7 @@ import Footer from '../../components/Footer/Footer';
 import Landing from '../Landing/Landing';
 import Pricing from '../Pricing/Pricing';
 import styles from './Home.module.scss';
+import { Route, Routes } from 'react-router-dom';
 
 function Home() {
 	const logo = (
@@ -16,7 +17,6 @@ function Home() {
 		>portfol.io</Anchor>
 	);
 
-	// TODO: route this
 	return (
 		<div className={styles.home}>
 			<Navbar logo={logo} className={styles.nav} />
@@ -27,8 +27,10 @@ function Home() {
 				fluid
 			>
 				<main className={cn('container', styles.main)}>
-					<Landing className={styles.mainSection} />
-					<Pricing className={styles.mainSection} />
+					<Routes>
+						<Route path='/' element={<Landing className={styles.mainSection} />} />
+						<Route path='/pricing' element={<Pricing className={styles.mainSection} />}/>
+					</Routes>
 				</main>
 			</Container>
 			<Footer />
