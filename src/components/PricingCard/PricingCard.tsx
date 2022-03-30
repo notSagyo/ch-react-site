@@ -60,38 +60,40 @@ function PricingCard({
 						<>
 							{'$' + (timeInterval === 'month' ? cardPrice : cardPrice * 12)}
 							<Text className={styles.priceInterval} component='span'> /{timeInterval}</Text>
-						</> : 'Free'
+						</> : ''
 					}
 				</Text>
 
 				{/* ?TODO: Improve controls style */}
-				<Group>
+				{cardPrice > 0 && (
 					<Group>
-						<ActionIcon
-							size={36}
-							variant="default"
-							onClick={() => handlers.current && handlers.current.decrement()}
-						> – </ActionIcon>
+						<Group>
+							<ActionIcon
+								size={36}
+								variant="default"
+								onClick={() => handlers.current && handlers.current.decrement()}
+							> – </ActionIcon>
 
-						<NumberInput
-							hideControls
-							value={quantity}
-							onChange={(val: number) => setQuantity(val)}
-							handlersRef={handlers}
-							min={0}
-							step={1}
-							styles={{ input: { width: 54, textAlign: 'center' } }}
-						/>
+							<NumberInput
+								hideControls
+								value={quantity}
+								onChange={(val: number) => setQuantity(val)}
+								handlersRef={handlers}
+								min={0}
+								step={1}
+								styles={{ input: { width: 54, textAlign: 'center' } }}
+							/>
 
-						<ActionIcon
-							size={36}
-							variant="default"
-							onClick={() => handlers.current && handlers.current.increment()}
-						> + </ActionIcon>
+							<ActionIcon
+								size={36}
+								variant="default"
+								onClick={() => handlers.current && handlers.current.increment()}
+							> + </ActionIcon>
+						</Group>
+
+						<Button>{'Buy now >'}</Button>
 					</Group>
-
-					<Button>{'Buy now >'}</Button>
-				</Group>
+				)}
 			</Group>
 		</Card>
 	);

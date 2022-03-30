@@ -7,7 +7,9 @@ const useStyles = createStyles((theme, _params, getRef) => {
 		},
 
 		inputInner: {
-			padding: `${theme.spacing.lg}px`,
+			// minHeight: 'auto',
+			// height: 'auto',
+			maxHeight: '100%',
 
 			'&:focus, &:focus-within': {
 				borderColor: 'transparent !important'

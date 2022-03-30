@@ -5,14 +5,14 @@ import { iChannel, iMessage } from '../../types';
 export const ActiveChannelState = atom<iChannel>({
 	key: 'ActiveChannel',
 	default: {
-		id: '1',
-		members: [],
-		messages: [],
-		type: 'user',
-		name: 'none',
-		description: '',
 		created: Date.now(),
 		updated: Date.now(),
+		description: '',
+		label: 'none',
+		messages: [],
+		type: 'user',
+		members: [],
+		id: '-1',
 	},
 });
 
@@ -24,6 +24,7 @@ export const MessageListState = atom<iMessage[]>({
 // Functions =================================================================//
 export function usePushMessage() {
 	const messagelist = useRecoilValue(MessageListState);
+	const activeChannel = useRecoilValue(ActiveChannelState);
 	const setMessageList = useSetRecoilState(MessageListState);
 	const setActiveChannel = useSetRecoilState(ActiveChannelState);
 
@@ -33,11 +34,11 @@ export function usePushMessage() {
 
 		setMessageList((oldMessageList) => (
 			[...oldMessageList, {
+				channelId: activeChannel.id,
 				id: Date.now().toString(),
-				channelId: '1',
-				userId: '1',
-				content: content,
 				created: Date.now(),
+				content: content,
+				userId: 'User',
 			}]
 		));
 
