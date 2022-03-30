@@ -2,9 +2,10 @@ import { User, Users } from 'tabler-icons-react';
 import { iChannel } from '../../types';
 
 export async function getChannels() {
-	const channels = fetch('/json/channels.json')
+	const channels = fetch('https://api.npoint.io/b9709844c16d16fbd3bc')
 		.then(res => res.json())
 		.then(json => {
+			console.log(json);
 			const parsedJson = json;
 			parsedJson.USERS.forEach((user: iChannel) => { Object.assign(user, { icon: User }); });
 			parsedJson.TEAMS.forEach((team: iChannel) => { Object.assign(team, { icon: Users }); });

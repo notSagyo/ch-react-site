@@ -35,14 +35,14 @@ function Sidenav({
 	const { classes, cx } = useStyles();
 
 	useEffect(() => {
-		if (Object.keys(tabs).length > 0) {
-			setSection(Object.keys(tabs)[0]);
+		if (Object.keys(tabs).length > 1) {
+			setSection(Object.keys(tabs)[1]);
 
 			setSegments(Object.keys(tabs).map((tabName) => ({
 				label: tabName, value: tabName
 			})));
 
-			setLinks(tabs[Object.keys(tabs)[0]].map((item, index) => (
+			setLinks(tabs[Object.keys(tabs)[1]].map((item, index) => (
 				<SidenavLink
 					{...item}
 					key={index}
