@@ -1,7 +1,21 @@
 import { atom, useRecoilValue, useSetRecoilState } from 'recoil';
-import { iChannel, iMessage } from '../../types';
+import { iChannel, iMessage, IUser } from '../../types';
+import usersJSON from '../../json/users.json';
 
 // Recoil declarations =======================================================//
+export const CurrentUserState = atom<IUser>({
+	key: 'CurrentUser',
+	default: {
+		created: Date.now(),
+		email: '',
+		id: '-1',
+		avatarURL: '',
+		name: '',
+		occupation: 'Frontend Deloper: JS / React',
+		bannerURL: 'https://picsum.photos/600/300',
+	},
+});
+
 export const ActiveChannelState = atom<iChannel>({
 	key: 'ActiveChannel',
 	default: {
@@ -47,4 +61,9 @@ export function usePushMessage() {
 			messages: messagelist
 		}));
 	};
+}
+
+export function getUser(id: string): IUser | undefined {
+	const user = usersJSON.find(user => user.id == id);
+	return user;
 }

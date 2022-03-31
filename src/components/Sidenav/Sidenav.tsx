@@ -1,57 +1,22 @@
-import React, { useEffect, useState } from 'react';
-import { Navbar, Group, SegmentedControl, Box, ScrollArea, SegmentedControlItem } from '@mantine/core';
+import React, {  } from 'react';
+import { Navbar, Group, ScrollArea } from '@mantine/core';
 import useStyles from './Sidenav.styles';
-import SidenavLink, { SidenavLinkProps } from './SidenavLink';
 import { DivProps } from '../../utils';
 
-export type SidenavPropsTabs = { [tabName: string]: SidenavLinkProps[] }
-
 export type SidenavProps = DivProps & {
-	tabs: SidenavPropsTabs,
-	color?: string,
-	defaultLink?: string,
-	defaultSection?: string,
-	footer?: React.ReactNode,
 	header?: React.ReactNode,
-	onLinkClick?: (link: SidenavLinkProps) => void;
-	preventSelect?: boolean,
+	subheader?: React.ReactNode,
+	footer?: React.ReactNode,
 };
 
 function Sidenav({
-	tabs,
-	color,
 	footer,
 	header,
-	defaultLink,
-	onLinkClick,
-	preventSelect,
-	defaultSection = Object.keys(tabs)[0],
+	subheader,
+	children,
 	...props
 }: SidenavProps) {
-	const [activeLink] = useState(defaultLink);
-	const [segments, setSegments] = useState<SegmentedControlItem[]>([]);
-	const [links, setLinks] = useState<JSX.Element[]>([<></>]);
-	const [section, setSection] = useState(defaultSection);
 	const { classes, cx } = useStyles();
-
-	useEffect(() => {
-		if (Object.keys(tabs).length > 1) {
-			setSection(Object.keys(tabs)[1]);
-
-			setSegments(Object.keys(tabs).map((tabName) => ({
-				label: tabName, value: tabName
-			})));
-
-			setLinks(tabs[Object.keys(tabs)[1]].map((item, index) => (
-				<SidenavLink
-					{...item}
-					key={index}
-					activeLink={activeLink}
-					icon={item.icon}
-				/>
-			)));
-		}
-	}, [tabs]);
 
 	return (
 		<Navbar {...props} className={cx(classes.navbar, props.className)}>
@@ -59,26 +24,9 @@ function Sidenav({
 				{header && (
 					<Group className={classes.header} position="apart"> {header} </Group>
 				)}
-
-				{/* TAB CONTROLS =================================================== */}
-				{segments.length > 1 && (
-					<Box className={classes.controls}>
-						<SegmentedControl
-							classNames={{
-								label: classes.controlsLabel,
-								active: classes.controlsActive
-							}}
-							transitionTimingFunction="ease"
-							onChange={setSection}
-							value={section}
-							data={segments}
-							fullWidth
-						/>
-					</Box>
-				)}
+				{subheader}
 			</Navbar.Section>
 
-			{/* LINKS ============================================================ */}
 			<Navbar.Section
 				classNames={{scrollbar: classes.scrollbar}}
 				className={classes.scrollArea}
@@ -86,7 +34,7 @@ function Sidenav({
 				scrollbarSize={5}
 				grow
 			>
-				<div className={classes.links}> {links} </div>
+				{ children }
 			</Navbar.Section>
 
 			{/* FOOTER =========================================================== */}

@@ -5,7 +5,6 @@ import ChannelsBar from '../../components/ChannelsBar/ChannelsBar';
 import useStyles from './Chat.styles';
 
 // TODO: Participants sidebar
-// TODO: Replace states call stack with context variables
 function Chat() {
 	const { classes } = useStyles();
 
