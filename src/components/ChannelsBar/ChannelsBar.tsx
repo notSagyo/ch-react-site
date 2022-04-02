@@ -6,7 +6,6 @@ import { iSidebarChannel } from '../../types';
 import { DivProps } from '../../utils';
 import { getChannels } from '../Channel/ChannelHelper';
 import Sidenav from '../Sidenav/Sidenav';
-import SidenavLink from '../Sidenav/SidenavLink';
 import useStyles from './ChannelsBar.styles';
 import ChannelsBarLink from './ChannelsBarLink';
 

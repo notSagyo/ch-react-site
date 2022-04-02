@@ -1,20 +1,31 @@
-import { Card, Avatar, Text, Group, Button } from '@mantine/core';
+import { Card, Avatar, Text, Group, Button, Popover } from '@mantine/core';
+import { useWindowEvent } from '@mantine/hooks';
+import React, { useState } from 'react';
 import { DivProps } from '../../utils';
 import { useStyles } from './UserCard.styles';
 
 export interface UserCardProps extends DivProps {
-	banner: string;
-	avatar: string;
-	name: string;
-	occupation: string;
-	stats: { label: string; value: string }[];
-	innerRef?: React.Ref<HTMLDivElement>;
+	parent: JSX.Element;
+	avatar?: string;
+	banner?: string;
+	name?: string;
+	occupation?: string;
+	stats?: { label: string; value: string }[];
 }
 
-export function UserCard({ banner, avatar, name, occupation, stats, innerRef, ...props }: UserCardProps) {
+function UserCard({ avatar, banner, name, occupation, stats, parent, ...props }: UserCardProps)
+{
 	const { classes, theme, cx } = useStyles();
+	const [opened, setOpened] = useState(false);
+	useWindowEvent('wheel', () => setOpened(false));
 
-	const items = stats.map((stat) => (
+	function handleContextMenu(e: React.MouseEvent<HTMLDivElement>) {
+		e.preventDefault();
+		e.stopPropagation();
+		setOpened(true);
+	}
+
+	const statElements = stats && stats.map((stat) => (
 		<div key={stat.label}>
 			<Text align="center" size="lg" weight={500}>
 				{stat.value}
@@ -26,34 +37,42 @@ export function UserCard({ banner, avatar, name, occupation, stats, innerRef, ..
 	));
 
 	return (
-		<Card
-			{...props}
-			withBorder
-			p="xl"
-			radius="md"
-			className={cx(classes.card, props.className)}
-			ref={innerRef}
+		<Popover
+			opened={opened}
+			target={<div onContextMenu={handleContextMenu}>{parent}</div>}
+			position='right'
+			placement='end'
+			styles={{
+				inner: {padding: 0},
+				body: {border: 'none'},
+				root: {display: 'block'}
+			}}
+			onClose={() => setOpened(false)}
 		>
-			<Card.Section sx={{ backgroundImage: `url(${banner})`, height: 140 }} />
-			<Avatar src={avatar} size={80} radius={80} mx="auto" mt={-30} className={classes.avatar} />
-			<Text align="center" size="lg" weight={500} mt="sm">
-				{name}
-			</Text>
-			<Text align="center" size="sm" color="dimmed">
-				{occupation}
-			</Text>
-			<Group mt="md" position="center" spacing={30}>
-				{items}
-			</Group>
-			<Button
-				fullWidth
+			<Card
+				{...props}
+				withBorder
+				p="xl"
 				radius="md"
-				mt="xl"
-				size="md"
-				color={theme.colorScheme === 'dark' ? undefined : 'dark'}
+				className={cx(classes.card, props.className)}
 			>
-        Send message
-			</Button>
-		</Card>
+				<Card.Section sx={{ backgroundImage: `url(${banner})`, height: 140 }} />
+				<Avatar src={avatar} size={80} radius={80} mx="auto" mt={-30} className={classes.avatar} />
+				<Text align="center" size="lg" weight={500} mt="sm"> {name} </Text>
+				<Text align="center" size="sm" color="dimmed"> {occupation} </Text>
+				<Group mt="md" position="center" spacing={30}> {statElements} </Group>
+				<Button
+					fullWidth
+					radius="md"
+					mt="xl"
+					size="md"
+					color={theme.colorScheme === 'dark' ? undefined : 'dark'}
+				>
+					Send message
+				</Button>
+			</Card>
+		</Popover>
 	);
 }
+
+export default UserCard;

@@ -16,7 +16,7 @@ const useStyles = createStyles((theme, _params, getRef) => {
 
 		body: {
 			height: 0,
-			flexGrow: 1
+			flexGrow: 1,
 		},
 
 		main: {
