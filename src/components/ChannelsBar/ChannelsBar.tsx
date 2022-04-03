@@ -1,23 +1,25 @@
-import { Box, Group, SegmentedControl, SegmentedControlItem } from '@mantine/core';
-import React from 'react';
-import { useEffect, useState } from 'react';
+import { Group, SegmentedControl, SegmentedControlItem } from '@mantine/core';
+import React, { useEffect, useState } from 'react';
 import { Messages } from 'tabler-icons-react';
+import { useRecoilState } from 'recoil';
+import { ActiveChannelState } from '../../pages/Chat/ChatHelper';
+import { getChannels } from '../Channel/ChannelHelper';
 import { iSidebarChannel } from '../../types';
 import { DivProps } from '../../utils';
-import { getChannels } from '../Channel/ChannelHelper';
-import Sidenav from '../Sidenav/Sidenav';
-import useStyles from './ChannelsBar.styles';
 import ChannelsBarLink from './ChannelsBarLink';
+import useStyles from './ChannelsBar.styles';
+import Sidenav from '../Sidenav/Sidenav';
 
 function ChannelsBar(props: DivProps) {
-	const { classes, cx } = useStyles();
 	const [channels, setChannels] = useState<{[key: string]: iSidebarChannel[]}>({});
-
-	const [activeLink] = useState('');
-	const [segments, setSegments] = useState<SegmentedControlItem[]>([]);
 	const [links, setLinks] = useState<JSX.Element[]>([<React.Fragment key={''}/>]);
+	const [segments, setSegments] = useState<SegmentedControlItem[]>([]);
 	const [section, setSection] = useState('');
 
+	const [, setActiveChannel] = useRecoilState(ActiveChannelState);
+	const { classes, cx } = useStyles();
+
+	// Fetch channels
 	useEffect(() => {
 		setTimeout(() => {
 			getChannels().then(response => {
@@ -26,6 +28,7 @@ function ChannelsBar(props: DivProps) {
 		}, 2000);
 	}, []);
 
+	// Create segments
 	useEffect(() => {
 		const tabKeys = Object.keys(channels);
 		if (tabKeys.length < 1)
@@ -37,14 +40,16 @@ function ChannelsBar(props: DivProps) {
 		setSection(tabKeys[0]);
 	}, [channels]);
 
+	// Populate bar with channels' links
 	useEffect(() => {
-		section && setLinks(channels[section].map((item, index) => (
+		section && setLinks(channels[section].map((channel, index) => (
 			<ChannelsBarLink
-				{...item}
+				{...channel}
 				key={index}
-				activeLink={activeLink}
-				icon={item.icon}
-				membersId={item.members}
+				linkId={channel.id}
+				icon={channel.icon}
+				membersId={channel.members}
+				onClick={() => setActiveChannel(channel)}
 			/>
 		)));
 	}, [section]);
@@ -55,19 +60,18 @@ function ChannelsBar(props: DivProps) {
 			className={cx(classes.sidenav, props.className)}
 			header={<Group><Messages/>Inbox</Group>}
 			subheader={segments.length > 1 && (
-				<Box className={classes.controls}>
-					<SegmentedControl
-						classNames={{
-							label: classes.controlsLabel,
-							active: classes.controlsActive
-						}}
-						transitionTimingFunction="ease"
-						onChange={setSection}
-						value={section}
-						data={segments}
-						fullWidth
-					/>
-				</Box>
+				<SegmentedControl
+					className={classes.controls}
+					classNames={{
+						label: classes.controlsLabel,
+						active: classes.controlsActive
+					}}
+					transitionTimingFunction="ease"
+					onChange={setSection}
+					value={section}
+					data={segments}
+					fullWidth
+				/>
 			)}
 		>
 			<div className={classes.links}> {links} </div>

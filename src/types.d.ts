@@ -10,16 +10,6 @@ export interface IUser {
 	bannerURL: string,
 }
 
-export interface iChatContext {
-	activeChannel: iChannel,
-	setActiveChannel: (channel: iChannel) => void,
-	getChannelById: (id: string) => iChannel,
-	createChannel: (channel: iChannel) => iChannel,
-	updateChannel: (channel: iChannel) => iChannel,
-	getMessages: (channelId: string) => iMessage[],
-	pushMessage: (message: iMessage, channel: iChannel) => iMessage
-}
-
 export interface iChannel {
 	id: string,
 	label: string,
@@ -43,3 +33,14 @@ export interface iSidebarChannel extends iChannel {
 	icon: Icon,
 	avatarURL?: string
 }
+
+// XXX: Unused
+// export interface iChatContext {
+// 	activeChannel: iChannel,
+// 	setActiveChannel: (channel: iChannel) => void,
+// 	getChannelById: (id: string) => iChannel,
+// 	createChannel: (channel: iChannel) => iChannel,
+// 	updateChannel: (channel: iChannel) => iChannel,
+// 	getMessages: (channelId: string) => iMessage[],
+// 	pushMessage: (message: iMessage, channel: iChannel) => iMessage
+// }
