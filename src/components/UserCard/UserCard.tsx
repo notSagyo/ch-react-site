@@ -13,6 +13,7 @@ export interface UserCardProps extends DivProps {
 	stats?: { label: string; value: string }[];
 }
 
+// TODO: add support for team channels
 function UserCard({ avatar, banner, name, occupation, stats, parent, ...props }: UserCardProps)
 {
 	const { classes, theme, cx } = useStyles();

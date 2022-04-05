@@ -1,7 +1,6 @@
 import { Menu, Anchor } from '@mantine/core';
 import styles from './DropdownItem.module.scss';
 
-// Bruh, lo que costó este component, TypeScript te odio :(
 type Props = {
 	title: string,
 	items: {
