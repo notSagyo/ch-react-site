@@ -1,5 +1,6 @@
 import { useRecoilState } from 'recoil';
 import { ActiveChannelState, getUser } from '../../pages/Chat/ChatHelper';
+import { CHANNEL_URL } from '../../utils';
 import SidenavLink, { SidenavLinkProps } from '../Sidenav/SidenavLink';
 import UserCard from '../UserCard/UserCard';
 
@@ -15,7 +16,7 @@ function ChannelsBarLink({membersId, ...props}: ChannelBarLinkProps) {
 	return (
 		<>
 			<UserCard
-				parent={<SidenavLink {...props} activeLink={activeChannel.id}/>}
+				parent={<SidenavLink {...props} activeLink={activeChannel.id} link={`../${CHANNEL_URL}/${user && user.id}`}/>}
 				avatar={user?.avatarURL}
 				banner={user?.bannerURL}
 				name={user?.name}
