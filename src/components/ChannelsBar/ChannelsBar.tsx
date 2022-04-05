@@ -1,8 +1,7 @@
 import { Group, SegmentedControl, SegmentedControlItem } from '@mantine/core';
 import React, { useEffect, useState } from 'react';
 import { Messages } from 'tabler-icons-react';
-import { useRecoilState } from 'recoil';
-import { ActiveChannelState } from '../../pages/Chat/ChatHelper';
+import { useChangeChannel } from '../../pages/Chat/ChatHelper';
 import { getChannels } from '../Channel/ChannelHelper';
 import { iSidebarChannel } from '../../types';
 import { DivProps } from '../../utils';
@@ -16,7 +15,7 @@ function ChannelsBar(props: DivProps) {
 	const [segments, setSegments] = useState<SegmentedControlItem[]>([]);
 	const [section, setSection] = useState('');
 
-	const [, setActiveChannel] = useRecoilState(ActiveChannelState);
+	const changeChannel = useChangeChannel();
 	const { classes, cx } = useStyles();
 
 	// Fetch channels
@@ -49,7 +48,7 @@ function ChannelsBar(props: DivProps) {
 				linkId={channel.id}
 				icon={channel.icon}
 				membersId={channel.members}
-				onClick={() => setActiveChannel(channel)}
+				onClick={() => changeChannel(channel.id)}
 			/>
 		)));
 	}, [section]);

@@ -12,6 +12,19 @@ export async function getChannels() {
 	return channels;
 }
 
+export async function getChannel(id: string) {
+	const channels = await getChannels();
+	let channel: iChannel | undefined;
+	for (const key in channels) {
+		const prop = channels[key];
+		if (Array.isArray(prop))
+			channel = prop.find((channel: iChannel) => channel?.id == id);
+		if (channel)
+			break;
+	}
+	return channel;
+}
+
 export function createChannel({
 	label,
 	type,

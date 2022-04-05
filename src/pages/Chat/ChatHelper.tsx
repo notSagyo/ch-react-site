@@ -1,6 +1,8 @@
-import { atom, useRecoilValue, useSetRecoilState } from 'recoil';
-import { iChannel, iMessage, IUser } from '../../types';
+import { atom, useRecoilState, useSetRecoilState } from 'recoil';
+import { iChannel, IUser } from '../../types';
 import usersJSON from '../../json/users.json';
+import { getChannel } from '../../components/Channel/ChannelHelper';
+import { isEmptyObject } from '../../utils';
 
 // Recoil declarations =======================================================//
 export const CurrentUserState = atom<IUser>({
@@ -28,41 +30,57 @@ export const ActiveChannelState = atom<iChannel>({
 		members: [],
 		id: '-1',
 	},
-});
-
-export const MessageListState = atom<iMessage[]>({
-	key: 'MessageList',
-	default: [],
+	effects: [
+		({onSet}) => {
+			onSet(newValue => {
+				localStorage.setItem(newValue.id, JSON.stringify(newValue));
+			});
+		},
+	],
 });
 
 // Functions =================================================================//
+// Messages ==================================================================//
 export function usePushMessage() {
-	const messagelist = useRecoilValue(MessageListState);
-	const activeChannel = useRecoilValue(ActiveChannelState);
-	const setMessageList = useSetRecoilState(MessageListState);
-	const setActiveChannel = useSetRecoilState(ActiveChannelState);
+	const [activeChannel, setActiveChannel] = useRecoilState(ActiveChannelState);
 
 	return function(content: string) {
 		if (!content)
 			return;
 
-		setMessageList((oldMessageList) => (
-			[...oldMessageList, {
-				channelId: activeChannel.id,
-				id: Date.now().toString(),
-				created: Date.now(),
-				content: content,
-				userId: 'User',
-			}]
-		));
+		const newMessage = {
+			channelId: activeChannel.id,
+			id: Date.now().toString(),
+			created: Date.now(),
+			content: content,
+			userId: 'User',
+		};
 
-		setActiveChannel(oldActiveChannel => ({
-			...oldActiveChannel,
-			messages: messagelist
+		setActiveChannel(oldActiveChannel => ({ ...oldActiveChannel,
+			messages: [...oldActiveChannel.messages, newMessage]
 		}));
 	};
 }
 
+// Channels ==================================================================//
+export function useChangeChannel() {
+	const setActiveChannel = useSetRecoilState(ActiveChannelState);
+
+	return async function(channelId: string) {
+		const channel = await getChannel(channelId);
+		if (channel) {
+			setActiveChannel(channel);
+
+			// !XXX: ONLY needed while using local storage AND JSON. NOT A DATABASE.
+			const channelFromStorage = JSON.parse(localStorage.getItem(channelId) || '{}');
+			if (!isEmptyObject(channelFromStorage)) {
+				setActiveChannel(channelFromStorage);
+			}
+		}
+	};
+}
+
+// Users =====================================================================//
 export function getUser(id: string): IUser | undefined {
 	const user = usersJSON.find(user => user.id == id);
 	return user;

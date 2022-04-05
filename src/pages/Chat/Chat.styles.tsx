@@ -1,6 +1,6 @@
 import { createStyles } from '@mantine/core';
 
-const useStyles = createStyles((theme, _params, getRef) => {
+const useStyles = createStyles((theme) => {
 	const darkMode = theme.colorScheme === 'dark' ? true : false;
 
 	return {
