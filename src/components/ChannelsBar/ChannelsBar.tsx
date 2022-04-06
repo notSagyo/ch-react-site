@@ -1,7 +1,6 @@
 import { Group, SegmentedControl, SegmentedControlItem } from '@mantine/core';
 import React, { useEffect, useState } from 'react';
 import { Messages } from 'tabler-icons-react';
-import { useChangeChannel } from '../../pages/Chat/ChatHelper';
 import { getChannels } from '../Channel/ChannelHelper';
 import { iSidebarChannel } from '../../types';
 import { DivProps } from '../../utils';
@@ -14,17 +13,11 @@ function ChannelsBar(props: DivProps) {
 	const [links, setLinks] = useState<JSX.Element[]>([<React.Fragment key={''}/>]);
 	const [segments, setSegments] = useState<SegmentedControlItem[]>([]);
 	const [section, setSection] = useState('');
-
-	const changeChannel = useChangeChannel();
 	const { classes, cx } = useStyles();
 
 	// Fetch channels
 	useEffect(() => {
-		setTimeout(() => {
-			getChannels().then(response => {
-				setChannels(response);
-			});
-		}, 2000);
+		getChannels().then(response => setChannels(response));
 	}, []);
 
 	// Create segments
