@@ -13,7 +13,6 @@ interface Props {
 	className?: string
 }
 
-// !TODO: Add home button while not in homepage
 function Navbar({logo, className}: Props) {
 	const [isOpen, setOpened] = useState(false);
 	const [      , setScrollLocked] = useScrollLock();
