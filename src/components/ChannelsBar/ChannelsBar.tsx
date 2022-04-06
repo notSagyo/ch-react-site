@@ -48,7 +48,6 @@ function ChannelsBar(props: DivProps) {
 				linkId={channel.id}
 				icon={channel.icon}
 				membersId={channel.members}
-				onClick={() => changeChannel(channel.id)}
 			/>
 		)));
 	}, [section]);

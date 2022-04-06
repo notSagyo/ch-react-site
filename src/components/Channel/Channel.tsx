@@ -2,7 +2,7 @@ import { Group } from '@mantine/core';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { useSetRecoilState } from 'recoil';
-import { ActiveChannelState } from '../../pages/Chat/ChatHelper';
+import { ActiveChannelState, useChangeChannel } from '../../pages/Chat/ChatHelper';
 import { DivProps } from '../../utils';
 import MessageBar from '../MessageBar/MessageBar';
 import MessagesWindow from '../MessagesWindow/MessagesWindow';
@@ -11,13 +11,11 @@ import { getChannel } from './ChannelHelper';
 
 function Channel(props: DivProps) {
 	const { classes, cx } = useStyles();
-	const setCurrentChannel = useSetRecoilState(ActiveChannelState);
+	const changeChannel = useChangeChannel();
 	const { id } = useParams();
 
 	useEffect(() => {
-		id && getChannel(id)
-			.then(channel => channel && setCurrentChannel(channel));
-		console.log('Channel:', id);
+		id && changeChannel(id);
 	}, [id]);
 
 	return (
@@ -26,7 +24,7 @@ function Channel(props: DivProps) {
 				classNames={{root: classes.scrollRoot}}
 				className={classes.messagesWindow}
 			/>
-			<MessageBar  />
+			<MessageBar />
 		</Group>
 	);
 }
