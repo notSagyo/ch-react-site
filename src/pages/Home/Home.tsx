@@ -5,16 +5,25 @@ import Footer from '../../components/Footer/Footer';
 import Landing from '../Landing/Landing';
 import Pricing from '../Pricing/Pricing';
 import styles from './Home.module.scss';
-import { Route, Routes } from 'react-router-dom';
+import { Link, Route, Routes, useLocation } from 'react-router-dom';
+import { BASE_URL } from '../../utils';
 
 function Home() {
+	// !HACK: make this routing more elegant
+	const currentURL = useLocation();
+
 	const logo = (
-		<Anchor
-			className={cn('hide-sm-up', styles.logo)}
-			color={''}
-			variant='gradient'
-			gradient={{from: 'primary', to: 'pink', deg: 135}}
-		>portfol.io</Anchor>
+		<Link to={`../${BASE_URL}`} >
+			<Anchor
+				className={styles.logo}
+				style={{visibility:
+					(currentURL.pathname == `/${BASE_URL}`) ||
+					(currentURL.pathname == `/${BASE_URL}/`) ? 'hidden' : 'visible'}}
+				color={''}
+				variant='gradient'
+				gradient={{from: 'primary', to: 'pink', deg: 135}}
+			>portfol.io</Anchor>
+		</Link>
 	);
 
 	return (
