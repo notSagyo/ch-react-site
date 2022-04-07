@@ -5,7 +5,7 @@ import { ActiveChannelState } from '../../pages/Chat/ChatHelper';
 import Message from '../Message/Message';
 import useStyles from './MessagesWindow.styles';
 
-function MessagesWindow(props: ScrollAreaProps) {
+function MessagesWindow({children, ...props}: ScrollAreaProps) {
 	const [activeChannel] = useRecoilState(ActiveChannelState);
 	const viewportRef = useRef<HTMLDivElement>(null);
 	const { classes } = useStyles();
@@ -24,6 +24,7 @@ function MessagesWindow(props: ScrollAreaProps) {
 			viewportRef={viewportRef}
 			classNames={{ viewport: classes.viewport }}
 		>
+			{children}
 			<ol className={classes.messages}>{
 				messages.length > 0
 					? messages

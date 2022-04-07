@@ -1,7 +1,7 @@
 import { Icon } from 'tabler-icons-react';
 
 export interface IUser {
-	id: string,
+	id: number,
 	name: string,
 	occupation: string,
 	email: string,
@@ -14,7 +14,7 @@ export interface iChannel {
 	id: string,
 	label: string,
 	description: string,
-	members: string[],
+	members: number[],
 	messages: iMessage[],
 	created: number,
 	updated: number,

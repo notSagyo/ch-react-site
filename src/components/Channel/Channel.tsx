@@ -1,5 +1,5 @@
-import { Group } from '@mantine/core';
-import { useEffect } from 'react';
+import { Group, LoadingOverlay } from '@mantine/core';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useChangeChannel } from '../../pages/Chat/ChatHelper';
 import { DivProps } from '../../utils';
@@ -8,19 +8,24 @@ import MessagesWindow from '../MessagesWindow/MessagesWindow';
 import useStyles from './Channel.styles';
 
 function Channel(props: DivProps) {
-	const { classes, cx } = useStyles();
+	const [loading, setLoading] = useState(true);
 	const changeChannel = useChangeChannel();
+	const { classes, cx } = useStyles();
 	const { id } = useParams();
 
 	useEffect(() => {
-		id && changeChannel(id);
+		if (id) {
+			setLoading(true);
+			changeChannel(id).then(() => setLoading(false));
+		}
 	}, [id]);
 
 	return (
 		<Group {...props} className={cx(classes.channel, props.className)}>
 			<MessagesWindow
-				classNames={{root: classes.scrollRoot}}
 				className={classes.messagesWindow}
+				classNames={{root: classes.scrollRoot}}
+				children={<LoadingOverlay visible={loading} radius='sm'/>}
 			/>
 			<MessageBar />
 		</Group>

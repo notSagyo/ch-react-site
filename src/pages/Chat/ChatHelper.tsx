@@ -10,7 +10,7 @@ export const CurrentUserState = atom<IUser>({
 	default: {
 		created: Date.now(),
 		email: '',
-		id: '-1',
+		id: -10,
 		avatarURL: '',
 		name: '',
 		occupation: 'Frontend Deloper: JS / React',
@@ -81,7 +81,7 @@ export function useChangeChannel() {
 }
 
 // Users =====================================================================//
-export function getUser(id: string): IUser | undefined {
-	const user = usersJSON.find(user => user.id == id);
+export function getUser(id: number): IUser | undefined {
+	const user = usersJSON.find(user => user.id === id);
 	return user;
 }
