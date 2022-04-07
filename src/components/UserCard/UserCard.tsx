@@ -1,11 +1,13 @@
 import { Card, Avatar, Text, Group, Button, Popover } from '@mantine/core';
 import { useWindowEvent } from '@mantine/hooks';
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { DivProps } from '../../utils';
 import { useStyles } from './UserCard.styles';
 
 export interface UserCardProps extends DivProps {
 	parent: JSX.Element;
+	link?: string;
 	avatar?: string;
 	banner?: string;
 	name?: string;
@@ -14,7 +16,7 @@ export interface UserCardProps extends DivProps {
 }
 
 // TODO: add support for team channels
-function UserCard({ avatar, banner, name, occupation, stats, parent, ...props }: UserCardProps)
+function UserCard({ avatar, banner, name, occupation, stats, parent, link, ...props }: UserCardProps)
 {
 	const { classes, theme, cx } = useStyles();
 	const [opened, setOpened] = useState(false);
@@ -62,15 +64,18 @@ function UserCard({ avatar, banner, name, occupation, stats, parent, ...props }:
 				<Text align="center" size="lg" weight={500} mt="sm"> {name} </Text>
 				<Text align="center" size="sm" color="dimmed"> {occupation} </Text>
 				<Group mt="md" position="center" spacing={30}> {statElements} </Group>
-				<Button
-					fullWidth
-					radius="md"
-					mt="xl"
-					size="md"
-					color={theme.colorScheme === 'dark' ? undefined : 'dark'}
-				>
+				<Link to={`${link}`}>
+					<Button
+						fullWidth
+						radius="md"
+						mt="xl"
+						size="md"
+						color={theme.colorScheme === 'dark' ? undefined : 'dark'}
+						onClick={() => setOpened(false)}
+					>
 					Send message
-				</Button>
+					</Button>
+				</Link>
 			</Card>
 		</Popover>
 	);

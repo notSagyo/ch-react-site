@@ -17,16 +17,19 @@ function ChannelsBarLink({membersId, ...props}: ChannelBarLinkProps) {
 	const remoteUserId = membersId.find(id => id !== localUser.id) ?? localUser.id;
 	const remoteUser = getUser(remoteUserId);
 
+	const link = `../${CHANNEL_URL}/${remoteUser && remoteUser.id}`;
+
 	return (
 		<>
 			<UserCard
 				parent={<SidenavLink
 					{...props}
 					activeLink={activeChannel.id}
-					link={`../${CHANNEL_URL}/${remoteUser && remoteUser.id}`}
+					link={link}
 				/>}
 				avatar={remoteUser?.avatarURL}
 				banner={remoteUser?.bannerURL}
+				link={link}
 				name={remoteUser?.name}
 				occupation={remoteUser?.occupation }
 			/>
