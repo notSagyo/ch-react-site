@@ -1,9 +1,10 @@
-import { useEffect,  useRef, useState } from 'react';
-import { ActionIcon, Button, Card, CardProps, Divider, Group, NumberInput, NumberInputHandlers, Text } from '@mantine/core';
+import { useState } from 'react';
+import { Card, CardProps, Divider, Group, Text } from '@mantine/core';
 import cn from 'classnames/bind';
 import styles from './PricingCard.module.scss';
 import { DivProps } from '../../utils';
 import { Check } from 'tabler-icons-react';
+import PricingCardInput from './PricingCardInput';
 
 type Props =
 	& Partial<CardProps<'div'>>
@@ -22,26 +23,18 @@ function PricingCard({
 	cardPrice,
 	...props}: Props)
 {
-	const [quantity, setQuantity] = useState(1);
-	const [timeInterval, setTimeInterval] = useState<'month' | 'year'>('month');
-	const handlers = useRef<NumberInputHandlers>();
+	const [quantity, setQuantity] = useState<number>(1);
+
+	function onChange(qty: number) {
+		console.log('Quantity changed!');
+		setQuantity(qty);
+	}
 
 	const features = cardFeatures.map((feat, index) =>
 		<Text className={styles.feature} key={index}>
 			<Check color='lightgreen'/>{feat}
 		</Text>
 	);
-
-	useEffect(() => {
-		if (quantity >= 12) {
-			setTimeInterval('year');
-			timeInterval === 'month' && setQuantity(1);
-		}
-		else if (quantity == 0 && timeInterval === 'year') {
-			setTimeInterval('month');
-			setQuantity(11);
-		}
-	}, [quantity]);
 
 	return (
 		<Card {...props} className={cn(props.className, styles.card)}>
@@ -58,40 +51,19 @@ function PricingCard({
 				<Text className={styles.price}>
 					{cardPrice > 0 ?
 						<>
-							{'$' + (timeInterval === 'month' ? cardPrice : cardPrice * 12)}
-							<Text className={styles.priceInterval} component='span'> /{timeInterval}</Text>
+							${(cardPrice * quantity).toFixed(2)}
+							<Text className={styles.priceMuted} component='span'> (${cardPrice}/month)</Text>
 						</> : ''
 					}
 				</Text>
 
-				{/* ?TODO: Improve controls style */}
 				{cardPrice > 0 && (
 					<Group>
-						<Group>
-							<ActionIcon
-								size={36}
-								variant="default"
-								onClick={() => handlers.current && handlers.current.decrement()}
-							> – </ActionIcon>
-
-							<NumberInput
-								hideControls
-								value={quantity}
-								onChange={(val: number) => setQuantity(val)}
-								handlersRef={handlers}
-								min={0}
-								step={1}
-								styles={{ input: { width: 54, textAlign: 'center' } }}
-							/>
-
-							<ActionIcon
-								size={36}
-								variant="default"
-								onClick={() => handlers.current && handlers.current.increment()}
-							> + </ActionIcon>
-						</Group>
-
-						<Button>{'Buy now >'}</Button>
+						<PricingCardInput
+							min={1}
+							max={999}
+							onChange={onChange}
+						/>
 					</Group>
 				)}
 			</Group>
