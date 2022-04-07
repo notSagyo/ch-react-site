@@ -17,7 +17,8 @@ function Channel(props: DivProps) {
 		if (id) {
 			setLoading(true);
 			changeChannel(id).then(() => setLoading(false));
-		}
+		} else
+			setLoading(false);
 	}, [id]);
 
 	return (
