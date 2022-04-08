@@ -44,7 +44,7 @@ function UserCard({ avatar, banner, name, occupation, stats, parent, link, ...pr
 			opened={opened}
 			target={<div onContextMenu={handleContextMenu}>{parent}</div>}
 			position='right'
-			placement='end'
+			placement='start'
 			styles={{
 				inner: {padding: 0},
 				body: {border: 'none'},
