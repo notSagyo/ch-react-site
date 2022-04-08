@@ -1,6 +1,6 @@
 import { atom, useRecoilState, useSetRecoilState } from 'recoil';
 import { iChannel, IUser } from '../../types';
-import usersJSON from '../../json/users.json';
+import usersJSON from '../../data/users.json';
 import { getChannel } from '../../components/Channel/ChannelHelper';
 import { isEmptyObject } from '../../utils';
 

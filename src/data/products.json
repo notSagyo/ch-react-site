@@ -1,0 +1,79 @@
+[
+  {
+    "id": 0,
+    "name": "Free",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eu odio congue, egestas est ac, eleifend urna.",
+    "category": "personal",
+    "price": 0,
+    "features": [
+      {
+        "icon": "",
+        "name": "Is free",
+        "description": ""
+      },
+      {
+        "icon": "",
+        "name": "Costs no money",
+        "description": ""
+      },
+      {
+        "icon": "",
+        "name": "Free x 100 = Free",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "id": 1,
+    "name": "Pro",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eu odio congue, egestas est ac, eleifend urna. Aenean scelerisque luctus faucibus.",
+    "category": "personal",
+    "price": 9.99,
+    "features": [
+      {
+        "icon": "",
+        "name": "Has good stuff",
+        "description": ""
+      },
+      {
+        "icon": "",
+        "name": "Stuff is good",
+        "description": ""
+      },
+      {
+        "icon": "",
+        "name": "You're a good person",
+        "description": ""
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "name": "Pro+",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eu odio congue, egestas est ac, eleifend urna. Aenean scelerisque luctus faucibus. Integer rutrum tellus in eros efficitur.",
+    "category": "personal",
+    "price": 19.99,
+    "features": [
+      {
+        "icon": "",
+        "name": "Goated",
+        "description": ""
+      },
+      {
+        "icon": "",
+        "name": "Best stuff no cap",
+        "description": ""
+      },
+      {
+        "icon": "",
+        "name": "Walks your dog",
+        "description": ""
+      },
+      {
+        "icon": "",
+        "name": "Loved by Jennifer Aniston",
+        "description": ""
+      }
+    ]
+  }
+]

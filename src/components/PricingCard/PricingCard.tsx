@@ -5,22 +5,25 @@ import styles from './PricingCard.module.scss';
 import { DivProps } from '../../utils';
 import { Check } from 'tabler-icons-react';
 import PricingCardInput from './PricingCardInput';
+import { iProduct } from '../../types';
 
 type Props =
 	& Partial<CardProps<'div'>>
 	& DivProps
 	& {
-		cardTitle: string,
-		cardDescription: string,
-		cardFeatures: string[],
-		cardPrice: number,
+		product: iProduct,
+		cardTitle?: string,
+		cardDescription?: string,
+		cardFeatures?: string[],
+		cardPrice?: number,
 	}
 
 function PricingCard({
-	cardTitle,
-	cardDescription,
-	cardFeatures,
-	cardPrice,
+	product,
+	cardTitle = product.name,
+	cardDescription = product.description,
+	cardFeatures = product.features.map(feature => feature.name),
+	cardPrice = product.price,
 	...props}: Props)
 {
 	const [quantity, setQuantity] = useState<number>(1);

@@ -29,18 +29,22 @@ export interface iMessage {
 	created: number
 }
 
+export interface iProduct {
+	id: number,
+	name: string,
+	description: string,
+	price: number,
+	category: string,
+	features: iFeature[]
+}
+
+export interface iFeature {
+	icon: Icon | string,
+	name: string,
+	description: string
+}
+
 export interface iSidebarChannel extends iChannel {
 	icon: Icon,
 	avatarURL?: string
 }
-
-// XXX: Unused
-// export interface iChatContext {
-// 	activeChannel: iChannel,
-// 	setActiveChannel: (channel: iChannel) => void,
-// 	getChannelById: (id: string) => iChannel,
-// 	createChannel: (channel: iChannel) => iChannel,
-// 	updateChannel: (channel: iChannel) => iChannel,
-// 	getMessages: (channelId: string) => iMessage[],
-// 	pushMessage: (message: iMessage, channel: iChannel) => iMessage
-// }
