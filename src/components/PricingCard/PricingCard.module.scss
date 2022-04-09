@@ -30,17 +30,9 @@ $border-width: 1px;
 	height: 100%;
 }
 
-.title, .price {
+.title {
 	@extend t, .h4 !optional;
 	color: $light !important;
-}
-
-.price {
-	font-weight: 600;
-}
-
-.priceMuted {
-	@extend base, .muted !optional;
 }
 
 .features {

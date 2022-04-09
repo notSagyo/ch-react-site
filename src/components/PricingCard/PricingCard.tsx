@@ -4,8 +4,9 @@ import cn from 'classnames/bind';
 import styles from './PricingCard.module.scss';
 import { DivProps } from '../../utils';
 import { Check } from 'tabler-icons-react';
-import PricingCardInput from './PricingCardInput';
+import PricingInput from './PricingInput';
 import { iProduct } from '../../types';
+import Pricetag from './Pricetag';
 
 type Props =
 	& Partial<CardProps<'div'>>
@@ -51,21 +52,22 @@ function PricingCard({
 					{features}
 				</Group>
 				<Divider className={styles.divider} />
-				<Text className={styles.price}>
+				<Pricetag price={cardPrice} quantity={quantity}/>
+				{/* <Text className={styles.price}>
 					{cardPrice > 0 ?
 						<>
 							${(cardPrice * quantity).toFixed(2)}
 							<Text className={styles.priceMuted} component='span'> (${cardPrice}/month)</Text>
 						</> : ''
 					}
-				</Text>
+				</Text> */}
 
 				{cardPrice > 0 && (
 					<Group>
-						<PricingCardInput
+						<PricingInput
 							min={1}
 							max={999}
-							onChange={onChange}
+							onValueChange={onChange}
 						/>
 					</Group>
 				)}

@@ -2,27 +2,27 @@ import { ActionIcon, Button, Group, NumberInput, NumberInputHandlers } from '@ma
 import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Minus, Plus } from 'tabler-icons-react';
-import { BASE_URL, CART_URL } from '../../utils';
-import useStyles from './PricingCardInput.styles';
+import { BASE_URL, CART_URL, DivProps } from '../../utils';
+import useStyles from './PricingInput.styles';
 
-interface QuantityInputProps {
+interface QuantityInputProps extends DivProps {
 	min?: number;
 	max?: number;
-	onChange?: (value: number) => void;
+	onValueChange: (value: number) => void;
 }
-function PricingCardInput({
+function PricingInput({
 	min = 0,
 	max = 12,
-	onChange,
+	onValueChange,
 	...props }: QuantityInputProps)
 {
 	const handlers = useRef<NumberInputHandlers>();
 	const numberInput = useRef<HTMLInputElement>(null);
 	const [quantity, setQuantity] = useState(1);
-	const { classes } = useStyles();
+	const { classes, cx } = useStyles();
 
 	return (
-		<Group className={classes.wrapper}>
+		<Group {...props} className={cx(classes.wrapper, props.className)}>
 			<div className={classes.controlWrapper}>
 				<ActionIcon<'button'>
 					size={28}
@@ -43,7 +43,7 @@ function PricingCardInput({
 					value={quantity}
 					ref={numberInput}
 					onChange={(value) => {
-						onChange && value && onChange(value);
+						onValueChange && value && onValueChange(value);
 						value && setQuantity(value);
 					}}
 					classNames={{ input: classes.input }}
@@ -67,4 +67,4 @@ function PricingCardInput({
 	);
 }
 
-export default PricingCardInput;
+export default PricingInput;

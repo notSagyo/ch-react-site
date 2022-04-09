@@ -1,12 +1,13 @@
 import { Link, matchPath, Route, Routes, useLocation } from 'react-router-dom';
 import { Anchor, Container } from '@mantine/core';
-import { BASE_URL } from '../../utils';
+import { BASE_URL, DETAILS_URL } from '../../utils';
 import cn from 'classnames/bind';
 import Navbar from '../../components/Navbar/Navbar';
 import Footer from '../../components/Footer/Footer';
 import Landing from '../Landing/Landing';
 import Pricing from '../Pricing/Pricing';
 import styles from './Home.module.scss';
+import ProductDetails from '../ProductDetails/ProductDetails';
 
 function Home() {
 	const currentURL = useLocation().pathname;
@@ -37,6 +38,7 @@ function Home() {
 					<Routes>
 						<Route path='/' element={<Landing className={styles.mainSection} />} />
 						<Route path='pricing' element={<Pricing className={styles.mainSection} />}/>
+						<Route path={`${DETAILS_URL}/:productId`} element={<ProductDetails />}/>
 					</Routes>
 				</main>
 			</Container>
