@@ -1,4 +1,19 @@
+@use "/src/styles/abstracts" as *;
+
 .pricing {
+	display: flex;
+	gap: 2rem;
+	flex-direction: column;
+}
+
+.categoryTitle {
+	@include mx-auto;
+	@include h2;
+	text-transform: capitalize;
+	border-bottom: 1px solid #eaeaea;
+}
+
+.cardsWrapper {
 	width: 100%;
 	display: flex;
 	gap: 2rem;

@@ -53,15 +53,6 @@ function PricingCard({
 				</Group>
 				<Divider className={styles.divider} />
 				<Pricetag price={cardPrice} quantity={quantity}/>
-				{/* <Text className={styles.price}>
-					{cardPrice > 0 ?
-						<>
-							${(cardPrice * quantity).toFixed(2)}
-							<Text className={styles.priceMuted} component='span'> (${cardPrice}/month)</Text>
-						</> : ''
-					}
-				</Text> */}
-
 				{cardPrice > 0 && (
 					<Group>
 						<PricingInput

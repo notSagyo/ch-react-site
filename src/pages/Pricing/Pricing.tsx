@@ -3,13 +3,32 @@ import PricingCard from '../../components/PricingCard/PricingCard';
 import { DivProps } from '../../utils';
 import styles from './Pricing.module.scss';
 import productsJSON from '../../data/products.json';
+import { Text } from '@mantine/core';
 
 function Pricing(props: DivProps) {
-	const pricingCards = (
-		productsJSON.map((product, index) => (
-			<PricingCard key={index} product={{...product}} />
-		))
-	);
+	const categories: {[key: string]: JSX.Element[]} = {};
+
+	productsJSON.map((product, index) => {
+		!categories[product.category] && (categories[product.category] = []);
+		categories[product.category].push(<PricingCard key={index} product={{...product}} />);
+	});
+
+	const pricingCards = [];
+	for (const category in categories) {
+		pricingCards.push(
+			<>
+				<div className={styles.categoryTitle}>
+					<Text className={styles.categoryTitle}>{category}</Text>
+				</div>
+				<div className={styles.cardsWrapper}>
+					{categories[category]}
+				</div>
+			</>
+		);
+	}
+
+	// XXX:
+	console.log(categories);
 
 
 	return (

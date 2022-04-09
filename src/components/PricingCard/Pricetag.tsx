@@ -7,7 +7,7 @@ interface PricetagProps {
 }
 
 function Pricetag({ price, quantity }: PricetagProps) {
-	const { classes, cx } = useStyles();
+	const { classes } = useStyles();
 
 	return (
 		<Text className={classes.pricetag} weight={600}>
