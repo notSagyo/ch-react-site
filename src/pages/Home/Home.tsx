@@ -38,7 +38,8 @@ function Home() {
 					<Routes>
 						<Route path='/' element={<Landing className={styles.mainSection} />} />
 						<Route path='pricing' element={<Pricing className={styles.mainSection} />}/>
-						<Route path={`${DETAILS_URL}/:productId`} element={<ProductDetails />}/>
+						// !XXX:
+						<Route path={'pricing/:productCategory/details/:productId'} element={<ProductDetails />}/>
 					</Routes>
 				</main>
 			</Container>

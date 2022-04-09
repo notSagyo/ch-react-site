@@ -27,10 +27,6 @@ function Pricing(props: DivProps) {
 		);
 	}
 
-	// XXX:
-	console.log(categories);
-
-
 	return (
 		<section {...props} className={cn(props.className, styles.pricing)}>
 			{pricingCards}

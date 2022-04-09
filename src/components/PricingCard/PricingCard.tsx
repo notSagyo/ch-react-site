@@ -2,11 +2,12 @@ import { useState } from 'react';
 import { Card, CardProps, Divider, Group, Text } from '@mantine/core';
 import cn from 'classnames/bind';
 import styles from './PricingCard.module.scss';
-import { DivProps } from '../../utils';
+import { BASE_URL, DETAILS_URL, DivProps, TO_DETAILS_URL } from '../../utils';
 import { Check } from 'tabler-icons-react';
 import PricingInput from './PricingInput';
 import { iProduct } from '../../types';
 import Pricetag from './Pricetag';
+import { Link, useParams } from 'react-router-dom';
 
 type Props =
 	& Partial<CardProps<'div'>>
@@ -43,7 +44,9 @@ function PricingCard({
 	return (
 		<Card {...props} className={cn(props.className, styles.card)}>
 			<Group className={styles.contentWrapper}>
-				<Text className={styles.title}>{cardTitle}</Text>
+				<Link to={`${TO_DETAILS_URL(product.category, String(product.id))}`}>
+					<Text className={styles.title}>{cardTitle}</Text>
+				</Link>
 				<Divider className={styles.divider} />
 				<Text
 					className={styles.description}
