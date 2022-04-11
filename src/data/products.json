@@ -75,5 +75,82 @@
         "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam a, nihil aut perspiciatis laboriosam numquam?"
       }
     ]
+  },
+  {
+    "id": 3,
+    "name": "Student",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eu odio congue, egestas est ac, eleifend urna.",
+    "category": "education",
+    "price": 0,
+    "features": [
+      {
+        "icon": "",
+        "name": "You're a student",
+        "description": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tempore magni laudantium unde repellendus facilis?"
+      },
+      {
+        "icon": "",
+        "name": "You're a good student",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam a, nihil aut perspiciatis laboriosam numquam?"
+      },
+      {
+        "icon": "",
+        "name": "You study hard (or not)",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis, delectus."
+      }
+    ]
+  },
+  {
+    "id": 4,
+    "name": "Educator",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eu odio congue, egestas est ac, eleifend urna. Aenean scelerisque luctus faucibus.",
+    "category": "education",
+    "price": 0,
+    "features": [
+      {
+        "icon": "",
+        "name": "Pro+ is free for you <3",
+        "description": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tempore magni laudantium unde repellendus facilis?"
+      },
+      {
+        "icon": "",
+        "name": "Because education is",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam a, nihil aut perspiciatis laboriosam numquam?"
+      },
+      {
+        "icon": "",
+        "name": "The pillar of success",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis, delectus."
+      }
+    ]
+  },
+  {
+    "id": 5,
+    "name": "Organization",
+    "description": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eu odio congue, egestas est ac, eleifend urna. Aenean scelerisque luctus faucibus. Integer rutrum tellus in eros efficitur.",
+    "category": "education",
+    "price": 99,
+    "features": [
+      {
+        "icon": "",
+        "name": "Best org ever",
+        "description": "Lorem ipsum dolor, sit amet consectetur adipisicing elit. Tempore magni laudantium unde repellendus facilis?"
+      },
+      {
+        "icon": "",
+        "name": "Pro+ for your org.",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam a, nihil aut perspiciatis laboriosam numquam?"
+      },
+      {
+        "icon": "",
+        "name": "All my homies use portfol.io",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis, delectus."
+      },
+      {
+        "icon": "",
+        "name": "Used in Hogwarts",
+        "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam a, nihil aut perspiciatis laboriosam numquam?"
+      }
+    ]
   }
 ]

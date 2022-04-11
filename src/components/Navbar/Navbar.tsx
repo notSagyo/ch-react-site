@@ -6,7 +6,7 @@ import NotificationTooltip from '../NotificationTooltip/NotificationTooltip';
 import DropdownItem from './DropdownItem';
 import styles from './Navbar.module.scss';
 import { Link } from 'react-router-dom';
-import { BASE_URL } from '../../utils';
+import { BASE_URL, TO_DETAILS_URL } from '../../utils';
 
 interface Props {
 	logo?: ReactNode,
@@ -57,9 +57,9 @@ function Navbar({logo, className}: Props) {
 								<DropdownItem
 									title='Pricing'
 									items={[
-										{content: 'Free', materialIcon: 'favorite'},
-										{content: 'Pro', materialIcon: 'star_rate'},
-										{content: 'Pro+', materialIcon: 'hotel_class'}
+										{content: 'Free', materialIcon: 'favorite', link: `${TO_DETAILS_URL('personal', '0')}`},
+										{content: 'Pro', materialIcon: 'star_rate', link: `${TO_DETAILS_URL('personal', '1')}`},
+										{content: 'Pro+', materialIcon: 'hotel_class', link: `${TO_DETAILS_URL('personal', '2')}`}
 									]}
 								/>
 							</Link>

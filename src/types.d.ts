@@ -1,5 +1,7 @@
 import { Icon } from 'tabler-icons-react';
 
+export type DivProps = React.HTMLAttributes<HTMLDivElement>;
+
 export interface IUser {
 	id: number,
 	name: string,

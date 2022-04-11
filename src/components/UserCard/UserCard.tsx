@@ -1,8 +1,8 @@
 import { Card, Avatar, Text, Group, Button, Popover } from '@mantine/core';
 import { useWindowEvent } from '@mantine/hooks';
+import { DivProps } from '../../types';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { DivProps } from '../../utils';
 import { useStyles } from './UserCard.styles';
 
 export interface UserCardProps extends DivProps {

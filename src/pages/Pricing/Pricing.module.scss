@@ -9,8 +9,9 @@
 .categoryTitle {
 	@include mx-auto;
 	@include h2;
+	font-weight: 400;
 	text-transform: capitalize;
-	border-bottom: 1px solid #eaeaea;
+	margin-top: 1rem;
 }
 
 .cardsWrapper {
@@ -18,4 +19,5 @@
 	display: flex;
 	gap: 2rem;
 	justify-content: center;
+	margin-bottom: 1rem;
 }

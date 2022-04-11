@@ -35,20 +35,23 @@ function ProductDetails() {
 	));
 
 	return (
-		<div className={classes.wrapper}>
+		<div>
 			{product && (
 				<Grid gutter={80}>
-					<Col span={12} md={5}>
+					<Col span={12} md={5} className={classes.infoColumn}>
 						<Title className={classes.title} order={2}>
 							{product?.name}
 						</Title>
 						<Text color="dimmed">
 							{product?.description}
 						</Text>
-						{product.price > 0 && (<>
-							<Pricetag price={product?.price || 0} quantity={quantity}/>
-							<PricingInput min={1} onValueChange={setQuantity}/>
-						</>)}
+						<Pricetag price={product?.price || 0} quantity={quantity}/>
+						<PricingInput
+							min={1}
+							onValueChange={setQuantity}
+							buttonLabel={product?.price == 0 ? 'Get it now >' : undefined}
+							inputStyles={product?.price == 0 ? {display: 'none'} : undefined}
+						/>
 					</Col>
 					<Col span={12} md={7}>
 						<SimpleGrid cols={2} spacing={30} breakpoints={[{ maxWidth: 'md', cols: 1 }]}>

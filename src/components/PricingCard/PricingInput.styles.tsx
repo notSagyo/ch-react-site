@@ -9,6 +9,7 @@ const useStyles = createStyles((theme) => ({
 	controlWrapper: {
 		display: 'flex',
 		flexBasis: '50%',
+		maxWidth: 144,
 		alignItems: 'center',
 		justifyContent: 'space-between',
 		padding: 4,

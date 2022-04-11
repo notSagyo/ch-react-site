@@ -1,6 +1,6 @@
 import cn from 'classnames';
 import PricingCard from '../../components/PricingCard/PricingCard';
-import { DivProps } from '../../utils';
+import { DivProps } from '../../types';
 import styles from './Pricing.module.scss';
 import productsJSON from '../../data/products.json';
 import { Text } from '@mantine/core';
@@ -18,7 +18,9 @@ function Pricing(props: DivProps) {
 		pricingCards.push(
 			<>
 				<div className={styles.categoryTitle}>
-					<Text className={styles.categoryTitle}>{category}</Text>
+					<Text className={styles.categoryTitle}>
+						{category}
+					</Text>
 				</div>
 				<div className={styles.cardsWrapper}>
 					{categories[category]}

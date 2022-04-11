@@ -2,12 +2,12 @@ import { useState } from 'react';
 import { Card, CardProps, Divider, Group, Text } from '@mantine/core';
 import cn from 'classnames/bind';
 import styles from './PricingCard.module.scss';
-import { BASE_URL, DETAILS_URL, DivProps, TO_DETAILS_URL } from '../../utils';
+import { TO_DETAILS_URL } from '../../utils';
 import { Check } from 'tabler-icons-react';
 import PricingInput from './PricingInput';
-import { iProduct } from '../../types';
+import { DivProps, iProduct } from '../../types';
 import Pricetag from './Pricetag';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 type Props =
 	& Partial<CardProps<'div'>>
@@ -48,23 +48,21 @@ function PricingCard({
 					<Text className={styles.title}>{cardTitle}</Text>
 				</Link>
 				<Divider className={styles.divider} />
-				<Text
-					className={styles.description}
-					component={'p'}> {cardDescription} </Text>
+				<Text component={'p'}> {cardDescription} </Text>
 				<Group className={styles.features}>
 					{features}
 				</Group>
 				<Divider className={styles.divider} />
 				<Pricetag price={cardPrice} quantity={quantity}/>
-				{cardPrice > 0 && (
-					<Group>
-						<PricingInput
-							min={1}
-							max={999}
-							onValueChange={onChange}
-						/>
-					</Group>
-				)}
+				<Group>
+					<PricingInput
+						min={1}
+						max={999}
+						onValueChange={onChange}
+						buttonLabel={cardPrice == 0 ? 'Get it now >' : undefined}
+						inputStyles={cardPrice == 0 ? {display: 'none'} : undefined}
+					/>
+				</Group>
 			</Group>
 		</Card>
 	);

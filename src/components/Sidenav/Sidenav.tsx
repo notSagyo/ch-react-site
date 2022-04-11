@@ -1,7 +1,7 @@
 import React, {  } from 'react';
 import { Navbar, Group, ScrollArea } from '@mantine/core';
+import { DivProps } from '../../types';
 import useStyles from './Sidenav.styles';
-import { DivProps } from '../../utils';
 
 export type SidenavProps = DivProps & {
 	header?: React.ReactNode,
