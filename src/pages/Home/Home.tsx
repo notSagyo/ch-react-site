@@ -8,6 +8,7 @@ import Landing from '../Landing/Landing';
 import Pricing from '../Pricing/Pricing';
 import styles from './Home.module.scss';
 import ProductDetails from '../ProductDetails/ProductDetails';
+import Cart from '../Cart/Cart';
 
 function Home() {
 	const currentURL = useLocation().pathname;
@@ -37,8 +38,8 @@ function Home() {
 				<main className={cn('container', styles.main)}>
 					<Routes>
 						<Route path='/' element={<Landing className={styles.mainSection} />} />
+						<Route path='cart' element={<Cart className={styles.mainSection} />}/>
 						<Route path='pricing' element={<Pricing className={styles.mainSection} />}/>
-						// !XXX:
 						<Route path={'pricing/:productCategory/details/:productId'} element={<ProductDetails />}/>
 					</Routes>
 				</main>

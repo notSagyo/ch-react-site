@@ -47,14 +47,14 @@ function ProductDetails() {
 						</Text>
 						<Pricetag price={product?.price || 0} quantity={quantity}/>
 						<PricingInput
-							min={1}
+							product={product}
 							onValueChange={setQuantity}
 							buttonLabel={product?.price == 0 ? 'Get it now >' : undefined}
 							inputStyles={product?.price == 0 ? {display: 'none'} : undefined}
 						/>
 					</Col>
 					<Col span={12} md={7}>
-						<SimpleGrid cols={2} spacing={30} breakpoints={[{ maxWidth: 'md', cols: 1 }]}>
+						<SimpleGrid cols={2} spacing={30} breakpoints={[{maxWidth: 'md', cols: 1}]}>
 							{features}
 						</SimpleGrid>
 					</Col>

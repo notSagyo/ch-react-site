@@ -1,3 +1,4 @@
+import { SetStateAction } from 'react';
 import { Icon } from 'tabler-icons-react';
 
 export type DivProps = React.HTMLAttributes<HTMLDivElement>;
@@ -49,4 +50,16 @@ export interface iFeature {
 export interface iSidebarChannel extends iChannel {
 	icon: Icon,
 	avatarURL?: string
+}
+
+export interface iCartItem extends iProduct {
+	quantity: number;
+}
+
+export interface iCartContext {
+	itemList: iCartItem[],
+	setItemList: React.Dispatch<SetStateAction<iCartItem[]>>
+	addItem: (product: iCartItem) => void,
+	removeItem: (id: number) => void,
+	clearCart: () => void
 }

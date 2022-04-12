@@ -30,11 +30,6 @@ function PricingCard({
 {
 	const [quantity, setQuantity] = useState<number>(1);
 
-	function onChange(qty: number) {
-		console.log('Quantity changed!');
-		setQuantity(qty);
-	}
-
 	const features = cardFeatures.map((feat, index) =>
 		<Text className={styles.feature} key={index}>
 			<Check color='lightgreen'/>{feat}
@@ -56,9 +51,8 @@ function PricingCard({
 				<Pricetag price={cardPrice} quantity={quantity}/>
 				<Group>
 					<PricingInput
-						min={1}
-						max={999}
-						onValueChange={onChange}
+						product={product}
+						onValueChange={setQuantity}
 						buttonLabel={cardPrice == 0 ? 'Get it now >' : undefined}
 						inputStyles={cardPrice == 0 ? {display: 'none'} : undefined}
 					/>

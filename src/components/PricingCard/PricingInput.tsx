@@ -2,20 +2,24 @@ import { ActionIcon, Button, Group, NumberInput, NumberInputHandlers } from '@ma
 import { useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Minus, Plus } from 'tabler-icons-react';
-import { DivProps } from '../../types';
+import { useCartContext } from '../../context/CartContext';
+import { DivProps, iProduct } from '../../types';
 import { CART_URL } from '../../utils';
 import useStyles from './PricingInput.styles';
 
 interface QuantityInputProps extends DivProps {
+	product?: iProduct;
 	min?: number;
 	max?: number;
 	inputStyles?: React.CSSProperties;
 	buttonLabel?: string;
 	buttonLink?: string;
 	onButtonClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
-	onValueChange: (value: number) => void;
+	onValueChange?: (value: number) => void;
 }
+
 function PricingInput({
+	product,
 	min = 0,
 	max = 999,
 	buttonLabel = 'Buy now >',
@@ -25,10 +29,18 @@ function PricingInput({
 	onValueChange,
 	...props }: QuantityInputProps)
 {
+	const [quantity, setQuantity] = useState(1);
+	const cartContext = useCartContext();
 	const handlers = useRef<NumberInputHandlers>();
 	const numberInput = useRef<HTMLInputElement>(null);
-	const [quantity, setQuantity] = useState(1);
 	const { classes, cx } = useStyles();
+
+	function handleClick() {
+		if (!product)
+			return;
+
+		cartContext.addItem({...product, quantity: quantity});
+	}
 
 	return (
 		<Group {...props} className={cx(classes.wrapper, props.className)}>
@@ -70,7 +82,7 @@ function PricingInput({
 				</ActionIcon>
 			</div>
 			<Link to={buttonLink}>
-				<Button className={classes.button} onClick={onButtonClick}>
+				<Button className={classes.button} onClick={onButtonClick || handleClick}>
 					{buttonLabel}
 				</Button>
 			</Link>
