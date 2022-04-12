@@ -1,35 +1,39 @@
+import { Link } from 'react-router-dom';
 import { Icon } from 'tabler-icons-react';
 import useStyles from './SidenavLink.styles';
 
 export type SidenavLinkProps = React.HTMLAttributes<HTMLAnchorElement> & {
-	label:string,
-	link?:string,
+	linkId: string,
+	label?: string,
+	link?: string,
 	icon?: Icon,
 	activeLink?: string
 }
 
 function SidenavLink({
+	linkId,
 	children,
 	activeLink,
 	label,
 	link='',
 	icon: LinkIcon,
-	...props}: SidenavLinkProps) {
+	...props}: SidenavLinkProps)
+{
 	const { classes, cx } = useStyles();
 
 	return (
-		<a
+		<Link
 			{...props}
 			className={cx(classes.link, props.className, {
-				[classes.linkActive]: label === activeLink,
+				[classes.linkActive]: linkId === activeLink,
 			})}
-			href={link}
+			to={link}
 		>
 			{LinkIcon && (<LinkIcon className={classes.linkIcon} />)}
 			<div className={classes.textWrapper}>
 				<span>{children || label}</span>
 			</div>
-		</a>
+		</Link>
 	);
 }
 

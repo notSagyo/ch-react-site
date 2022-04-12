@@ -1,41 +1,72 @@
-import { Group } from '@mantine/core';
+import { Group, SegmentedControl, SegmentedControlItem } from '@mantine/core';
+import React, { useEffect, useState } from 'react';
 import { Messages } from 'tabler-icons-react';
-import { DivProps, iconsMap } from '../../utils';
-import Sidenav, { SidenavPropsTabs } from '../Sidenav/Sidenav';
+import { getChannels } from '../Channel/ChannelHelper';
+import { DivProps, iSidebarChannel } from '../../types';
+import ChannelsBarLink from './ChannelsBarLink';
 import useStyles from './ChannelsBar.styles';
-import json from '../../json/channels.json';
-import { SidenavLinkProps } from '../Sidenav/SidenavLink';
+import Sidenav from '../Sidenav/Sidenav';
 
-type Props = DivProps & {
-	setCurrentChannel: (args: string) => void
-}
-
-function ChannelsBar({setCurrentChannel, ...props}: Props) {
+// FIXME: Channel not gettting highlighted on gh-pages
+function ChannelsBar(props: DivProps) {
+	const [channels, setChannels] = useState<{[key: string]: iSidebarChannel[]}>({});
+	const [links, setLinks] = useState<JSX.Element[]>([<React.Fragment key={''}/>]);
+	const [segments, setSegments] = useState<SegmentedControlItem[]>([]);
+	const [section, setSection] = useState('');
 	const { classes, cx } = useStyles();
-	const header = (<Group><Messages/>Inbox</Group>);
 
-	// Recover links tab from JSON | Pesadillas con TypeScript pt. 100
-	const channels: SidenavPropsTabs = {  };
-	for (const tab in json) {
-		let recoveredTab: SidenavLinkProps[] = [];
-		json[tab as keyof typeof json].forEach((channel) => {
-			recoveredTab.push({ ...channel, icon: iconsMap.get(channel.icon) });
-		});
-		channels[tab] = recoveredTab;
-	}
+	// Fetch channels
+	useEffect(() => {
+		getChannels().then(response => setChannels(response));
+	}, []);
 
-	function onChannelClick(link: SidenavLinkProps) {
-		setCurrentChannel(link.label);
-	}
+	// Create segments
+	useEffect(() => {
+		const tabKeys = Object.keys(channels);
+		if (tabKeys.length < 1)
+			return;
+
+		setSegments(tabKeys.map((tabName) => ({
+			label: tabName, value: tabName
+		})));
+		setSection(tabKeys[0]);
+	}, [channels]);
+
+	// Populate bar with channels' links
+	useEffect(() => {
+		section && setLinks(channels[section].map((channel, index) => (
+			<ChannelsBarLink
+				{...channel}
+				key={index}
+				linkId={channel.id}
+				icon={channel.icon}
+				membersId={channel.members}
+			/>
+		)));
+	}, [section]);
 
 	return (
 		<Sidenav
 			{...props}
 			className={cx(classes.sidenav, props.className)}
-			tabs={channels}
-			header={header}
-			onLinkClick={onChannelClick}
-		/>
+			header={<Group><Messages/>Inbox</Group>}
+			subheader={segments.length > 1 && (
+				<SegmentedControl
+					className={classes.controls}
+					classNames={{
+						label: classes.controlsLabel,
+						active: classes.controlsActive
+					}}
+					transitionTimingFunction="ease"
+					onChange={setSection}
+					value={section}
+					data={segments}
+					fullWidth
+				/>
+			)}
+		>
+			<div className={classes.links}> {links} </div>
+		</Sidenav>
 	);
 }
 

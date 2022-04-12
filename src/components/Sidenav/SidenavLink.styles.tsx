@@ -10,7 +10,7 @@ const useStyles = createStyles((theme, _params, getRef) => {
 	const activeBgc = darkMode
 		? theme.fn.rgba(theme.colors.dark[3], 0.25)
 		: theme.colors[theme.primaryColor][0];
-	const activeIconColor = theme.colors.brand[darkMode ? 5 : 7];
+	const activeIconColor = theme.colors.brand[darkMode ? 6 : 7];
 
 	return {
 		link: {

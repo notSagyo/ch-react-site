@@ -1,13 +1,13 @@
 import { createStyles } from '@mantine/core';
 
-const useStyles = createStyles((theme, _params, getRef) => {
+const useStyles = createStyles(() => {
 	return {
 		textInput: {
 			fontWeight: 500,
 		},
 
 		inputInner: {
-			padding: `${theme.spacing.lg}px`,
+			maxHeight: '100%',
 
 			'&:focus, &:focus-within': {
 				borderColor: 'transparent !important'

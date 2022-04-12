@@ -1,7 +1,10 @@
 import { MantineProvider, Container, useMantineTheme, } from '@mantine/core';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { APP_URL, BASE_URL } from './utils';
 import Chat from './pages/Chat/Chat';
 import Home from './pages/Home/Home';
 import '/src/styles/main.scss';
+import CartContextProvider from './context/CartContext';
 
 function App() {
 	const theme = useMantineTheme();
@@ -20,10 +23,17 @@ function App() {
 			}}
 			withNormalizeCSS
 		>
-			<Container px='0' fluid>
-				<Home />
-				<Chat />
-			</Container>
+			<CartContextProvider>
+				<Container px='0' fluid>
+					<BrowserRouter>
+						<Routes>
+							<Route path={`${BASE_URL}/*`} element={<Home />} />
+							<Route path={`${BASE_URL}/${APP_URL}`} element={<Chat />} />
+							<Route path={`${BASE_URL}/${APP_URL}/:id`} element={<Chat />} />
+						</Routes>
+					</BrowserRouter>
+				</Container>
+			</CartContextProvider>
 		</MantineProvider>
 	);
 }

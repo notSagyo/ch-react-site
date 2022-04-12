@@ -1,6 +1,6 @@
 import { createStyles } from '@mantine/core';
 
-const useStyles = createStyles((theme, _params, getRef) => {
+const useStyles = createStyles((theme) => {
 	return {
 		viewport: {
 			color: theme.colors.dark[0],

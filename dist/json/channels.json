@@ -1,0 +1,256 @@
+{
+  "USERS": [
+    {
+      "description": "",
+      "id": "1648585298557",
+      "created": 1648585298557,
+      "updated": 1648585298557,
+      "label": "Savlian Matius",
+      "messages": [],
+      "type": "user",
+      "members": []
+    },
+    {
+      "description": "",
+      "id": "1648585298557",
+      "created": 1648585298557,
+      "updated": 1648585298557,
+      "label": "Mannimarco",
+      "messages": [],
+      "type": "user",
+      "members": []
+    },
+    {
+      "description": "",
+      "id": "1648585298557",
+      "created": 1648585298557,
+      "updated": 1648585298557,
+      "label": "Mankar Camoran",
+      "messages": [],
+      "type": "user",
+      "members": []
+    },
+    {
+      "description": "",
+      "id": "1648585298557",
+      "created": 1648585298557,
+      "updated": 1648585298557,
+      "label": "Sheogorath",
+      "messages": [],
+      "type": "user",
+      "members": []
+    },
+    {
+      "description": "",
+      "id": "1648585298557",
+      "created": 1648585298557,
+      "updated": 1648585298557,
+      "label": "Pelinal Whitestrake",
+      "messages": [],
+      "type": "user",
+      "members": []
+    },
+    {
+      "description": "",
+      "id": "1648585298557",
+      "created": 1648585298557,
+      "updated": 1648585298557,
+      "label": "St. Alessia",
+      "messages": [],
+      "type": "user",
+      "members": []
+    },
+    {
+      "description": "",
+      "id": "1648585298557",
+      "created": 1648585298557,
+      "updated": 1648585298557,
+      "label": "Hermaeus Mora",
+      "messages": [],
+      "type": "user",
+      "members": []
+    },
+    {
+      "description": "",
+      "id": "1648585298557",
+      "created": 1648585298557,
+      "updated": 1648585298557,
+      "label": "Adoring Fan",
+      "messages": [],
+      "type": "user",
+      "members": []
+    },
+    {
+      "description": "",
+      "id": "1648585298557",
+      "created": 1648585298557,
+      "updated": 1648585298557,
+      "label": "Vanus Galerion",
+      "messages": [],
+      "type": "user",
+      "members": []
+    },
+    {
+      "description": "",
+      "id": "1648585298557",
+      "created": 1648585298557,
+      "updated": 1648585298557,
+      "label": "Lucien Lachance",
+      "messages": [],
+      "type": "user",
+      "members": []
+    },
+    {
+      "description": "",
+      "id": "1648585298557",
+      "created": 1648585298557,
+      "updated": 1648585298557,
+      "label": "Vicente Valtieri",
+      "messages": [],
+      "type": "user",
+      "members": []
+    },
+    {
+      "description": "",
+      "id": "1648585298557",
+      "created": 1648585298557,
+      "updated": 1648585298557,
+      "label": "Uriel Septim",
+      "messages": [],
+      "type": "user",
+      "members": []
+    },
+    {
+      "description": "",
+      "id": "1648585298557",
+      "created": 1648585298557,
+      "updated": 1648585298557,
+      "label": "Baurus",
+      "messages": [],
+      "type": "user",
+      "members": []
+    },
+    {
+      "description": "",
+      "id": "1648585298557",
+      "created": 1648585298557,
+      "updated": 1648585298557,
+      "label": "Macaulay Culkin",
+      "messages": [],
+      "type": "user",
+      "members": []
+    },
+    {
+      "description": "",
+      "id": "1648585298557",
+      "created": 1648585298557,
+      "updated": 1648585298557,
+      "label": "Chanandler Bong",
+      "messages": [],
+      "type": "user",
+      "members": []
+    },
+    {
+      "description": "",
+      "id": "1648585298557",
+      "created": 1648585298557,
+      "updated": 1648585298557,
+      "label": "Marito Baracus",
+      "messages": [],
+      "type": "user",
+      "members": []
+    },
+    {
+      "description": "",
+      "id": "1648585298557",
+      "created": 1648585298557,
+      "updated": 1648585298557,
+      "label": "Gaspi",
+      "messages": [],
+      "type": "user",
+      "members": []
+    },
+    {
+      "description": "",
+      "id": "1648585298557",
+      "created": 1648585298557,
+      "updated": 1648585298557,
+      "label": "july3p",
+      "messages": [],
+      "type": "user",
+      "members": []
+    },
+    {
+      "description": "",
+      "id": "1648585298557",
+      "created": 1648585298557,
+      "updated": 1648585298557,
+      "label": "El Maestruli",
+      "messages": [],
+      "type": "user",
+      "members": []
+    },
+    {
+      "description": "",
+      "id": "1648585298557",
+      "created": 1648585298557,
+      "updated": 1648585298557,
+      "label": "Princess Consuela Banana-Hammock",
+      "messages": [],
+      "type": "user",
+      "members": []
+    }
+  ],
+  "TEAMS": [
+    {
+      "description": "",
+      "id": "1648585298557",
+      "created": 1648585298557,
+      "updated": 1648585298557,
+      "label": "Cloud9",
+      "messages": [],
+      "type": "team",
+      "members": []
+    },
+    {
+      "description": "",
+      "id": "1648585298557",
+      "created": 1648585298557,
+      "updated": 1648585298557,
+      "label": "Cloud9",
+      "messages": [],
+      "type": "team",
+      "members": []
+    },
+    {
+      "description": "",
+      "id": "1648585298557",
+      "created": 1648585298557,
+      "updated": 1648585298557,
+      "label": "SSG",
+      "messages": [],
+      "type": "team",
+      "members": []
+    },
+    {
+      "description": "",
+      "id": "1648585298557",
+      "created": 1648585298557,
+      "updated": 1648585298557,
+      "label": "TSM",
+      "messages": [],
+      "type": "team",
+      "members": []
+    },
+    {
+      "description": "",
+      "id": "1648585298557",
+      "created": 1648585298557,
+      "updated": 1648585298557,
+      "label": "Team Liquid",
+      "messages": [],
+      "type": "team",
+      "members": []
+    }
+  ]
+}

@@ -5,6 +5,8 @@ import cn from 'classnames/bind';
 import NotificationTooltip from '../NotificationTooltip/NotificationTooltip';
 import DropdownItem from './DropdownItem';
 import styles from './Navbar.module.scss';
+import { Link } from 'react-router-dom';
+import { BASE_URL, TO_DETAILS_URL } from '../../utils';
 
 interface Props {
 	logo?: ReactNode,
@@ -45,18 +47,22 @@ function Navbar({logo, className}: Props) {
 					<ul className={styles.linkList}>
 						<li>
 							<NotificationTooltip>
-								<Anchor className={styles.link}>Go to App</Anchor>
+								<Anchor className={styles.link}>
+									<Link to={`/${BASE_URL}/chat`}> Go to App </Link>
+								</Anchor>
 							</NotificationTooltip>
 						</li>
 						<li>
-							<DropdownItem
-								title='Pricing'
-								items={[
-									{content: 'Free', materialIcon: 'favorite'},
-									{content: 'Pro', materialIcon: 'star_rate'},
-									{content: 'Pro+', materialIcon: 'hotel_class'}
-								]}
-							/>
+							<Link to={`/${BASE_URL}/pricing`}>
+								<DropdownItem
+									title='Pricing'
+									items={[
+										{content: 'Free', materialIcon: 'favorite', link: `${TO_DETAILS_URL('personal', '0')}`},
+										{content: 'Pro', materialIcon: 'star_rate', link: `${TO_DETAILS_URL('personal', '1')}`},
+										{content: 'Pro+', materialIcon: 'hotel_class', link: `${TO_DETAILS_URL('personal', '2')}`}
+									]}
+								/>
+							</Link>
 						</li>
 						<li><Anchor className={styles.link}>About</Anchor></li>
 					</ul>

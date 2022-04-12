@@ -1,29 +1,37 @@
 import cn from 'classnames';
 import PricingCard from '../../components/PricingCard/PricingCard';
-import { DivProps } from '../../utils';
+import { DivProps } from '../../types';
 import styles from './Pricing.module.scss';
+import productsJSON from '../../data/products.json';
+import { Group, Text } from '@mantine/core';
 
 function Pricing(props: DivProps) {
+	const categories: {[key: string]: JSX.Element[]} = {};
+
+	productsJSON.map((product, index) => {
+		!categories[product.category] && (categories[product.category] = []);
+		categories[product.category].push(<PricingCard key={index} product={{...product}} />);
+	});
+
+	const pricingCards = [];
+	for (const category in categories) {
+		pricingCards.push(
+			<Group key={pricingCards.length + 1}>
+				<div className={styles.categoryTitle}>
+					<Text className={styles.categoryTitle}>
+						{category}
+					</Text>
+				</div>
+				<div className={styles.cardsWrapper}>
+					{categories[category]}
+				</div>
+			</Group>
+		);
+	}
+
 	return (
 		<section {...props} className={cn(props.className, styles.pricing)}>
-			<PricingCard
-				cardTitle='Free'
-				cardDescription='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eu odio congue, egestas est ac, eleifend urna.'
-				cardFeatures={['Is free', 'Costs no money', 'Free x 100 = Free']}
-				cardPrice={0}
-			/>
-			<PricingCard
-				cardTitle='Pro'
-				cardDescription='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eu odio congue, egestas est ac, eleifend urna. Aenean scelerisque luctus faucibus.'
-				cardFeatures={['Has good stuff', 'Stuff is good', 'You\'re a good person']}
-				cardPrice={9.99}
-			/>
-			<PricingCard
-				cardTitle='Pro+'
-				cardDescription='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam eu odio congue, egestas est ac, eleifend urna. Aenean scelerisque luctus faucibus. Integer rutrum tellus in eros efficitur.'
-				cardFeatures={['Goated', 'Best stuff no cap', 'Walks your dog', 'Loved by Jennifer Aniston']}
-				cardPrice={19.99}
-			/>
+			{pricingCards}
 		</section>
 	);
 }

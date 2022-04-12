@@ -1,12 +1,17 @@
 import { createStyles } from '@mantine/core';
 
-const useStyles = createStyles((theme, _params, getRef) => {
+export let spacing: number;
+export let scrollbarOffset: number;
+export let border: string;
+
+const useStyles = createStyles((theme) => {
 	const darkMode = theme.colorScheme === 'dark';
-	const border = `1px solid ${
+	border = `1px solid ${
 		darkMode ? theme.colors.dark[4] : theme.colors.gray[2]
 	}`;
-	const spacing = theme.spacing.md;
-	const scrollbarOffset = -spacing * 0.85;
+
+	spacing = theme.spacing.md;
+	scrollbarOffset = -spacing * 0.85;
 
 	return {
 		navbar: {
@@ -19,10 +24,7 @@ const useStyles = createStyles((theme, _params, getRef) => {
 		header: {
 			paddingBottom: spacing,
 			borderBottom: border,
-
-			[`& ~ .${getRef('controls')}`]: {
-				marginTop: spacing,
-			},
+			marginBottom: spacing
 		},
 
 		title: {
@@ -30,29 +32,10 @@ const useStyles = createStyles((theme, _params, getRef) => {
 			letterSpacing: -0.25,
 		},
 
-		links: {
-			marginRight: -scrollbarOffset
-		},
-
 		footer: {
 			paddingTop: spacing,
 			marginTop: spacing,
 			borderTop: border
-		},
-
-		controls: {
-			ref: getRef('controls'),
-			marginBottom: spacing * 0.5
-		},
-
-		controlsActive: {
-			backgroundColor: theme.fn.rgba(theme.colors.brand[7], 0.9),
-			color: theme.black
-		},
-
-		controlsLabel: {
-			padding: 8,
-			fontWeight: 600
 		},
 
 		scrollArea: {

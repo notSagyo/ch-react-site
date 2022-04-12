@@ -1,22 +1,31 @@
+import { Link, matchPath, Route, Routes, useLocation } from 'react-router-dom';
 import { Anchor, Container } from '@mantine/core';
+import { BASE_URL, DETAILS_URL } from '../../utils';
 import cn from 'classnames/bind';
 import Navbar from '../../components/Navbar/Navbar';
 import Footer from '../../components/Footer/Footer';
 import Landing from '../Landing/Landing';
 import Pricing from '../Pricing/Pricing';
 import styles from './Home.module.scss';
+import ProductDetails from '../ProductDetails/ProductDetails';
+import Cart from '../Cart/Cart';
 
 function Home() {
+	const currentURL = useLocation().pathname;
+
 	const logo = (
-		<Anchor
-			className={cn('hide-sm-up', styles.logo)}
-			color={''}
-			variant='gradient'
-			gradient={{from: 'primary', to: 'pink', deg: 135}}
-		>portfol.io</Anchor>
+		<Link to={`../${BASE_URL}`} >
+			<Anchor
+				className={styles.logo}
+				style={{visibility:
+					(matchPath(currentURL, `/${BASE_URL}`)) ? 'hidden' : 'visible'}}
+				color={''}
+				variant='gradient'
+				gradient={{from: 'primary', to: 'pink', deg: 135}}
+			>portfol.io</Anchor>
+		</Link>
 	);
 
-	// TODO: route this
 	return (
 		<div className={styles.home}>
 			<Navbar logo={logo} className={styles.nav} />
@@ -27,8 +36,12 @@ function Home() {
 				fluid
 			>
 				<main className={cn('container', styles.main)}>
-					<Landing className={styles.mainSection} />
-					<Pricing className={styles.mainSection} />
+					<Routes>
+						<Route path='/' element={<Landing className={styles.mainSection} />} />
+						<Route path='cart' element={<Cart className={styles.mainSection} />}/>
+						<Route path='pricing' element={<Pricing className={styles.mainSection} />}/>
+						<Route path={'pricing/:productCategory/details/:productId'} element={<ProductDetails />}/>
+					</Routes>
 				</main>
 			</Container>
 			<Footer />

@@ -1,15 +1,16 @@
 import { createStyles } from '@mantine/core';
 
-const useStyles = createStyles((theme, _params, getRef) => {
+const useStyles = createStyles((theme) => {
 	const spacing = theme.spacing.md;
 
 	return {
 		channel: {
-			display: 'flex',
+			flexDirection: 'column',
 			padding: spacing,
+			height: '100%',
 		},
 
-		messages: {
+		messagesWindow: {
 			width: '100%',
 			height: 0,
 			flexGrow: 1,

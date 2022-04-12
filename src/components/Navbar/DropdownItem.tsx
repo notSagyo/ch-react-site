@@ -1,12 +1,12 @@
 import { Menu, Anchor } from '@mantine/core';
+import { Link } from 'react-router-dom';
 import styles from './DropdownItem.module.scss';
 
-// Bruh, lo que costó este component, TypeScript te odio :(
 type Props = {
 	title: string,
 	items: {
 		content: string,
-		href?: string,
+		link?: string,
 		materialIcon?: string,
 	}[]
 }
@@ -16,9 +16,11 @@ function DropdownItem({ title, items }: Props) {
 	const menuItems = items.map((item, index) => (
 		<Menu.Item
 			key={index}
-			icon={item.materialIcon
-				? <i className={styles.menuItemIcon}> {item.materialIcon} </i> : ''}
-			component={'a'} href={item.href || '#!'}
+			icon={item.materialIcon &&
+				<i className={styles.menuItemIcon}> {item.materialIcon} </i>
+			}
+			component={Link}
+			to={item.link || ''}
 		>
 			{item.content}
 		</Menu.Item>
@@ -26,11 +28,12 @@ function DropdownItem({ title, items }: Props) {
 
 	const listItems = items.map((item, index) => (
 		<li key={index}>
-			{item.materialIcon
-				? <i className='material-icons'> {item.materialIcon} </i> : ''}
-			<Anchor className={styles.link}>
-				{item.content || '#!'}
-			</Anchor>
+			{item.materialIcon ?
+				<i className='material-icons'> {item.materialIcon} </i> : ''
+			}
+			<Link to={item.link || ''} className={styles.link}>
+				{item.content}
+			</Link>
 		</li>
 	));
 
@@ -53,7 +56,7 @@ function DropdownItem({ title, items }: Props) {
 
 			{/* MOBILE: STATIC LIST */}
 			<div className={styles.itemListContainer}>
-				<Anchor className={styles.link}>{title}</Anchor>
+				<Anchor className={styles.link}> {title} </Anchor>
 				<ul className={styles.itemList}>
 					{listItems}
 				</ul>
