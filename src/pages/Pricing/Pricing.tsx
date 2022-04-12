@@ -3,7 +3,7 @@ import PricingCard from '../../components/PricingCard/PricingCard';
 import { DivProps } from '../../types';
 import styles from './Pricing.module.scss';
 import productsJSON from '../../data/products.json';
-import { Text } from '@mantine/core';
+import { Group, Text } from '@mantine/core';
 
 function Pricing(props: DivProps) {
 	const categories: {[key: string]: JSX.Element[]} = {};
@@ -16,7 +16,7 @@ function Pricing(props: DivProps) {
 	const pricingCards = [];
 	for (const category in categories) {
 		pricingCards.push(
-			<>
+			<Group key={pricingCards.length + 1}>
 				<div className={styles.categoryTitle}>
 					<Text className={styles.categoryTitle}>
 						{category}
@@ -25,7 +25,7 @@ function Pricing(props: DivProps) {
 				<div className={styles.cardsWrapper}>
 					{categories[category]}
 				</div>
-			</>
+			</Group>
 		);
 	}
 
