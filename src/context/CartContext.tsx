@@ -23,7 +23,7 @@ function CartContextProvider({children, ...props}: DivProps) {
 	}
 
 	function removeItem(id: number) {
-		itemList.splice(itemList.findIndex((item: iCartItem) => item.id === id), 1);
+		setItemList(itemList.filter(item => item.id !== id));
 	}
 
 	function clearCart() {
