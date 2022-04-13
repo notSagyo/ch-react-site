@@ -4,6 +4,8 @@ import { DivProps } from '../../types';
 import styles from './Pricing.module.scss';
 import productsJSON from '../../data/products.json';
 import { Group, Text } from '@mantine/core';
+import { collection, getDocs } from '@firebase/firestore';
+import { db } from '../../firebaseConfig';
 
 function Pricing(props: DivProps) {
 	const categories: {[key: string]: JSX.Element[]} = {};

@@ -20,7 +20,7 @@ interface QuantityInputProps extends DivProps {
 
 function PricingInput({
 	product,
-	min = 0,
+	min = 1,
 	max = 999,
 	buttonLabel = 'Buy now >',
 	buttonLink = `/${CART_URL}`,

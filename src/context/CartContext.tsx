@@ -8,6 +8,7 @@ const CartContext = createContext<iCartContext>({
 	removeItem: () => void(0),
 	clearCart: () => void(0),
 });
+
 export const useCartContext = () => useContext(CartContext);
 
 function CartContextProvider({children, ...props}: DivProps) {
