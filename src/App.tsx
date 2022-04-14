@@ -19,7 +19,10 @@ function App() {
 				white: '#fafaff',
 				black: '#101113',
 				primaryColor: 'primary',
-				fontFamily: 'Poppins, sans-serif'
+				fontFamily: 'Poppins, sans-serif',
+				other: {
+					navbarHeight: '8rem',
+				}
 			}}
 			withNormalizeCSS
 		>

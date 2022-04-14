@@ -82,7 +82,11 @@ function PricingInput({
 				</ActionIcon>
 			</div>
 			<Link to={buttonLink}>
-				<Button className={classes.button} onClick={onButtonClick || handleClick}>
+				<Button
+					color={'brand'}
+					className={classes.button}
+					onClick={onButtonClick || handleClick}
+				>
 					{buttonLabel}
 				</Button>
 			</Link>
