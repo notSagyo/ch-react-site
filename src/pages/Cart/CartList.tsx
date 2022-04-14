@@ -1,28 +1,31 @@
 
-import { Badge, Table, Group, Text, ActionIcon, ScrollArea, useMantineTheme, ScrollAreaProps } from '@mantine/core';
+import { Badge, Table, Group, Text, ActionIcon, ScrollArea, ScrollAreaProps } from '@mantine/core';
+import { Link } from 'react-router-dom';
 import { Trash } from 'tabler-icons-react';
 import { useCartContext } from '../../context/CartContext';
+import { TO_DETAILS_URL } from '../../utils';
 
-const jobColors: Record<string, string> = {
+const categoryColors: Record<string, string> = {
 	personal: 'red',
 	education: 'green',
 };
 
 function CartList(props: ScrollAreaProps) {
 	const cartContext = useCartContext();
-	const theme = useMantineTheme();
 
 	const rows = cartContext.itemList.map((item) => (
 		<tr key={item.name}>
 			{/* Item */}
 			<td>
 				<Group spacing="sm">
-					<Text size="sm" weight={500}>
-						{item.name}
-					</Text>
+					<Link to={TO_DETAILS_URL(item.category, String(item.id))}>
+						<Text size="sm" weight={500}>
+							{item.name}
+						</Text>
+					</Link>
 					<Badge
-						color={jobColors[item.category.toLowerCase()]}
-						variant={theme.colorScheme === 'dark' ? 'light' : 'outline'}
+						color={categoryColors[item.category.toLowerCase()]}
+						variant={'light'}
 					>
 						{item.category}
 					</Badge>
@@ -59,7 +62,7 @@ function CartList(props: ScrollAreaProps) {
 
 	return (
 		<ScrollArea {...props}>
-			<Table sx={{ minWidth: 800 }} verticalSpacing="sm">
+			<Table verticalSpacing="sm">
 				<thead>
 					<tr>
 						<th>Item</th>

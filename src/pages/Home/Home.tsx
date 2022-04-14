@@ -39,7 +39,7 @@ function Home() {
 				<main className={cn('container', styles.main)}>
 					<Routes>
 						<Route path='/' element={<Landing className={styles.mainSection} />} />
-						<Route path='cart' element={<Cart className={styles.mainSection} />}/>
+						<Route path='cart' element={<Cart />}/>
 						<Route path='pricing' element={<Pricing className={styles.mainSection} />}/>
 						<Route path={'pricing/:productCategory/details/:productId'} element={<ProductDetails />}/>
 						<Route path={'*'} element={<Error404 />}/>

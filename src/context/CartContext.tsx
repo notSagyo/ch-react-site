@@ -20,6 +20,7 @@ function CartContextProvider({children, ...props}: DivProps) {
 			foundItem.quantity += item.quantity;
 		else
 			setItemList([...itemList, item]);
+		itemList.sort((a, b) => a.category.localeCompare(b.category));
 	}
 
 	function removeItem(id: number) {
