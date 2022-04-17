@@ -8,9 +8,10 @@ import { isEmptyObject } from '../../utils';
 export const CurrentUserState = atom<IUser>({
 	key: 'CurrentUser',
 	default: {
-		created: Date.now(),
+		createdAt: Date.now(),
+		updatedAt: Date.now(),
 		email: '',
-		id: -10,
+		id: '-1',
 		avatarURL: '',
 		name: '',
 		occupation: 'Frontend Deloper: JS / React',
@@ -21,8 +22,8 @@ export const CurrentUserState = atom<IUser>({
 export const ActiveChannelState = atom<iChannel>({
 	key: 'ActiveChannel',
 	default: {
-		created: Date.now(),
-		updated: Date.now(),
+		createdAt: Date.now(),
+		updatedAt: Date.now(),
 		description: '',
 		label: 'none',
 		messages: [],
@@ -51,7 +52,8 @@ export function usePushMessage() {
 		const newMessage = {
 			channelId: activeChannel.id,
 			id: Date.now().toString(),
-			created: Date.now(),
+			createdAt: Date.now(),
+			updatedAt: Date.now(),
 			content: content,
 			userId: 'User',
 		};
@@ -81,7 +83,30 @@ export function useChangeChannel() {
 }
 
 // Users =====================================================================//
-export function getUser(id: number): IUser | undefined {
+export function getUser(id: string): IUser | undefined {
 	const user = usersJSON.find(user => user.id === id);
 	return user;
 }
+
+// Defaults ==================================================================//
+export const defaultUser: IUser = {
+	createdAt: Date.now(),
+	updatedAt: Date.now(),
+	email: '',
+	id: '-1',
+	avatarURL: '',
+	name: '',
+	occupation: 'Frontend Deloper: JS / React',
+	bannerURL: 'https://picsum.photos/600/300',
+};
+
+export const defaultChannel: iChannel = {
+	createdAt: Date.now(),
+	updatedAt: Date.now(),
+	description: '',
+	label: 'none',
+	messages: [],
+	type: 'user',
+	members: [],
+	id: '-1',
+};

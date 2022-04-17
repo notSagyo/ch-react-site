@@ -1,14 +1,7 @@
 import { createContext, useContext, useState } from 'react';
 import { DivProps, iCartContext, iCartItem } from '../types';
 
-const CartContext = createContext<iCartContext>({
-	itemList: [],
-	setItemList: () => void(0),
-	addItem: () => void(0),
-	removeItem: () => void(0),
-	clearCart: () => void(0),
-});
-
+const CartContext = createContext<iCartContext | Record<string, never>>({});
 export const useCartContext = () => useContext(CartContext);
 
 function CartContextProvider({children, ...props}: DivProps) {

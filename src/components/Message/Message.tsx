@@ -9,7 +9,7 @@ type MessageProps = HTMLAttributes<HTMLLIElement> & {
 
 function Message({message, ...props}: MessageProps) {
 	const { classes, cx } = useStyles();
-	const timestamp = new Date(message.created)
+	const timestamp = new Date(message.createdAt)
 		.toLocaleTimeString([], {hour: 'numeric', minute: '2-digit'});
 
 	return (
