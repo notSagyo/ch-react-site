@@ -8,6 +8,14 @@ const useStyles = createStyles((theme) => {
 
 		timestamp: {
 			color: theme.colors.dark[3]
+		},
+
+		author: {
+			// Styles
+		},
+
+		content: {
+			whiteSpace: 'pre-line'
 		}
 	};
 });

@@ -14,6 +14,9 @@ function ChannelContextProvider({ children, ...props }: HTMLElementProps) {
 	const { activeUser } = useUserContext();
 
 	const getChannel = async (channelId: string) => {
+		if (channelId == activeChannel.id)
+			return activeChannel;
+
 		const channelsDoc = await getDoc(doc(db, 'channels', channelId));
 
 		if (!channelsDoc.exists()) {
@@ -81,9 +84,7 @@ function ChannelContextProvider({ children, ...props }: HTMLElementProps) {
 
 	useEffect(() => {
 		const activeChannelUnsub = onSnapshot(doc(db, 'channels', activeChannel.id),
-			(doc) => {
-				(doc.exists()) && setActiveChannel(doc.data() as iChannel);
-			}
+			(doc) => doc.exists() && setActiveChannel(doc.data() as iChannel)
 		);
 
 		return () => { activeChannelUnsub(); };

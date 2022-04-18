@@ -8,7 +8,7 @@ import useStyles from './MessageBar.styles';
 function MessageBar(props: HTMLAttributes<HTMLFormElement>) {
 	const inputRef = useRef<HTMLTextAreaElement>(null);
 	const [errorState, setErrorState] = useState<string | null>(null);
-	const { pushMessage, ...channelCtx } = useChannelContext();
+	const { pushMessage } = useChannelContext();
 	const { classes, cx } = useStyles();
 
 	function handleKeyDown(e: React.KeyboardEvent<HTMLTextAreaElement>) {

@@ -5,27 +5,30 @@ import Message from '../Message/Message';
 import useStyles from './MessagesWindow.styles';
 
 function MessagesWindow({children, ...props}: ScrollAreaProps) {
-	const { getMessages, activeChannel } = useChannelContext();
 	const [msgList, setMsgList] = useState<JSX.Element[]>([]);
-
-	const viewportRef = useRef<HTMLDivElement>(null);
+	const scrollRef = useRef<HTMLDivElement>(null);
+	const { activeChannel } = useChannelContext();
 	const { classes } = useStyles();
 
+	// Update msg list on current channel messages' update
 	useEffect(() => {
-		getMessages(activeChannel.id).then((msgs) => {
-			setMsgList(msgs?.map((msg, index) => (
-				<Message message={msg} key={index}>{msg.content}</Message>
-			)) || []);
-		}).then(() => {
-			viewportRef.current && viewportRef.current.scrollBy(0, 9999);
-		});
+		setMsgList(activeChannel.messages.map((msg, index) => (
+			<Message message={msg} key={index}>{msg.content}</Message>
+		)));
+	}, [activeChannel.messages]);
 
-	}, [activeChannel]);
+	// Scroll to bottom on new messages
+	useEffect(() => {
+		scrollRef?.current?.scrollTo({
+			top: scrollRef.current.scrollHeight,
+			behavior: 'smooth'
+		});
+	}, [msgList]);
 
 	return (
 		<ScrollArea
 			{...props}
-			viewportRef={viewportRef}
+			viewportRef={scrollRef}
 			classNames={{ viewport: classes.viewport }}
 		>
 			{children}
