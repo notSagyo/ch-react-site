@@ -1,9 +1,9 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useEffect, useState } from 'react';
 import { v4 } from 'uuid';
 import { defaultChannel, validateMessage } from '../pages/Chat/ChatHelper';
 import { HTMLElementProps, iChannel, iChannelContext, iMessage } from '../types';
 import { useUserContext } from './UserContext';
-import { getDoc, doc, setDoc } from '@firebase/firestore';
+import { getDoc, doc, setDoc, onSnapshot } from '@firebase/firestore';
 import { db } from '../firebaseConfig';
 
 const ChannelContext = createContext<iChannelContext | Record<string, never>>({});
@@ -70,7 +70,6 @@ function ChannelContextProvider({ children, ...props }: HTMLElementProps) {
 
 		if (channel) {
 			channel.messages.push(parsedMessage);
-			setActiveChannel(channel);
 			setDoc(doc(db, 'channels', channel.id), channel);
 		} else {
 			const newChannel = await createChannel({...activeChannel, messages: [parsedMessage]});
@@ -79,6 +78,16 @@ function ChannelContextProvider({ children, ...props }: HTMLElementProps) {
 
 		return parsedMessage;
 	};
+
+	useEffect(() => {
+		const activeChannelUnsub = onSnapshot(doc(db, 'channels', activeChannel.id),
+			(doc) => {
+				(doc.exists()) && setActiveChannel(doc.data() as iChannel);
+			}
+		);
+
+		return () => { activeChannelUnsub(); };
+	}, []);
 
 	return (
 		<ChannelContext.Provider {...props} value={{

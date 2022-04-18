@@ -7,7 +7,6 @@ import ChannelsBarLink from './ChannelsBarLink';
 import useStyles from './ChannelsBar.styles';
 import Sidenav from '../Sidenav/Sidenav';
 
-// FIXME: Channel not gettting highlighted on gh-pages
 function ChannelsBar(props: DivProps) {
 	const [channels, setChannels] = useState<{[key: string]: iSidebarChannel[]}>({});
 	const [links, setLinks] = useState<JSX.Element[]>([<React.Fragment key={''}/>]);
@@ -40,7 +39,8 @@ function ChannelsBar(props: DivProps) {
 				key={index}
 				linkId={channel.id}
 				icon={channel.icon}
-				membersId={channel.members}
+				// !TODO: replace with members
+				membersId={[]}
 			/>
 		)));
 	}, [section]);

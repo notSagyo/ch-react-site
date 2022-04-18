@@ -1,6 +1,4 @@
-import { useRecoilState } from 'recoil';
 import { useChannelContext } from '../../context/ChannelContext';
-import { CurrentUserState, getUser } from '../../pages/Chat/ChatHelper';
 import { CHANNEL_URL } from '../../utils';
 import SidenavLink, { SidenavLinkProps } from '../Sidenav/SidenavLink';
 import UserCard from '../UserCard/UserCard';
