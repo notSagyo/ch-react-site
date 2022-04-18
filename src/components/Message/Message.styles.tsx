@@ -11,7 +11,8 @@ const useStyles = createStyles((theme) => {
 		},
 
 		author: {
-			// Styles
+			color: 'inherit',
+			fontWeight: 500
 		},
 
 		content: {

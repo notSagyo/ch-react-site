@@ -1,28 +1,49 @@
-import { Card, Avatar, Text, Group, Button, Popover } from '@mantine/core';
+import { Card, Avatar, Text, Group, Button, Popover, PopoverProps } from '@mantine/core';
 import { useWindowEvent } from '@mantine/hooks';
-import { DivProps } from '../../types';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useStyles } from './UserCard.styles';
 
-export interface UserCardProps extends DivProps {
+export interface UserCardProps extends Partial<PopoverProps> {
 	parent: JSX.Element;
 	link?: string;
 	avatar?: string;
 	banner?: string;
 	name?: string;
 	occupation?: string;
+	inline?: boolean;
+	clickTrigger?: 'left' | 'right' | 'both';
 	stats?: { label: string; value: string }[];
 }
 
 // TODO: add support for team channels
-function UserCard({ avatar, banner, name, occupation, stats, parent, link, ...props }: UserCardProps)
+function UserCard({
+	avatar,
+	banner,
+	name,
+	occupation,
+	stats,
+	parent,
+	link,
+	inline,
+	clickTrigger,
+	...props }: UserCardProps)
 {
 	const { classes, theme, cx } = useStyles();
 	const [opened, setOpened] = useState(false);
 	useWindowEvent('wheel', () => setOpened(false));
 
 	function handleContextMenu(e: React.MouseEvent<HTMLDivElement>) {
+		if (clickTrigger !== 'both' && clickTrigger !== 'right')
+			return;
+		e.preventDefault();
+		e.stopPropagation();
+		setOpened(true);
+	}
+
+	function handleClick(e: React.MouseEvent<HTMLDivElement>) {
+		if (clickTrigger !== 'both' && clickTrigger !== 'left')
+			return;
 		e.preventDefault();
 		e.stopPropagation();
 		setOpened(true);
@@ -41,19 +62,24 @@ function UserCard({ avatar, banner, name, occupation, stats, parent, link, ...pr
 
 	return (
 		<Popover
-			opened={opened}
-			target={<div onContextMenu={handleContextMenu}>{parent}</div>}
-			position='right'
-			placement='start'
 			styles={{
 				inner: {padding: 0},
 				body: {border: 'none'},
-				root: {display: 'block'}
+				root: {display: !inline ? 'block' : ''},
 			}}
+			position={'right'}
+			placement={'start'}
+			{...props}
+			opened={opened}
 			onClose={() => setOpened(false)}
+			target={<div
+				onContextMenu={handleContextMenu}
+				onClick={handleClick}
+			>
+				{parent}
+			</div>}
 		>
 			<Card
-				{...props}
 				withBorder
 				p="xl"
 				radius="md"

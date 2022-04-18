@@ -1,6 +1,7 @@
-import { Text } from '@mantine/core';
+import { Anchor, Text } from '@mantine/core';
 import { HTMLAttributes } from 'react';
 import { iMessage } from '../../types';
+import UserCard from '../UserCard/UserCard';
 import useStyles from './Message.styles';
 
 type MessageProps = HTMLAttributes<HTMLLIElement> & {
@@ -16,8 +17,15 @@ function Message({message, ...props}: MessageProps) {
 		<li {...props} className={cx(classes.messageWrapper, props.className)}>
 			<Text>
 				<span className={classes.timestamp}> [{timestamp}] </span>
-				<span className={classes.author}> {message.authorName || 'Guest'}: </span>
-				<span className={classes.content}>{props.children}</span>
+				<UserCard
+					clickTrigger='both'
+					inline={true}
+					parent={
+						<Anchor className={classes.author} >
+							{message.authorName || 'Guest'}:
+						</Anchor>}
+				/>
+				<span className={classes.content}> {props.children}</span>
 			</Text>
 		</li>
 	);

@@ -5,7 +5,7 @@ import { Icon } from 'tabler-icons-react';
 export type DivProps = React.HTMLAttributes<HTMLDivElement>;
 export type HTMLElementProps = React.HTMLProps<HTMLElement>;
 
-export interface IUser {
+export interface iUser {
 	id: string;
 	name: string;
 	occupation: string;
@@ -70,19 +70,20 @@ export interface iCartContext {
 }
 
 export interface iUserContext {
-	activeUser: IUser;
-	setActiveUser: React.Dispatch<SetStateAction<IUser>>;
+	activeUser: iUser;
+	setActiveUser: React.Dispatch<SetStateAction<iUser>>;
 	authUser: User | undefined;
 	setAuthUser: React.Dispatch<SetStateAction<User | undefined>>;
-	logIn: () => Promise<User | undefined>;
-	getUser: (id: string) => Promise<IUser>;
+	getUser: (id: string) => Promise<iUser | undefined>;
+	createUser: (user: iUser) => Promise<iUser>;
+	signIn: () => void;
 }
 
 export interface iChannelContext {
 	activeChannel: iChannel;
 	setActiveChannel: React.Dispatch<SetStateAction<iChannel>>;
 	getChannel: (id: string) => Promise<iChannel | undefined>;
-	getUsers: (id: string) => Promise<IUser[]>;
+	getUsers: (id: string) => Promise<iUser[]>;
 	getMessages: (id: string) => Promise<iMessage[] | undefined>;
 	createChannel: (channel: iChannel) => Promise<iChannel | false>;
 	changeChannel: (id: string) => Promise<iChannel>;

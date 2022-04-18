@@ -14,9 +14,6 @@ function ChannelContextProvider({ children, ...props }: HTMLElementProps) {
 	const { activeUser } = useUserContext();
 
 	const getChannel = async (channelId: string) => {
-		if (channelId == activeChannel.id)
-			return activeChannel;
-
 		const channelsDoc = await getDoc(doc(db, 'channels', channelId));
 
 		if (!channelsDoc.exists()) {
@@ -35,6 +32,8 @@ function ChannelContextProvider({ children, ...props }: HTMLElementProps) {
 	};
 
 	const getMessages = async (channelId: string) => {
+		if (channelId === activeChannel.id)
+			return activeChannel.messages;
 		const channel = await getChannel(channelId);
 		const messages = channel?.messages as iMessage[] | undefined;
 		return messages;
@@ -89,7 +88,7 @@ function ChannelContextProvider({ children, ...props }: HTMLElementProps) {
 		);
 
 		return () => { activeChannelUnsub(); };
-	}, []);
+	}, [activeChannel.id]);
 
 	return (
 		<ChannelContext.Provider {...props} value={{

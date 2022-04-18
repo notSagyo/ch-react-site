@@ -2,7 +2,6 @@ import React from 'react';
 import { UnstyledButton, UnstyledButtonProps, Group, Avatar, Text, } from '@mantine/core';
 import { ChevronRight } from 'tabler-icons-react';
 import useStyles from './UserButton.styles';
-import { firebaseSignIn } from '../../firebaseConfig';
 import { useUserContext } from '../../context/UserContext';
 
 interface UserButtonProps extends UnstyledButtonProps {
@@ -13,11 +12,11 @@ interface UserButtonProps extends UnstyledButtonProps {
 }
 
 export function UserButton({ image, name, email, icon, ...props }: UserButtonProps) {
-	const { logIn, authUser } = useUserContext();
+	const { signIn, authUser } = useUserContext();
 	const { classes } = useStyles();
 
 	return (
-		<UnstyledButton className={classes.user} {...props} onClick={logIn}>
+		<UnstyledButton className={classes.user} {...props} onClick={signIn}>
 			<Group style={{ flexWrap: 'nowrap' }}>
 				<Avatar src={authUser?.photoURL} radius="xl" />
 
