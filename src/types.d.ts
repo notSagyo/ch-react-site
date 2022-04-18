@@ -1,4 +1,5 @@
 import { SetStateAction } from 'react';
+import { User } from '@firebase/auth';
 import { Icon } from 'tabler-icons-react';
 
 export type DivProps = React.HTMLAttributes<HTMLDivElement>;
@@ -31,6 +32,7 @@ export interface iMessage {
 	content: string;
 	channelId: string;
 	authorId: string;
+	authorName: string;
 	createdAt: number;
 	updatedAt: number;
 }
@@ -70,6 +72,9 @@ export interface iCartContext {
 export interface iUserContext {
 	activeUser: IUser;
 	setActiveUser: React.Dispatch<SetStateAction<IUser>>;
+	authUser: User | undefined;
+	setAuthUser: React.Dispatch<SetStateAction<User | undefined>>;
+	logIn: () => Promise<User | undefined>;
 	getUser: (id: string) => Promise<IUser>;
 }
 

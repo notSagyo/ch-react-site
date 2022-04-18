@@ -30,3 +30,4 @@ br { height: 0; }
 
 .v-center { @include v-align; }
 .muted { color: $muted; }
+.clampLine { @include v-clamp(1); }

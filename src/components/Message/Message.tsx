@@ -16,7 +16,7 @@ function Message({message, ...props}: MessageProps) {
 		<li {...props} className={cx(classes.messageWrapper, props.className)}>
 			<Text>
 				<span className={classes.timestamp}> [{timestamp}] </span>
-				<span className={classes.author}> {message.authorId}: </span>
+				<span className={classes.author}> {message.authorName || 'Guest'}: </span>
 				<span className={classes.content}>{props.children}</span>
 			</Text>
 		</li>

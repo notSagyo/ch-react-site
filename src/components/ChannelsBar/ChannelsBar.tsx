@@ -6,6 +6,7 @@ import { DivProps, iSidebarChannel } from '../../types';
 import ChannelsBarLink from './ChannelsBarLink';
 import useStyles from './ChannelsBar.styles';
 import Sidenav from '../Sidenav/Sidenav';
+import { UserButton } from '../UserButton/UserButton';
 
 function ChannelsBar(props: DivProps) {
 	const [channels, setChannels] = useState<{[key: string]: iSidebarChannel[]}>({});
@@ -50,6 +51,7 @@ function ChannelsBar(props: DivProps) {
 			{...props}
 			className={cx(classes.sidenav, props.className)}
 			header={<Group><Messages/>Inbox</Group>}
+			footer={<UserButton />}
 			subheader={segments.length > 1 && (
 				<SegmentedControl
 					className={classes.controls}

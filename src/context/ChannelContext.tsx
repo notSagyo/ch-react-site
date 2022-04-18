@@ -62,6 +62,7 @@ function ChannelContextProvider({ children, ...props }: HTMLElementProps) {
 
 		const parsedMessage: iMessage = {
 			id: v4(),
+			authorName: activeUser.name,
 			authorId: activeUser.id,
 			channelId: activeChannel.id,
 			content: validatedContent,
