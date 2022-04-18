@@ -1,23 +1,28 @@
 import { createContext, useContext, useState } from 'react';
-import { defaultChannel } from '../pages/Chat/ChatHelper';
+import { v4 } from 'uuid';
+import { defaultChannel, validateMessage } from '../pages/Chat/ChatHelper';
 import { HTMLElementProps, iChannel, iChannelContext, iMessage } from '../types';
+import { useUserContext } from './UserContext';
+import { getDoc, doc, setDoc } from '@firebase/firestore';
+import { db } from '../firebaseConfig';
 
 const ChannelContext = createContext<iChannelContext | Record<string, never>>({});
 export const useChannelContext = () => useContext(ChannelContext);
 
 function ChannelContextProvider({ children, ...props }: HTMLElementProps) {
 	const [activeChannel, setActiveChannel] = useState<iChannel>(defaultChannel);
+	const { activeUser } = useUserContext();
 
 	const getChannel = async (channelId: string) => {
-		// TODO: Implement
-		console.log('getChannel not implemented');
-		return defaultChannel;
-	};
+		const channelsDoc = await getDoc(doc(db, 'channels', channelId));
 
-	const changeChannel = async (channelId: string) => {
-		// TODO: Implement
-		console.log('changeChannel not implemented');
-		return defaultChannel;
+		if (!channelsDoc.exists()) {
+			console.warn(`(Firestore): channel ${channelId} not found`);
+			return undefined;
+		}
+
+		const channelData = channelsDoc.data() as iChannel;
+		return channelData;
 	};
 
 	const getUsers = async (channelId: string) => {
@@ -27,26 +32,64 @@ function ChannelContextProvider({ children, ...props }: HTMLElementProps) {
 	};
 
 	const getMessages = async (channelId: string) => {
-		// TODO: Implement
-		console.log('getMessages not implemented');
-		return [];
+		const channel = await getChannel(channelId);
+		const messages = channel?.messages as iMessage[] | undefined;
+		return messages;
 	};
 
-	const pushMessage = async (message: iMessage) => {
+	const createChannel = async (channel: iChannel) => {
+		const channelsDoc = await getDoc(doc(db, 'channels', channel.id));
+
+		if (channelsDoc.exists()) {
+			console.warn(`(Firestore): channel ${channel.id} already exists`);
+			return false;
+		}
+
+		await setDoc(doc(db, 'channels', channel.id), channel);
+		return channel;
+	};
+
+	const changeChannel = async (channelId: string) => {
 		// TODO: Implement
-		console.log('pushMessage not implemented');
-		return message;
+		return defaultChannel;
+	};
+
+	const pushMessage = async (content: string) => {
+		const validatedContent = validateMessage(content);
+
+		const parsedMessage: iMessage = {
+			id: v4(),
+			authorId: activeUser.id,
+			channelId: activeChannel.id,
+			content: validatedContent,
+			createdAt: Date.now(),
+			updatedAt: Date.now(),
+		};
+
+		const channel = await getChannel(activeChannel.id);
+
+		if (channel) {
+			channel.messages.push(parsedMessage);
+			setActiveChannel(channel);
+			setDoc(doc(db, 'channels', channel.id), channel);
+		} else {
+			const newChannel = await createChannel({...activeChannel, messages: [parsedMessage]});
+			newChannel && setActiveChannel(newChannel);
+		}
+
+		return parsedMessage;
 	};
 
 	return (
 		<ChannelContext.Provider {...props} value={{
-			getChannel: getChannel,
-			changeChannel: changeChannel,
 			activeChannel: activeChannel,
 			setActiveChannel: setActiveChannel,
+			getChannel: getChannel,
 			getUsers: getUsers,
+			getMessages: getMessages,
+			createChannel: createChannel,
+			changeChannel: changeChannel,
 			pushMessage: pushMessage,
-			getMessages: getMessages
 		}}>
 			{children}
 		</ChannelContext.Provider>

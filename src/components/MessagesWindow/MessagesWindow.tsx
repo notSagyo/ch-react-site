@@ -1,12 +1,12 @@
 import { ScrollArea, ScrollAreaProps } from '@mantine/core';
-import { useEffect, useRef } from 'react';
-import { useRecoilState } from 'recoil';
-import { ActiveChannelState } from '../../pages/Chat/ChatHelper';
+import { useEffect, useRef, useState } from 'react';
+import { useChannelContext } from '../../context/ChannelContext';
 import Message from '../Message/Message';
 import useStyles from './MessagesWindow.styles';
 
 function MessagesWindow({children, ...props}: ScrollAreaProps) {
-	const [activeChannel] = useRecoilState(ActiveChannelState);
+	const { getMessages, activeChannel } = useChannelContext();
+	const [messages, setMessages] = useState<JSX.Element[]>([]);
 	const viewportRef = useRef<HTMLDivElement>(null);
 	const { classes } = useStyles();
 
@@ -14,9 +14,13 @@ function MessagesWindow({children, ...props}: ScrollAreaProps) {
 		viewportRef.current && viewportRef.current.scrollBy(0, 999);
 	}, [activeChannel]);
 
-	const messages = activeChannel.messages.map((msg, index) => (
-		<Message message={msg} key={index}>{msg.content}</Message>
-	));
+	useEffect(() => {
+		getMessages(activeChannel.id).then((msgs) => {
+			setMessages(msgs?.map((msg, index) => (
+				<Message message={msg} key={index}>{msg.content}</Message>
+			)) || []);
+		});
+	}, [activeChannel]);
 
 	return (
 		<ScrollArea

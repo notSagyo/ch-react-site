@@ -30,7 +30,7 @@ export interface iMessage {
 	id: string;
 	content: string;
 	channelId: string;
-	userId: string;
+	authorId: string;
 	createdAt: number;
 	updatedAt: number;
 }
@@ -76,9 +76,10 @@ export interface iUserContext {
 export interface iChannelContext {
 	activeChannel: iChannel;
 	setActiveChannel: React.Dispatch<SetStateAction<iChannel>>;
-	getChannel: (id: string) => Promise<iChannel>;
-	changeChannel: (id: string) => Promise<iChannel>;
+	getChannel: (id: string) => Promise<iChannel | undefined>;
 	getUsers: (id: string) => Promise<IUser[]>;
-	getMessages: (id: string) => Promise<iMessage[]>;
-	pushMessage: (message: iMessage) => Promise<iMessage>;
+	getMessages: (id: string) => Promise<iMessage[] | undefined>;
+	createChannel: (channel: iChannel) => Promise<iChannel | false>;
+	changeChannel: (id: string) => Promise<iChannel>;
+	pushMessage: (content: string) => Promise<iMessage>;
 }
