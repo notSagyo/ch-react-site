@@ -60,5 +60,5 @@ export const defaultChannel: iChannel = {
 	messages: [],
 	type: 'user',
 	members: [],
-	id: '-1',
+	id: '0',
 };

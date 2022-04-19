@@ -11,15 +11,15 @@ function MessageBar(props: HTMLAttributes<HTMLFormElement>) {
 	const { pushMessage } = useChannelContext();
 	const { classes, cx } = useStyles();
 
-	function handleKeyDown(e: React.KeyboardEvent<HTMLTextAreaElement>) {
+	async function handleKeyDown(e: React.KeyboardEvent<HTMLTextAreaElement>) {
 		setErrorState(null);
 		if (!(e.key === 'Enter' && !e.shiftKey) || !inputRef.current)
 			return;
 
-		pushMessage(inputRef.current.value)
-			.catch((e: Error) => setErrorState(`*${e.message}`));
-		inputRef.current.value = '';
 		e.preventDefault();
+		await pushMessage(inputRef.current.value)
+			.catch((err: Error) => setErrorState(`*${err.message}`));
+		inputRef.current.value = '';
 	}
 
 	return (

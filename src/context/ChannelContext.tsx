@@ -3,8 +3,9 @@ import { v4 } from 'uuid';
 import { defaultChannel, validateMessage } from '../pages/Chat/ChatHelper';
 import { HTMLElementProps, iChannel, iChannelContext, iMessage } from '../types';
 import { useUserContext } from './UserContext';
-import { getDoc, doc, setDoc, onSnapshot } from '@firebase/firestore';
+import { doc, getDoc, setDoc, updateDoc, onSnapshot } from '@firebase/firestore';
 import { db } from '../firebaseConfig';
+import { FirebaseError } from 'firebase/app';
 
 const ChannelContext = createContext<iChannelContext | Record<string, never>>({});
 export const useChannelContext = () => useContext(ChannelContext);
@@ -69,15 +70,15 @@ function ChannelContextProvider({ children, ...props }: HTMLElementProps) {
 			updatedAt: Date.now(),
 		};
 
-		const channel = await getChannel(activeChannel.id);
-
-		if (channel) {
-			channel.messages.push(parsedMessage);
-			setDoc(doc(db, 'channels', channel.id), channel);
-		} else {
-			const newChannel = await createChannel({...activeChannel, messages: [parsedMessage]});
-			newChannel && setActiveChannel(newChannel);
-		}
+		activeChannel.messages.push(parsedMessage);
+		await updateDoc(doc(db, 'channels', activeChannel.id), {
+			messages: activeChannel.messages,
+		}).catch((err: FirebaseError) => {
+			if (err.code === 'not-found') {
+				console.warn(`(Firestore): channel ${activeChannel.id} not found, creating...`);
+				createChannel(activeChannel);
+			}
+		});
 
 		return parsedMessage;
 	};

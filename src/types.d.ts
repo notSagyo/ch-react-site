@@ -75,7 +75,8 @@ export interface iUserContext {
 	authUser: User | undefined;
 	setAuthUser: React.Dispatch<SetStateAction<User | undefined>>;
 	getUser: (id: string) => Promise<iUser | undefined>;
-	createUser: (user: iUser) => Promise<iUser>;
+	createUser: (user: iUser) => Promise<iUser | false>;
+	updateUser: (user: iUser) => Promise<iUser>;
 	signIn: () => void;
 }
 
