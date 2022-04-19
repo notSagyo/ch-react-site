@@ -1,5 +1,4 @@
 import { AppShell, Header } from '@mantine/core';
-import { RecoilRoot } from 'recoil';
 import Channel from '../../components/Channel/Channel';
 import ChannelsBar from '../../components/ChannelsBar/ChannelsBar';
 import ChatContextProvider from '../../context/ChatContext';
@@ -13,19 +12,17 @@ function Chat() {
 
 	return (
 		<ChatContextProvider>
-			<RecoilRoot>
-				<AppShell
-					navbar={<ChannelsBar />}
-					header={header}
-					classNames={{
-						root: classes.root,
-						body: classes.body,
-						main: classes.main
-					}}
-				>
-					<Channel />
-				</AppShell>
-			</RecoilRoot>
+			<AppShell
+				navbar={<ChannelsBar />}
+				header={header}
+				classNames={{
+					root: classes.root,
+					body: classes.body,
+					main: classes.main
+				}}
+			>
+				<Channel />
+			</AppShell>
 		</ChatContextProvider>
 	);
 }

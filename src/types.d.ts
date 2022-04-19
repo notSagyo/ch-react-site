@@ -38,7 +38,7 @@ export interface iMessage {
 }
 
 export interface iProduct {
-	id: number;
+	id: string;
 	name: string;
 	description: string;
 	price: number;
@@ -61,11 +61,18 @@ export interface iCartItem extends iProduct {
 	quantity: number;
 }
 
+export interface iShopContext {
+	getProduct: (id: string) => Promise<iProduct | undefined>;
+	getProducts: () => Promise<iProduct[]>;
+	getProductsByCategory: (category: string) => Promise<iProduct[] | undefined>;
+	setProduct: (product: iProduct) => Promise<void>;
+}
+
 export interface iCartContext {
 	itemList: iCartItem[];
 	setItemList: React.Dispatch<SetStateAction<iCartItem[]>>;
 	addItem: (product: iCartItem) => void;
-	removeItem: (id: number) => void;
+	removeItem: (id: string) => void;
 	clearCart: () => void;
 }
 
@@ -84,7 +91,7 @@ export interface iChannelContext {
 	activeChannel: iChannel;
 	setActiveChannel: React.Dispatch<SetStateAction<iChannel>>;
 	getChannel: (id: string) => Promise<iChannel | undefined>;
-	getUsers: (id: string) => Promise<iUser[]>;
+	getMembers: (id: string) => Promise<iUser[]>;
 	getMessages: (id: string) => Promise<iMessage[] | undefined>;
 	createChannel: (channel: iChannel) => Promise<iChannel | false>;
 	changeChannel: (id: string) => Promise<iChannel>;

@@ -4,7 +4,7 @@ import { APP_URL, BASE_URL } from './utils';
 import Chat from './pages/Chat/Chat';
 import Home from './pages/Home/Home';
 import '/src/styles/main.scss';
-import CartContextProvider from './context/CartContext';
+import ShopContextProvider from './context/ShopContext';
 
 function App() {
 	const theme = useMantineTheme();
@@ -26,7 +26,7 @@ function App() {
 			}}
 			withNormalizeCSS
 		>
-			<CartContextProvider>
+			<ShopContextProvider>
 				<Container px='0' fluid>
 					<BrowserRouter>
 						<Routes>
@@ -36,7 +36,7 @@ function App() {
 						</Routes>
 					</BrowserRouter>
 				</Container>
-			</CartContextProvider>
+			</ShopContextProvider>
 		</MantineProvider>
 	);
 }

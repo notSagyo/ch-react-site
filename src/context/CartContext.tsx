@@ -16,7 +16,7 @@ function CartContextProvider({children, ...props}: DivProps) {
 		itemList.sort((a, b) => a.category.localeCompare(b.category));
 	}
 
-	function removeItem(id: number) {
+	function removeItem(id: string) {
 		setItemList(itemList.filter(item => item.id !== id));
 	}
 
@@ -24,7 +24,7 @@ function CartContextProvider({children, ...props}: DivProps) {
 		setItemList([]);
 	}
 
-	function findItem(id: number) {
+	function findItem(id: string) {
 		return itemList.find(item => item.id === id);
 	}
 

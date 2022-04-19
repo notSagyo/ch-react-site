@@ -1,26 +1,7 @@
-import { atom, useSetRecoilState } from 'recoil';
 import { iChannel, iUser } from '../../types';
-import usersJSON from '../../data/users.json';
-import { getChannel } from '../../components/Channel/ChannelHelper';
-import { isEmptyObject } from '../../utils';
 
 // Constants =================================================================//
 export const maxMessageLength = 200;
-
-// Recoil declarations =======================================================//
-export const CurrentUserState = atom<iUser>({
-	key: 'CurrentUser',
-	default: {
-		createdAt: Date.now(),
-		updatedAt: Date.now(),
-		email: '',
-		id: '-1',
-		avatarURL: '',
-		name: '',
-		occupation: 'Frontend Deloper: JS / React',
-		bannerURL: 'https://picsum.photos/600/300',
-	},
-});
 
 // Functions =================================================================//
 // Messages ==================================================================//
@@ -33,12 +14,6 @@ export const validateMessage = (content: string) => {
 
 	return content;
 };
-
-// Users =====================================================================//
-export function getUser(id: string): iUser | undefined {
-	const user = usersJSON.find(user => user.id === id);
-	return user;
-}
 
 // Defaults ==================================================================//
 export const defaultUser: iUser = {
@@ -60,5 +35,5 @@ export const defaultChannel: iChannel = {
 	messages: [],
 	type: 'user',
 	members: [],
-	id: '-1',
+	id: '0',
 };

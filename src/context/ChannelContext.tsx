@@ -5,7 +5,6 @@ import { HTMLElementProps, iChannel, iChannelContext, iMessage } from '../types'
 import { useUserContext } from './UserContext';
 import { doc, getDoc, setDoc, updateDoc, onSnapshot } from '@firebase/firestore';
 import { db } from '../firebaseConfig';
-import { FirebaseError } from 'firebase/app';
 
 const ChannelContext = createContext<iChannelContext | Record<string, never>>({});
 export const useChannelContext = () => useContext(ChannelContext);
@@ -26,7 +25,7 @@ function ChannelContextProvider({ children, ...props }: HTMLElementProps) {
 		return channelData;
 	};
 
-	const getUsers = async (channelId: string) => {
+	const getMembers = async (channelId: string) => {
 		// TODO: Implement
 		console.log('getUsers not implemented');
 		return [];
@@ -99,7 +98,7 @@ function ChannelContextProvider({ children, ...props }: HTMLElementProps) {
 			activeChannel: activeChannel,
 			setActiveChannel: setActiveChannel,
 			getChannel: getChannel,
-			getUsers: getUsers,
+			getMembers: getMembers,
 			getMessages: getMessages,
 			createChannel: createChannel,
 			changeChannel: changeChannel,

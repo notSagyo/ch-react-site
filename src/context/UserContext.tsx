@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { firebaseSignIn } from '../firebaseConfig';
 import { User, getAuth } from '@firebase/auth';
-import { getDoc, setDoc, addDoc, updateDoc, doc, collection } from '@firebase/firestore';
+import { getDoc, setDoc, updateDoc, doc } from '@firebase/firestore';
 import { defaultUser } from '../pages/Chat/ChatHelper';
 import { db } from '../firebaseConfig';
 import { HTMLElementProps, iUser, iUserContext } from '../types';
