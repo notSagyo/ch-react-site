@@ -17,7 +17,7 @@ function MessageBar(props: HTMLAttributes<HTMLFormElement>) {
 			return;
 
 		e.preventDefault();
-		await pushMessage(inputRef.current.value)
+		pushMessage(inputRef.current.value)
 			.catch((err: Error) => setErrorState(`*${err.message}`));
 		inputRef.current.value = '';
 	}

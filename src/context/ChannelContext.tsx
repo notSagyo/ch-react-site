@@ -70,15 +70,18 @@ function ChannelContextProvider({ children, ...props }: HTMLElementProps) {
 			updatedAt: Date.now(),
 		};
 
-		activeChannel.messages.push(parsedMessage);
-		await updateDoc(doc(db, 'channels', activeChannel.id), {
-			messages: activeChannel.messages,
-		}).catch((err: FirebaseError) => {
-			if (err.code === 'not-found') {
-				console.warn(`(Firestore): channel ${activeChannel.id} not found, creating...`);
-				createChannel(activeChannel);
-			}
-		});
+		const channel = await getChannel(activeChannel.id);
+
+		if (channel) {
+			channel.messages.push(parsedMessage);
+			updateDoc(doc(db, 'channels', channel.id), {
+				messages: channel.messages
+			});
+		} else {
+			console.warn(`(Firestore): channel ${activeChannel.id} not found, creating...`);
+			const newChannel = await createChannel({...activeChannel, messages: [parsedMessage]});
+			newChannel && setActiveChannel(newChannel);
+		}
 
 		return parsedMessage;
 	};
