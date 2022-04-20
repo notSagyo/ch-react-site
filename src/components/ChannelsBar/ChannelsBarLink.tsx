@@ -1,4 +1,5 @@
 import { useChannelContext } from '../../context/ChannelContext';
+import { useUserContext } from '../../context/UserContext';
 import { CHANNEL_URL } from '../../utils';
 import SidenavLink, { SidenavLinkProps } from '../Sidenav/SidenavLink';
 import UserCard from '../UserCard/UserCard';
@@ -11,9 +12,9 @@ export type ChannelBarLinkProps = SidenavLinkProps & {
 // TODO: Update to work with team channels too
 function ChannelsBarLink({membersId, ...props}: ChannelBarLinkProps) {
 	const { activeChannel } = useChannelContext();
+	const { activeUser } = useUserContext();
 
 	// !TODO: CHANGE TO USE CONTEXT
-	// const [localUser] = useRecoilState(CurrentUserState);
 	// const remoteUserId = membersId.find(id => id !== localUser.id) ?? localUser.id;
 	// const remoteUser = getUser(remoteUserId);
 

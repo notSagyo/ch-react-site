@@ -1,9 +1,9 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { v4 } from 'uuid';
 import { defaultChannel, validateMessage } from '../pages/Chat/ChatHelper';
-import { HTMLElementProps, iChannel, iChannelContext, iMessage } from '../types';
+import { HTMLElementProps, iChannel, iChannelContext, iMessage, iUser } from '../types';
 import { useUserContext } from './UserContext';
-import { doc, getDoc, setDoc, updateDoc, onSnapshot } from '@firebase/firestore';
+import { doc, getDoc, getDocs, setDoc, updateDoc, onSnapshot, collection } from '@firebase/firestore';
 import { db } from '../firebaseConfig';
 
 const ChannelContext = createContext<iChannelContext | Record<string, never>>({});
@@ -25,13 +25,16 @@ function ChannelContextProvider({ children, ...props }: HTMLElementProps) {
 		return channelData;
 	};
 
-	const getMembers = async (channelId: string) => {
-		// TODO: Implement
-		console.log('getUsers not implemented');
-		return [];
+	const getMembers = async (channelId: string = activeChannel.id) => {
+		if (channelId === activeChannel.id)
+			return activeChannel.members;
+		const channel = collection(db, 'channels', channelId, 'members');
+		const membersSnap = await getDocs(channel);
+		const members = membersSnap.docs.map((doc) => doc.data() as iUser);
+		return members;
 	};
 
-	const getMessages = async (channelId: string) => {
+	const getMessages = async (channelId: string = activeChannel.id) => {
 		if (channelId === activeChannel.id)
 			return activeChannel.messages;
 		const channel = await getChannel(channelId);
@@ -47,7 +50,12 @@ function ChannelContextProvider({ children, ...props }: HTMLElementProps) {
 			return false;
 		}
 
-		await setDoc(doc(db, 'channels', channel.id), channel);
+		const { members, ...channelInfo } = channel;
+		await setDoc(doc(db, 'channels', channel.id), channelInfo);
+		members.forEach(async (member) => {
+			await setDoc(doc(db, 'channels', channel.id, 'members', member.id), member);
+		});
+
 		return channel;
 	};
 

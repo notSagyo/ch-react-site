@@ -1,13 +1,14 @@
 import { ScrollArea, ScrollAreaProps } from '@mantine/core';
 import { useEffect, useRef, useState } from 'react';
 import { useChannelContext } from '../../context/ChannelContext';
+import { defaultUser } from '../../pages/Chat/ChatHelper';
 import Message from '../Message/Message';
 import useStyles from './MessagesWindow.styles';
 
 function MessagesWindow({children, ...props}: ScrollAreaProps) {
 	const [msgList, setMsgList] = useState<JSX.Element[]>([]);
 	const scrollRef = useRef<HTMLDivElement>(null);
-	const { activeChannel } = useChannelContext();
+	const { activeChannel, createChannel, getMembers } = useChannelContext();
 	const { classes } = useStyles();
 
 	// Update msg list on current channel messages' update

@@ -20,7 +20,7 @@ export interface iChannel {
 	id: string;
 	label: string;
 	description: string;
-	members: string[];
+	members: iUser[];
 	messages: iMessage[];
 	createdAt: number;
 	updatedAt: number;
@@ -91,8 +91,8 @@ export interface iChannelContext {
 	activeChannel: iChannel;
 	setActiveChannel: React.Dispatch<SetStateAction<iChannel>>;
 	getChannel: (id: string) => Promise<iChannel | undefined>;
-	getMembers: (id: string) => Promise<iUser[]>;
-	getMessages: (id: string) => Promise<iMessage[] | undefined>;
+	getMembers: (id?: string) => Promise<iUser[] | undefined>;
+	getMessages: (id?: string) => Promise<iMessage[] | undefined>;
 	createChannel: (channel: iChannel) => Promise<iChannel | false>;
 	changeChannel: (id: string) => Promise<iChannel>;
 	pushMessage: (content: string) => Promise<iMessage>;
