@@ -40,8 +40,9 @@ function Home() {
 					<Routes>
 						<Route path='/' element={<Landing className={styles.mainSection} />} />
 						<Route path='cart' element={<Cart />}/>
-						<Route path='pricing' element={<Pricing className={styles.mainSection} />}/>
-						<Route path={'pricing/:productCategory/details/:productId'} element={<ProductDetails />}/>
+						<Route path='pricing/' element={<Pricing className={styles.mainSection} />} />
+						<Route path='pricing/:productCategory' element={<Pricing className={styles.mainSection} />} />
+						<Route path={'pricing/:productCategory/details/:productId'} element={<ProductDetails />} />
 						<Route path={'*'} element={<Error404 />}/>
 					</Routes>
 				</main>

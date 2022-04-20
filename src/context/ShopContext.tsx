@@ -1,7 +1,7 @@
 import { createContext, useContext } from 'react';
 import { HTMLElementProps, iProduct, iShopContext } from '../types';
 import CartContextProvider from './CartContext';
-import { doc, setDoc, getDocs, collection, getDoc } from '@firebase/firestore';
+import { doc, setDoc, getDocs, collection, getDoc, query, where } from '@firebase/firestore';
 import { db } from '../firebaseConfig';
 
 const ShopContext = createContext<iShopContext | Record<string, never>>({});
@@ -22,9 +22,10 @@ function ShopContextProvider({children, ...props}: HTMLElementProps) {
 	};
 
 	const getProductsByCategory = async (category: string) => {
-		// TODO: Implement
-		console.log('getProducts not implemented');
-		return [];
+		const q = query(collection(db, 'products'), where('category', '==', category));
+		const productsSnap = await getDocs(q);
+		const products = productsSnap.docs.map((doc) => doc.data() as iProduct);
+		return products;
 	};
 
 	const setProduct = async (product: iProduct) => {
