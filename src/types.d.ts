@@ -52,11 +52,6 @@ export interface iFeature {
 	description: string;
 }
 
-export interface iSidebarChannel extends iChannel {
-	icon: Icon;
-	avatarURL?: string;
-}
-
 export interface iCartItem {
 	id: string;
 	name: string;
@@ -73,6 +68,11 @@ export interface iOrder {
 	products: iCartItem[];
 	total: number;
 	createdAt: number;
+}
+
+export interface iSidebarChannel extends iChannel {
+	icon: Icon;
+	avatarURL?: string;
 }
 
 export interface iShopContext {
