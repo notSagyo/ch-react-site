@@ -1,6 +1,6 @@
 import { createContext, useContext, useState } from 'react';
 import { DivProps, iCartContext, iCartItem, iOrder, iProduct } from '../types';
-import { addDoc, doc, collection } from '@firebase/firestore';
+import { addDoc, collection } from '@firebase/firestore';
 import { db } from '../firebaseConfig';
 
 const CartContext = createContext<iCartContext | Record<string, never>>({});
@@ -23,7 +23,6 @@ function CartContextProvider({children, ...props}: DivProps) {
 	}
 
 	async function clearCart() {
-		// TODO: implement
 		setItemList([]);
 	}
 

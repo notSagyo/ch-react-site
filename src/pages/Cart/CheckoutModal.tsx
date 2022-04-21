@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import { Modal, Button, Group, Text, Loader, LoadingOverlay } from '@mantine/core';
+import { useState } from 'react';
+import { Modal, Button, Group, Text, LoadingOverlay } from '@mantine/core';
 import { useCartContext } from '../../context/CartContext';
 import { iOrder } from '../../types';
 import { useUserContext } from '../../context/UserContext';
@@ -10,27 +10,17 @@ interface CheckoutModalProps {
 }
 
 function CheckoutModal({ opened, setOpened }: CheckoutModalProps) {
+	const [order, setOrder] = useState<iOrder>();
 	const [loading, setLoading] = useState(false);
 	const [confirmed, setConfirmed] = useState(false);
-	const { activeUser } = useUserContext();
 	const { itemList, getTotal, createOrder, clearCart } = useCartContext();
-	const [order, setOrder] = useState<iOrder>();
-
-	useEffect(() => {
-		if (opened) {
-			console.log(itemList);
-		}
-	}, [opened]);
+	const { activeUser } = useUserContext();
 
 	const products = itemList.map((item) => {
 		return (
 			<Group position='apart'>
-				<div>
-					{item.quantity} x {item.name}
-				</div>
-				<div>
-					${(item.price * item.quantity).toFixed(2)}
-				</div>
+				<div> {item.quantity} x {item.name} </div>
+				<div> ${(item.price * item.quantity).toFixed(2)} </div>
 			</Group>
 		);
 	});
@@ -46,18 +36,14 @@ function CheckoutModal({ opened, setOpened }: CheckoutModalProps) {
 			createdAt: Date.now(),
 		};
 
-		setConfirmed(true);
-		setOrder(newOrder);
-		createOrder(newOrder)
-			.then(() => clearCart())
-			.finally(() => setLoading(false));
-
-		// !TODO: !!!!! SHOW RECEIPT
+		const createdOrder = await createOrder(newOrder);
+		if (createdOrder) {
+			clearCart();
+			setConfirmed(true);
+			setOrder(createdOrder);
+		}
+		setLoading(false);
 	};
-
-	useEffect(() => {
-		console.log(order);
-	}), [order];
 
 	return (
 		<Modal
@@ -68,14 +54,52 @@ function CheckoutModal({ opened, setOpened }: CheckoutModalProps) {
 		>
 			<LoadingOverlay visible={loading}/>
 			<Group direction='column' align='stretch' mt={'lg'}>
-				{products}
-				<Group position='right'>
-					<Text weight={600}>Total:</Text>
-					<Text weight={600}>${getTotal().toFixed(2)}</Text>
-				</Group>
-				<Group position="center" mt={'lg'} onClick={handleConfirm}>
-					<Button color={'brand'}>Confirm</Button>
-				</Group>
+				{confirmed ?
+					<>
+						<Text weight={600} underline>Details:</Text>
+						<Group position='apart'>
+							<div>Total:</div>
+							<div>${order?.total}</div>
+						</Group>
+						<Group position='apart'>
+							<div>Order ID:</div>
+							<div>{order?.id}</div>
+						</Group>
+						<Group position='apart'>
+							<div>Issue date:</div>
+							<div>{order?.createdAt && new Date(order.createdAt).toUTCString()}</div>
+						</Group>
+						<Text weight={600} mt={'sm'} underline>To:</Text>
+						<Group position='apart'>
+							<div>Name:</div>
+							<div>{order?.userName}</div>
+						</Group>
+						<Group position='apart'>
+							<div>Mail:</div>
+							<div>{order?.userEmail}</div>
+						</Group>
+						<Group position='apart'>
+							<div>User ID:</div>
+							<div>{order?.userId}</div>
+						</Group>
+						<Group position="center" mt={'sm'}>
+							<Button color={'brand'} onClick={() => setOpened(false)}>
+								Close
+							</Button>
+						</Group>
+					</>
+					:
+					<>
+						{products}
+						<Group position='right'>
+							<Text weight={600}>Total:</Text>
+							<Text weight={600}>${getTotal().toFixed(2)}</Text>
+						</Group>
+						<Group position="center" mt={'lg'} onClick={handleConfirm}>
+							<Button color={'brand'}>Confirm</Button>
+						</Group>
+					</>
+				}
 			</Group>
 		</Modal>
 	);
