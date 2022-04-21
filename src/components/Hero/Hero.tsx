@@ -36,8 +36,8 @@ function Hero() {
 					<Button
 						size='xl'
 						variant='gradient'
-						radius={'lg'}
-						gradient={{from: 'base', to: 'pink', deg: 135}}
+						radius={'md'}
+						gradient={{from: 'brand', to: 'pink', deg: 135}}
 					>Open app</Button>
 				</Link>
 			</Group>

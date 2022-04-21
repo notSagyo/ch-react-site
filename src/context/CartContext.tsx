@@ -1,13 +1,17 @@
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext } from 'react';
 import { DivProps, iCartContext, iCartItem, iOrder, iProduct } from '../types';
 import { addDoc, collection } from '@firebase/firestore';
 import { db } from '../firebaseConfig';
+import { useLocalStorage } from '@mantine/hooks';
 
 const CartContext = createContext<iCartContext | Record<string, never>>({});
 export const useCartContext = () => useContext(CartContext);
 
 function CartContextProvider({children, ...props}: DivProps) {
-	const [itemList, setItemList] = useState<iCartItem[]>([]);
+	const [itemList, setItemList] = useLocalStorage<iCartItem[]>({
+		key: 'cart',
+		defaultValue: []
+	});
 
 	async function addItem(item: iCartItem) {
 		const foundItem = findItem(item.id);

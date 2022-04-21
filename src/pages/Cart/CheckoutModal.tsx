@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Modal, Button, Group, Text, LoadingOverlay } from '@mantine/core';
+import { Modal, Button, Group, Text, LoadingOverlay, Stack } from '@mantine/core';
 import { useCartContext } from '../../context/CartContext';
 import { iOrder } from '../../types';
 import { useUserContext } from '../../context/UserContext';
@@ -53,7 +53,7 @@ function CheckoutModal({ opened, setOpened }: CheckoutModalProps) {
 			onClose={() => setOpened(false)}
 		>
 			<LoadingOverlay visible={loading}/>
-			<Group direction='column' align='stretch' mt={'lg'}>
+			<Stack align='stretch' mt={'lg'}>
 				{confirmed ?
 					<>
 						<Text weight={600} underline>Details:</Text>
@@ -100,7 +100,7 @@ function CheckoutModal({ opened, setOpened }: CheckoutModalProps) {
 						</Group>
 					</>
 				}
-			</Group>
+			</Stack>
 		</Modal>
 	);
 }
