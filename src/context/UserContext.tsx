@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from 'react';
-import { firebaseSignIn } from '../firebaseConfig';
+import { firebaseSignIn, fireBaseSignOut } from '../firebaseConfig';
 import { User, getAuth } from '@firebase/auth';
 import { getDoc, setDoc, updateDoc, doc } from '@firebase/firestore';
 import { defaultUser } from '../pages/Chat/ChatHelper';
@@ -15,9 +15,19 @@ function UserContextProvider({ children, ...props }: HTMLElementProps) {
 	const [authUser, setAuthUser] = useState<User | undefined>();
 
 	const signIn = async () => {
+		let signedUser: User | undefined;
 		if (authUser)
-			return;
-		await firebaseSignIn();
+			console.warn('(Firebase): User already signed in');
+		else
+			signedUser = await firebaseSignIn();
+		return signedUser;
+	};
+
+	const signOut = async () => {
+		if (!authUser)
+			console.warn('(Firebase): User is not signed in');
+		else
+			await fireBaseSignOut();
 	};
 
 	const getUser = async (userId: string) => {
@@ -80,6 +90,7 @@ function UserContextProvider({ children, ...props }: HTMLElementProps) {
 			createUser: createUser,
 			updateUser: updateUser,
 			signIn: signIn,
+			signOut: signOut,
 		}}>
 			{children}
 		</UserContext.Provider>

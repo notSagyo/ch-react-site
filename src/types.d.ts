@@ -57,8 +57,22 @@ export interface iSidebarChannel extends iChannel {
 	avatarURL?: string;
 }
 
-export interface iCartItem extends iProduct {
+export interface iCartItem {
+	id: string;
+	name: string;
+	price: number;
+	category: string;
 	quantity: number;
+}
+
+export interface iOrder {
+	id?: string;
+	userId: string;
+	userName: string;
+	userEmail: string;
+	products: iCartItem[];
+	total: number;
+	createdAt: number;
 }
 
 export interface iShopContext {
@@ -73,7 +87,10 @@ export interface iCartContext {
 	setItemList: React.Dispatch<SetStateAction<iCartItem[]>>;
 	addItem: (product: iCartItem) => void;
 	removeItem: (id: string) => void;
+	getTotal: () => number;
 	clearCart: () => void;
+	createOrder: (order: iOrder)  => Promise<iOrder>;
+	productToCartItem: (product: iProduct, quantity: number) => iCartItem;
 }
 
 export interface iUserContext {
@@ -84,7 +101,8 @@ export interface iUserContext {
 	getUser: (id: string) => Promise<iUser | undefined>;
 	createUser: (user: iUser) => Promise<iUser | false>;
 	updateUser: (user: iUser) => Promise<iUser>;
-	signIn: () => void;
+	signIn: () => Promise<User | undefined>;
+	signOut: () => Promise<void>;
 }
 
 export interface iChannelContext {

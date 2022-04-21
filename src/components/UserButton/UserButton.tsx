@@ -12,11 +12,21 @@ interface UserButtonProps extends UnstyledButtonProps {
 }
 
 export function UserButton({ image, name, email, icon, ...props }: UserButtonProps) {
-	const { signIn, authUser } = useUserContext();
+	const { signIn, signOut, authUser } = useUserContext();
 	const { classes } = useStyles();
 
+	const handleClick = () => {
+		if (authUser) {
+			signOut();
+			window.location.reload();
+		}
+		else {
+			signIn();
+		}
+	};
+
 	return (
-		<UnstyledButton className={classes.user} {...props} onClick={signIn}>
+		<UnstyledButton className={classes.user} {...props} onClick={handleClick}>
 			<Group style={{ flexWrap: 'nowrap' }}>
 				<Avatar src={authUser?.photoURL} radius="xl" />
 

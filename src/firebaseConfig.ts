@@ -4,7 +4,9 @@ import { getFirestore } from '@firebase/firestore';
 import {
 	GoogleAuthProvider,
 	signInWithPopup,
-	getAuth, setPersistence,
+	signOut,
+	getAuth,
+	setPersistence,
 	browserLocalPersistence,
 	User,
 } from '@firebase/auth';
@@ -47,4 +49,8 @@ export const firebaseSignIn = async () => {
 		});
 
 	return user;
+};
+
+export const fireBaseSignOut = async () => {
+	await signOut(auth);
 };
