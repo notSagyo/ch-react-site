@@ -29,8 +29,8 @@ function ShopContextProvider({children, ...props}: HTMLElementProps) {
 	};
 
 	const setProduct = async (product: iProduct) => {
-		setDoc(doc(db, 'products', product.id), product);
-		return;
+		await setDoc(doc(db, 'products', product.id), product);
+		return product;
 	};
 
 	return (

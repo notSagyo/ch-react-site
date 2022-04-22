@@ -1,10 +1,10 @@
 import React from 'react';
-import { UnstyledButton, UnstyledButtonProps, Group, Avatar, Text, } from '@mantine/core';
+import { UnstyledButton, Group, Avatar, Text, } from '@mantine/core';
 import { ChevronRight } from 'tabler-icons-react';
 import useStyles from './UserButton.styles';
 import { useUserContext } from '../../context/UserContext';
 
-interface UserButtonProps extends UnstyledButtonProps {
+interface UserButtonProps {
 	image?: string;
 	name?: string;
 	email?: string;

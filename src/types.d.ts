@@ -79,7 +79,7 @@ export interface iShopContext {
 	getProduct: (id: string) => Promise<iProduct | undefined>;
 	getProducts: () => Promise<iProduct[]>;
 	getProductsByCategory: (category: string) => Promise<iProduct[] | undefined>;
-	setProduct: (product: iProduct) => Promise<void>;
+	setProduct: (product: iProduct) => Promise<iProduct>;
 }
 
 export interface iCartContext {
