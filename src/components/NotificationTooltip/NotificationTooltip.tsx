@@ -21,7 +21,6 @@ function NotificationTooltip({textColor, ...props}:Props) {
 
 	const handleClick = () => {
 		setOpened(!opened);
-		console.log('clicked');
 	};
 
 	return (

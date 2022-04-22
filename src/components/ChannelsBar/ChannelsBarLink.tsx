@@ -1,5 +1,5 @@
-import { useRecoilState } from 'recoil';
-import { ActiveChannelState, CurrentUserState, getUser } from '../../pages/Chat/ChatHelper';
+import { useChannelContext } from '../../context/ChannelContext';
+import { useUserContext } from '../../context/UserContext';
 import { CHANNEL_URL } from '../../utils';
 import SidenavLink, { SidenavLinkProps } from '../Sidenav/SidenavLink';
 import UserCard from '../UserCard/UserCard';
@@ -11,13 +11,14 @@ export type ChannelBarLinkProps = SidenavLinkProps & {
 
 // TODO: Update to work with team channels too
 function ChannelsBarLink({membersId, ...props}: ChannelBarLinkProps) {
-	const [localUser] = useRecoilState(CurrentUserState);
-	const [activeChannel] = useRecoilState(ActiveChannelState);
+	const { activeChannel } = useChannelContext();
+	const { activeUser } = useUserContext();
 
-	const remoteUserId = membersId.find(id => id !== localUser.id) ?? localUser.id;
-	const remoteUser = getUser(remoteUserId);
+	// !TODO: CHANGE TO USE CONTEXT
+	// const remoteUserId = membersId.find(id => id !== localUser.id) ?? localUser.id;
+	// const remoteUser = getUser(remoteUserId);
 
-	const link = `../${CHANNEL_URL}/${remoteUser && remoteUser.id}`;
+	const link = `../${CHANNEL_URL}/`;
 
 	return (
 		<>
@@ -27,11 +28,11 @@ function ChannelsBarLink({membersId, ...props}: ChannelBarLinkProps) {
 					activeLink={activeChannel.id}
 					link={link}
 				/>}
-				avatar={remoteUser?.avatarURL}
-				banner={remoteUser?.bannerURL}
-				link={link}
-				name={remoteUser?.name}
-				occupation={remoteUser?.occupation }
+				// avatar={remoteUser?.avatarURL}
+				// banner={remoteUser?.bannerURL}
+				// link={link}
+				// name={remoteUser?.name}
+				// occupation={remoteUser?.occupation }
 			/>
 		</>
 	);

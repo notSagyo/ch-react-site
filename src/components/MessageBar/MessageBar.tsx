@@ -1,24 +1,25 @@
 import { Textarea } from '@mantine/core';
-import { HTMLAttributes, useRef } from 'react';
+import { HTMLAttributes, useRef, useState } from 'react';
 import { Message as MessageIcon } from 'tabler-icons-react';
-import { usePushMessage } from '../../pages/Chat/ChatHelper';
+import { useChannelContext } from '../../context/ChannelContext';
+import { maxMessageLength } from '../../pages/Chat/ChatHelper';
 import useStyles from './MessageBar.styles';
-import { validateMessage } from './MessageBarHelper';
 
 function MessageBar(props: HTMLAttributes<HTMLFormElement>) {
 	const inputRef = useRef<HTMLTextAreaElement>(null);
-	const pushMessage = usePushMessage();
+	const [errorState, setErrorState] = useState<string | null>(null);
+	const { pushMessage } = useChannelContext();
 	const { classes, cx } = useStyles();
 
-	function handleKeyDown(e: React.KeyboardEvent<HTMLTextAreaElement>) {
+	async function handleKeyDown(e: React.KeyboardEvent<HTMLTextAreaElement>) {
+		setErrorState(null);
 		if (!(e.key === 'Enter' && !e.shiftKey) || !inputRef.current)
 			return;
 
-		const validatedMessage = validateMessage(inputRef.current.value);
-		validatedMessage && pushMessage(validatedMessage);
-
-		inputRef.current.value = '';
 		e.preventDefault();
+		pushMessage(inputRef.current.value)
+			.catch((err: Error) => setErrorState(`*${err.message}`));
+		inputRef.current.value = '';
 	}
 
 	return (
@@ -28,12 +29,15 @@ function MessageBar(props: HTMLAttributes<HTMLFormElement>) {
 				className={cx(props.className, classes.textInput)}
 				classNames={{input: classes.inputInner}}
 				placeholder='Write a message...'
+				maxLength={maxMessageLength}
 				onKeyDown={handleKeyDown}
 				autoComplete='off'
+				error={errorState}
 				ref={inputRef}
-				minRows={1}
 				maxRows={10}
+				minRows={1}
 				autosize
+				aria-label='Message bar'
 			/>
 		</form>
 	);

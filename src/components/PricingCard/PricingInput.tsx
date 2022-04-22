@@ -20,7 +20,7 @@ interface QuantityInputProps extends DivProps {
 
 function PricingInput({
 	product,
-	min = 0,
+	min = 1,
 	max = 999,
 	buttonLabel = 'Buy now >',
 	buttonLink = `/${CART_URL}`,
@@ -30,7 +30,7 @@ function PricingInput({
 	...props }: QuantityInputProps)
 {
 	const [quantity, setQuantity] = useState(1);
-	const cartContext = useCartContext();
+	const { productToCartItem, addItem } = useCartContext();
 	const handlers = useRef<NumberInputHandlers>();
 	const numberInput = useRef<HTMLInputElement>(null);
 	const { classes, cx } = useStyles();
@@ -38,8 +38,7 @@ function PricingInput({
 	function handleClick() {
 		if (!product)
 			return;
-
-		cartContext.addItem({...product, quantity: quantity});
+		addItem(productToCartItem(product, quantity));
 	}
 
 	return (
@@ -82,7 +81,11 @@ function PricingInput({
 				</ActionIcon>
 			</div>
 			<Link to={buttonLink}>
-				<Button className={classes.button} onClick={onButtonClick || handleClick}>
+				<Button
+					color={'brand'}
+					className={classes.button}
+					onClick={onButtonClick || handleClick}
+				>
 					{buttonLabel}
 				</Button>
 			</Link>

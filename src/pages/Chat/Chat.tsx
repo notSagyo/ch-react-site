@@ -1,7 +1,7 @@
 import { AppShell, Header } from '@mantine/core';
-import { RecoilRoot } from 'recoil';
 import Channel from '../../components/Channel/Channel';
 import ChannelsBar from '../../components/ChannelsBar/ChannelsBar';
+import ChannelContextProvider from '../../context/ChannelContext';
 import useStyles from './Chat.styles';
 
 // TODO: Participants sidebar
@@ -11,7 +11,7 @@ function Chat() {
 	const header = ( <Header className={classes.header} height={32}>{}</Header> );
 
 	return (
-		<RecoilRoot>
+		<ChannelContextProvider>
 			<AppShell
 				navbar={<ChannelsBar />}
 				header={header}
@@ -23,7 +23,7 @@ function Chat() {
 			>
 				<Channel />
 			</AppShell>
-		</RecoilRoot>
+		</ChannelContextProvider>
 	);
 }
 

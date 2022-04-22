@@ -25,7 +25,7 @@
 }
 
 // Animation =========================//
-$delay-interval: 0.2s;
+$delay-interval: 0.15s;
 
 .fadeIn {
 	animation: fade-in ease-out 0.75s forwards;
@@ -37,7 +37,7 @@ $delay-interval: 0.2s;
 .fadeIn.buttons { animation-delay: $delay-interval * 3; }
 
 @keyframes fade-in {
-	from { transform: translateY(5rem); }
+	from { transform: translateY(2rem); }
 
 	to {
 		transform: translateY(0);

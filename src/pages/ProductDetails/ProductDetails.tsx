@@ -1,19 +1,27 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Title, SimpleGrid, Text, ThemeIcon, Grid, Col } from '@mantine/core';
 import { useParams } from 'react-router';
 import { Flame } from 'tabler-icons-react';
 import useStyles from './ProductDetails.styles';
-import products from '../../data/products.json';
 import PricingInput from '../../components/PricingCard/PricingInput';
 import Pricetag from '../../components/PricingCard/Pricetag';
+import { iProduct } from '../../types';
+import { useShopContext } from '../../context/ShopContext';
 
 function ProductDetails() {
 	const [quantity, setQuantity] = useState(1);
+	const [product, setProduct] = useState<iProduct>();
+	const { getProduct } = useShopContext();
 	const { classes } = useStyles();
-	const { productId, productCategory } = useParams();
+	const { productId } = useParams();
 
-	const product = products.find((product) =>
-		product.id === Number(productId) && product.category === productCategory);
+	useEffect(() => {
+		if (productId) {
+			getProduct(productId).then((prod) => {
+				setProduct(prod);
+			});
+		}
+	}, [productId]);
 
 	const features = product?.features.map((feature) => (
 		<div key={feature.name}>

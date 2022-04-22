@@ -8,6 +8,15 @@ const useStyles = createStyles((theme) => {
 
 		timestamp: {
 			color: theme.colors.dark[3]
+		},
+
+		author: {
+			color: 'inherit',
+			fontWeight: 500
+		},
+
+		content: {
+			whiteSpace: 'pre-line'
 		}
 	};
 });
