@@ -1,24 +1,29 @@
 import { useChannelContext } from '../../context/ChannelContext';
 import { useUserContext } from '../../context/UserContext';
+import { defaultUser } from '../../pages/Chat/ChatHelper';
+import { iUser } from '../../types';
 import { CHANNEL_URL } from '../../utils';
 import SidenavLink, { SidenavLinkProps } from '../Sidenav/SidenavLink';
 import UserCard from '../UserCard/UserCard';
 
 export type ChannelBarLinkProps = SidenavLinkProps & {
-	membersId: number[],
+	membersIds: string[],
 	label?: string
 }
 
 // TODO: Update to work with team channels too
-function ChannelsBarLink({membersId, ...props}: ChannelBarLinkProps) {
+function ChannelsBarLink({membersIds, ...props}: ChannelBarLinkProps) {
 	const { activeChannel } = useChannelContext();
-	const { activeUser } = useUserContext();
-
-	// !TODO: CHANGE TO USE CONTEXT
-	// const remoteUserId = membersId.find(id => id !== localUser.id) ?? localUser.id;
-	// const remoteUser = getUser(remoteUserId);
+	const { activeUser, getUser } = useUserContext();
 
 	const link = `../${CHANNEL_URL}/`;
+	let remoteUser: iUser | undefined;
+	if (activeChannel.type === 'user') {
+		const remoteUserId = membersIds.find(id => id !== activeUser.id) || activeUser.id;
+		if (remoteUserId) {
+			getUser(remoteUserId).then((user) => remoteUser = user);
+		}
+	}
 
 	return (
 		<>
@@ -28,11 +33,7 @@ function ChannelsBarLink({membersId, ...props}: ChannelBarLinkProps) {
 					activeLink={activeChannel.id}
 					link={link}
 				/>}
-				// avatar={remoteUser?.avatarURL}
-				// banner={remoteUser?.bannerURL}
-				// link={link}
-				// name={remoteUser?.name}
-				// occupation={remoteUser?.occupation }
+				user={remoteUser || defaultUser}
 			/>
 		</>
 	);

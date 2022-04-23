@@ -41,7 +41,7 @@ function ChannelsBar(props: DivProps) {
 				linkId={channel.id}
 				icon={channel.icon}
 				// !TODO: replace with members
-				membersId={[]}
+				membersIds={[]}
 			/>
 		)));
 	}, [section]);

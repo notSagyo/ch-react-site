@@ -3,7 +3,7 @@ import { v4 } from 'uuid';
 import { defaultChannel, validateMessage } from '../pages/Chat/ChatHelper';
 import { HTMLElementProps, iChannel, iChannelContext, iMessage, iUser } from '../types';
 import { useUserContext } from './UserContext';
-import { doc, getDoc, getDocs, setDoc, updateDoc, onSnapshot, collection } from '@firebase/firestore';
+import { doc, getDoc, getDocs, setDoc, addDoc, updateDoc, onSnapshot, collection, query, where } from '@firebase/firestore';
 import { db } from '../firebaseConfig';
 
 const ChannelContext = createContext<iChannelContext | Record<string, never>>({});
@@ -25,12 +25,20 @@ function ChannelContextProvider({ children, ...props }: HTMLElementProps) {
 		return channelData;
 	};
 
-	const getMembers = async (channelId: string = activeChannel.id) => {
+	const getChannelByMembers = async (membersIds: string[]) => {
+		const q = query(collection(db, 'channels'), where('membersIds', '==', membersIds));
+		const querySnap = await getDocs(q);
+		const channel =  querySnap?.docs[0]?.data() as iChannel | undefined;
+		if (!channel)
+			console.warn(`(Firestore): channel with members ${membersIds} not found`);
+		return channel;
+	};
+
+	const getMembersIds = async (channelId: string = activeChannel.id) => {
 		if (channelId === activeChannel.id)
-			return activeChannel.members;
-		const channel = collection(db, 'channels', channelId, 'members');
-		const membersSnap = await getDocs(channel);
-		const members = membersSnap.docs.map((doc) => doc.data() as iUser);
+			return activeChannel.membersIds;
+		const channel = await getChannel(channelId);
+		const members = channel?.membersIds;
 		return members;
 	};
 
@@ -43,25 +51,24 @@ function ChannelContextProvider({ children, ...props }: HTMLElementProps) {
 	};
 
 	const createChannel = async (channel: iChannel) => {
-		const channelsDoc = await getDoc(doc(db, 'channels', channel.id));
+		const foundChannel = await getChannelByMembers(channel.membersIds);
 
-		if (channelsDoc.exists()) {
-			console.warn(`(Firestore): channel ${channel.id} already exists`);
-			return false;
+		if (foundChannel) {
+			console.warn('(Firestore): channel with same members already exists');
+			return foundChannel;
 		}
 
-		const { members, ...channelInfo } = channel;
-		await setDoc(doc(db, 'channels', channel.id), channelInfo);
-		members.forEach(async (member) => {
-			await setDoc(doc(db, 'channels', channel.id, 'members', member.id), member);
-		});
-
+		const newChannelDoc = await addDoc(collection(db, 'channels'), channel);
+		channel.id = newChannelDoc.id;
+		await setDoc(doc(db, 'channels', channel.id), channel);
 		return channel;
 	};
 
-	const changeChannel = async (channelId: string) => {
-		// TODO: Implement
-		return defaultChannel;
+	// TODO: Implemente create on 'create == true'
+	const changeChannel = async (channelId: string, create?: boolean) => {
+		const targetChannel = await getChannel(channelId);
+		targetChannel && setActiveChannel(targetChannel);
+		return targetChannel;
 	};
 
 	const pushMessage = async (content: string) => {
@@ -97,7 +104,6 @@ function ChannelContextProvider({ children, ...props }: HTMLElementProps) {
 		const activeChannelUnsub = onSnapshot(doc(db, 'channels', activeChannel.id),
 			(doc) => doc.exists() && setActiveChannel(doc.data() as iChannel)
 		);
-
 		return () => { activeChannelUnsub(); };
 	}, [activeChannel.id]);
 
@@ -106,7 +112,8 @@ function ChannelContextProvider({ children, ...props }: HTMLElementProps) {
 			activeChannel: activeChannel,
 			setActiveChannel: setActiveChannel,
 			getChannel: getChannel,
-			getMembers: getMembers,
+			getChannelByMembers: getChannelByMembers,
+			getMembersIds: getMembersIds,
 			getMessages: getMessages,
 			createChannel: createChannel,
 			changeChannel: changeChannel,

@@ -1,6 +1,7 @@
 import { Anchor, Text } from '@mantine/core';
-import { HTMLAttributes } from 'react';
-import { iMessage } from '../../types';
+import { HTMLAttributes, useEffect, useState } from 'react';
+import { useUserContext } from '../../context/UserContext';
+import { iMessage, iUser } from '../../types';
 import UserCard from '../UserCard/UserCard';
 import useStyles from './Message.styles';
 
@@ -9,9 +10,16 @@ type MessageProps = HTMLAttributes<HTMLLIElement> & {
 };
 
 function Message({message, ...props}: MessageProps) {
+	const [ author, setAuthor ] = useState<iUser | undefined>();
+	const { getUser } = useUserContext();
 	const { classes, cx } = useStyles();
+
 	const timestamp = new Date(message.createdAt)
 		.toLocaleTimeString([], {hour: 'numeric', minute: '2-digit'});
+
+	useEffect(() => {
+		getUser(message.authorId).then((user) => setAuthor(user));
+	}, []);
 
 	return (
 		<li {...props} className={cx(classes.messageWrapper, props.className)}>
@@ -20,6 +28,7 @@ function Message({message, ...props}: MessageProps) {
 				<UserCard
 					clickTrigger='both'
 					inline={true}
+					user={author}
 					parent={
 						<Anchor className={classes.author} >
 							{message.authorName || 'Guest'}:

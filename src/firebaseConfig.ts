@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app';
-import { getFirestore } from '@firebase/firestore';
+import { getFirestore, enableIndexedDbPersistence } from '@firebase/firestore';
 import {
 	GoogleAuthProvider,
 	signInWithPopup,
@@ -31,21 +31,24 @@ export const db = getFirestore(app);
 const provider = new GoogleAuthProvider();
 const auth = getAuth();
 
+enableIndexedDbPersistence(db)
+	.catch((err) => {
+		if (err.code == 'failed-precondition')
+			console.error(err);
+		else if (err.code == 'unimplemented')
+			console.error(err);
+	});
+
 export const firebaseSignIn = async () => {
 	let user: User | undefined;
 
 	await setPersistence(auth, browserLocalPersistence);
 	await signInWithPopup(auth, provider)
 		.then((result) => {
-			const credential = GoogleAuthProvider.credentialFromResult(result);
-			const token = credential?.accessToken;
 			user = result.user;
 			return user;
 		}).catch((error) => {
-			const errorCode = error.code;
-			const errorMessage = error.message;
-			const email = error.email;
-			const credential = GoogleAuthProvider.credentialFromError(error);
+			console.error(error);
 		});
 
 	return user;

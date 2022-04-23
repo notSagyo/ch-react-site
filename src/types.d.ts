@@ -12,7 +12,7 @@ export interface iUser {
 	email: string;
 	createdAt: number;
 	updatedAt: number;
-	avatarURL: string;
+	photoURL: string;
 	bannerURL: string;
 }
 
@@ -20,7 +20,7 @@ export interface iChannel {
 	id: string;
 	label: string;
 	description: string;
-	members: iUser[];
+	membersIds: string[];
 	messages: iMessage[];
 	createdAt: number;
 	updatedAt: number;
@@ -72,7 +72,7 @@ export interface iOrder {
 
 export interface iSidebarChannel extends iChannel {
 	icon: Icon;
-	avatarURL?: string;
+	photoURL?: string;
 }
 
 export interface iShopContext {
@@ -109,9 +109,10 @@ export interface iChannelContext {
 	activeChannel: iChannel;
 	setActiveChannel: React.Dispatch<SetStateAction<iChannel>>;
 	getChannel: (id: string) => Promise<iChannel | undefined>;
-	getMembers: (id?: string) => Promise<iUser[] | undefined>;
+	getChannelByMembers: (membersIds: string[]) => Promise<iChannel | undefined>;
+	getMembersIds: (id?: string) => Promise<string[] | undefined>;
 	getMessages: (id?: string) => Promise<iMessage[] | undefined>;
-	createChannel: (channel: iChannel) => Promise<iChannel | false>;
-	changeChannel: (id: string) => Promise<iChannel>;
+	createChannel: (channel: iChannel) => Promise<iChannel>;
+	changeChannel: (id: string, create?: boolean) => Promise<iChannel | undefined>;
 	pushMessage: (content: string) => Promise<iMessage>;
 }

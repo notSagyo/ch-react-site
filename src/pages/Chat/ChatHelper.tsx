@@ -21,7 +21,7 @@ export const defaultUser: iUser = {
 	updatedAt: Date.now(),
 	email: '',
 	id: '-1',
-	avatarURL: '',
+	photoURL: '',
 	name: 'Guest',
 	occupation: 'Frontend Deloper: JS / React',
 	bannerURL: 'https://picsum.photos/600/300',
@@ -34,6 +34,6 @@ export const defaultChannel: iChannel = {
 	label: 'none',
 	messages: [],
 	type: 'user',
-	members: [],
+	membersIds: [],
 	id: '0',
 };
