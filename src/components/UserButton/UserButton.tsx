@@ -15,14 +15,9 @@ export function UserButton({ image, name, email, icon, ...props }: UserButtonPro
 	const { signIn, signOut, authUser } = useUserContext();
 	const { classes } = useStyles();
 
-	const handleClick = () => {
-		if (authUser) {
-			signOut();
-			window.location.reload();
-		}
-		else {
-			signIn();
-		}
+	const handleClick = async () => {
+		if (authUser) await signOut();
+		else await signIn();
 	};
 
 	return (

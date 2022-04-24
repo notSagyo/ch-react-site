@@ -51,9 +51,11 @@ export const firebaseSignIn = async () => {
 			console.error(error);
 		});
 
+	window.location.reload()
 	return user;
 };
 
 export const fireBaseSignOut = async () => {
 	await signOut(auth);
+	window.location.reload();
 };
