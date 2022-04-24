@@ -27,7 +27,7 @@ function UserCard({
 {
 	const [ opened, setOpened ] = useState(false);
 	const navigate = useNavigate();
-	const { createChannel } = useChannelContext();
+	const { createDM: createChannel } = useChannelContext();
 	const { activeUser } = useUserContext();
 	useWindowEvent('wheel', () => setOpened(false));
 

@@ -112,7 +112,7 @@ export interface iChannelContext {
 	getChannelByMembers: (membersIds: string[]) => Promise<iChannel | undefined>;
 	getMembersIds: (id?: string) => Promise<string[] | undefined>;
 	getMessages: (id?: string) => Promise<iMessage[] | undefined>;
-	createChannel: (channel: iChannel) => Promise<iChannel>;
+	createDM: (channel: iChannel) => Promise<iChannel>;
 	changeChannel: (id: string, create?: boolean) => Promise<iChannel | undefined>;
 	pushMessage: (content: string) => Promise<iMessage>;
 }

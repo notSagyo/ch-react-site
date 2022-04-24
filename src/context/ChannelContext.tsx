@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { v4 } from 'uuid';
 import { defaultChannel, validateMessage } from '../pages/Chat/ChatHelper';
-import { HTMLElementProps, iChannel, iChannelContext, iMessage, iUser } from '../types';
+import { HTMLElementProps, iChannel, iChannelContext, iMessage } from '../types';
 import { useUserContext } from './UserContext';
 import { doc, getDoc, getDocs, setDoc, addDoc, updateDoc, onSnapshot, collection, query, where } from '@firebase/firestore';
 import { db } from '../firebaseConfig';
@@ -26,7 +26,7 @@ function ChannelContextProvider({ children, ...props }: HTMLElementProps) {
 	};
 
 	const getChannelByMembers = async (membersIds: string[]) => {
-		const q = query(collection(db, 'channels'), where('membersIds', '==', membersIds));
+		const q = query(collection(db, 'channels'), where('membersIds', '==', membersIds.sort()));
 		const querySnap = await getDocs(q);
 		const channel =  querySnap?.docs[0]?.data() as iChannel | undefined;
 		if (!channel)
@@ -50,7 +50,7 @@ function ChannelContextProvider({ children, ...props }: HTMLElementProps) {
 		return messages;
 	};
 
-	const createChannel = async (channel: iChannel) => {
+	const createDM = async (channel: iChannel) => {
 		const foundChannel = await getChannelByMembers(channel.membersIds);
 
 		if (foundChannel) {
@@ -58,6 +58,7 @@ function ChannelContextProvider({ children, ...props }: HTMLElementProps) {
 			return foundChannel;
 		}
 
+		channel.membersIds = channel.membersIds.sort();
 		const newChannelDoc = await addDoc(collection(db, 'channels'), channel);
 		channel.id = newChannelDoc.id;
 		await setDoc(doc(db, 'channels', channel.id), channel);
@@ -93,7 +94,7 @@ function ChannelContextProvider({ children, ...props }: HTMLElementProps) {
 			});
 		} else {
 			console.warn(`(Firestore): channel ${activeChannel.id} not found, creating...`);
-			const newChannel = await createChannel({...activeChannel, messages: [parsedMessage]});
+			const newChannel = await createDM({...activeChannel, messages: [parsedMessage]});
 			newChannel && setActiveChannel(newChannel);
 		}
 
@@ -115,7 +116,7 @@ function ChannelContextProvider({ children, ...props }: HTMLElementProps) {
 			getChannelByMembers: getChannelByMembers,
 			getMembersIds: getMembersIds,
 			getMessages: getMessages,
-			createChannel: createChannel,
+			createDM: createDM,
 			changeChannel: changeChannel,
 			pushMessage: pushMessage,
 		}}>
