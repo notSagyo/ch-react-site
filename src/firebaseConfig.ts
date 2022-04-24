@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app';
-import { getFirestore, enableIndexedDbPersistence } from '@firebase/firestore';
+import { getFirestore, enableMultiTabIndexedDbPersistence } from '@firebase/firestore';
 import {
 	GoogleAuthProvider,
 	signInWithPopup,
@@ -31,7 +31,7 @@ export const db = getFirestore(app);
 const provider = new GoogleAuthProvider();
 const auth = getAuth();
 
-enableIndexedDbPersistence(db)
+enableMultiTabIndexedDbPersistence(db)
 	.catch((err) => {
 		if (err.code == 'failed-precondition')
 			console.error(err);

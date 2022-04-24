@@ -10,7 +10,9 @@ const ChannelContext = createContext<iChannelContext | Record<string, never>>({}
 export const useChannelContext = () => useContext(ChannelContext);
 
 function ChannelContextProvider({ children, ...props }: HTMLElementProps) {
-	const [activeChannel, setActiveChannel] = useState<iChannel>(defaultChannel);
+	const [ activeChannel, setActiveChannel ] = useState<iChannel>(defaultChannel);
+	const [ openChannels, setOpenChannels ] = useState<iChannel[]>([]);
+	const [ loading, setLoading ] = useState(false);
 	const { activeUser } = useUserContext();
 
 	const getChannel = async (channelId: string) => {
@@ -90,7 +92,8 @@ function ChannelContextProvider({ children, ...props }: HTMLElementProps) {
 		if (channel) {
 			channel.messages.push(parsedMessage);
 			updateDoc(doc(db, 'channels', channel.id), {
-				messages: channel.messages
+				messages: channel.messages,
+				updatedAt: Date.now(),
 			});
 		} else {
 			console.warn(`(Firestore): channel ${activeChannel.id} not found, creating...`);
@@ -101,6 +104,7 @@ function ChannelContextProvider({ children, ...props }: HTMLElementProps) {
 		return parsedMessage;
 	};
 
+	// Listen to active channel changes
 	useEffect(() => {
 		const activeChannelUnsub = onSnapshot(doc(db, 'channels', activeChannel.id),
 			(doc) => doc.exists() && setActiveChannel(doc.data() as iChannel)
@@ -108,10 +112,25 @@ function ChannelContextProvider({ children, ...props }: HTMLElementProps) {
 		return () => { activeChannelUnsub(); };
 	}, [activeChannel.id]);
 
+	// Listen to open channels changes
+	useEffect(() => {
+		const q = query(collection(db, 'channels'), where('membersIds', 'array-contains', activeUser.id));
+		const openChannelsUnsub = onSnapshot(q, (querySnap) => {
+			const channels = querySnap.docs.map((doc) => doc.data() as iChannel)
+				.sort((a, b) => b.updatedAt - a.updatedAt);
+			setOpenChannels(channels);
+		});
+		return () => { openChannelsUnsub(); };
+	}, [activeUser.id]);
+
 	return (
 		<ChannelContext.Provider {...props} value={{
 			activeChannel: activeChannel,
 			setActiveChannel: setActiveChannel,
+			openChannels: openChannels,
+			setOpenChannels: setOpenChannels,
+			loading: loading,
+			setLoading: setLoading,
 			getChannel: getChannel,
 			getChannelByMembers: getChannelByMembers,
 			getMembersIds: getMembersIds,

@@ -42,6 +42,10 @@ const useStyles = createStyles((theme, _params, getRef) => {
 			marginRight: theme.spacing.sm,
 		},
 
+		linkImage: {
+			marginRight: theme.spacing.sm,
+		},
+
 		linkActive: {
 			backgroundColor: activeBgc,
 

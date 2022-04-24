@@ -27,7 +27,7 @@ function UserCard({
 {
 	const [ opened, setOpened ] = useState(false);
 	const navigate = useNavigate();
-	const { createDM: createChannel } = useChannelContext();
+	const { createDM, setLoading } = useChannelContext();
 	const { activeUser } = useUserContext();
 	useWindowEvent('wheel', () => setOpened(false));
 
@@ -55,7 +55,8 @@ function UserCard({
 		setOpened(false);
 		if (!user) return;
 
-		const channel = await createChannel({
+		setLoading(true);
+		const channel = await createDM({
 			type: 'user',
 			membersIds: [user.id, activeUser.id],
 			createdAt: Date.now(),
@@ -65,6 +66,7 @@ function UserCard({
 			description: '',
 			messages: [],
 		});
+		setLoading(false);
 		navigate(`../${CHANNEL_URL}/${channel.id}`);
 	}
 

@@ -108,6 +108,10 @@ export interface iUserContext {
 export interface iChannelContext {
 	activeChannel: iChannel;
 	setActiveChannel: React.Dispatch<SetStateAction<iChannel>>;
+	openChannels: iChannel[];
+	setOpenChannels: React.Dispatch<SetStateAction<iChannel[]>>;
+	loading: boolean;
+	setLoading: React.Dispatch<SetStateAction<boolean>>;
 	getChannel: (id: string) => Promise<iChannel | undefined>;
 	getChannelByMembers: (membersIds: string[]) => Promise<iChannel | undefined>;
 	getMembersIds: (id?: string) => Promise<string[] | undefined>;

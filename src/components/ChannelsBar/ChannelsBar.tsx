@@ -1,50 +1,48 @@
 import { Group, SegmentedControl, SegmentedControlItem } from '@mantine/core';
 import React, { useEffect, useState } from 'react';
 import { Messages } from 'tabler-icons-react';
-import { getChannels } from '../Channel/ChannelHelper';
-import { DivProps, iSidebarChannel } from '../../types';
+import { DivProps } from '../../types';
 import ChannelsBarLink from './ChannelsBarLink';
 import useStyles from './ChannelsBar.styles';
 import Sidenav from '../Sidenav/Sidenav';
 import { UserButton } from '../UserButton/UserButton';
+import { useChannelContext } from '../../context/ChannelContext';
 
 function ChannelsBar(props: DivProps) {
-	const [channels, setChannels] = useState<{[key: string]: iSidebarChannel[]}>({});
+	const { openChannels } = useChannelContext();
 	const [links, setLinks] = useState<JSX.Element[]>([<React.Fragment key={''}/>]);
 	const [segments, setSegments] = useState<SegmentedControlItem[]>([]);
 	const [section, setSection] = useState('');
 	const { classes, cx } = useStyles();
 
-	// Fetch channels
-	useEffect(() => {
-		getChannels().then(response => setChannels(response));
-	}, []);
-
 	// Create segments
 	useEffect(() => {
-		const tabKeys = Object.keys(channels);
+		const tabKeys = [...new Set(openChannels.map(channel => channel.type))].reverse();
+
 		if (tabKeys.length < 1)
 			return;
 
 		setSegments(tabKeys.map((tabName) => ({
-			label: tabName, value: tabName
+			label: tabName.toUpperCase(),
+			value: tabName
 		})));
+
 		setSection(tabKeys[0]);
-	}, [channels]);
+	}, [openChannels]);
 
 	// Populate bar with channels' links
 	useEffect(() => {
-		section && setLinks(channels[section].map((channel, index) => (
-			<ChannelsBarLink
-				{...channel}
+		setLinks(openChannels.map((channel, index) => {
+			if (channel.type !== section) return <React.Fragment key={index}/>;
+			return (<ChannelsBarLink
+				label={channel.label}
 				key={index}
 				linkId={channel.id}
-				icon={channel.icon}
-				// !TODO: replace with members
-				membersIds={[]}
-			/>
-		)));
-	}, [section]);
+				membersIds={channel.membersIds}
+				icon={channel.type}
+			/>);
+		}));
+	}, [segments, section]);
 
 	return (
 		<Sidenav
