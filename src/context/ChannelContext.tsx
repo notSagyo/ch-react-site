@@ -116,9 +116,10 @@ function ChannelContextProvider({ children, ...props }: HTMLElementProps) {
 	useEffect(() => {
 		const q = query(collection(db, 'channels'), where('membersIds', 'array-contains', activeUser.id));
 		const openChannelsUnsub = onSnapshot(q, (querySnap) => {
-			const channels = querySnap.docs.map((doc) => doc.data() as iChannel)
-				.sort((a, b) => b.updatedAt - a.updatedAt);
+			const channels = querySnap.docs.map((doc) => doc.data() as iChannel);
+			channels.sort((a, b) => b.updatedAt - a.updatedAt);
 			setOpenChannels(channels);
+			console.log('Open channels:', channels);
 		});
 		return () => { openChannelsUnsub(); };
 	}, [activeUser.id]);

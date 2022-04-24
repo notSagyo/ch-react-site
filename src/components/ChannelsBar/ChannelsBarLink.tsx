@@ -15,12 +15,13 @@ export type ChannelBarLinkProps = SidenavLinkProps & {
 
 // TODO: Update to work with team channels too
 function ChannelsBarLink({membersIds, label, ...props}: ChannelBarLinkProps) {
-	const { activeChannel, getChannelByMembers, setLoading } = useChannelContext();
+	const { activeChannel, getChannelByMembers, setLoading, openChannels } = useChannelContext();
 	const { activeUser, getUser } = useUserContext();
 	const [remoteUser, setRemoteUser] = useState<iUser>();
 	const [icon, setIcon] = useState<string>();
 	const navigate = useNavigate();
 
+	// Update links when active channel / latest opened channel changes
 	useEffect(() => {
 		if (activeChannel.type === 'user') {
 			const remoteUserId = membersIds.find(id => id !== activeUser.id) || activeUser.id;
@@ -30,7 +31,7 @@ function ChannelsBarLink({membersIds, label, ...props}: ChannelBarLinkProps) {
 			if (remoteUserId)
 				getUser(remoteUserId).then((user) => setRemoteUser(user));
 		}
-	}, [activeChannel]);
+	}, [activeChannel.id, openChannels[0]?.id]);
 
 	const handleClick = () => {
 		if (!remoteUser) return;
