@@ -19,7 +19,7 @@ function Message({message, ...props}: MessageProps) {
 
 	useEffect(() => {
 		getUser(message.authorId).then((user) => setAuthor(user));
-	}, []);
+	}, [message]);
 
 	return (
 		<li {...props} className={cx(classes.messageWrapper, props.className)}>

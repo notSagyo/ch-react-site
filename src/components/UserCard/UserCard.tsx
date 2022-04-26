@@ -66,8 +66,8 @@ function UserCard({
 			description: '',
 			messages: [],
 		});
-		setLoading(false);
 		navigate(`../${CHANNEL_URL}/${channel.id}`);
+		setLoading(false);
 	}
 
 	const statElements = stats && stats.map((stat) => (
