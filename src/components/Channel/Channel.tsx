@@ -25,8 +25,9 @@ function Channel(props: DivProps) {
 			<MessagesWindow
 				className={classes.messagesWindow}
 				classNames={{root: classes.scrollRoot}}
-				children={<LoadingOverlay visible={loading} radius='sm'/>}
-			/>
+			>
+				<LoadingOverlay visible={loading} radius='sm'/>
+			</MessagesWindow>
 			<MessageBar />
 		</Group>
 	);

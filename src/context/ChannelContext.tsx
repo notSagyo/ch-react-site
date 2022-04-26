@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { v4 } from 'uuid';
-import { defaultChannel, validateMessage } from '../pages/Chat/ChatHelper';
+import { defaultChannel, defaultUser, validateMessage } from '../pages/Chat/ChatHelper';
 import { HTMLElementProps, iChannel, iChannelContext, iMessage } from '../types';
 import { useUserContext } from './UserContext';
 import { doc, getDoc, getDocs, setDoc, addDoc, updateDoc, onSnapshot, collection, query, where } from '@firebase/firestore';
@@ -53,6 +53,9 @@ function ChannelContextProvider({ children, ...props }: HTMLElementProps) {
 	};
 
 	const createDM = async (channel: iChannel) => {
+		if (channel.membersIds.includes(defaultUser.id))
+			throw new Error('Can\'t start a conversation with a Guest user');
+
 		const foundChannel = await getChannelByMembers(channel.membersIds);
 
 		if (foundChannel) {
@@ -67,8 +70,7 @@ function ChannelContextProvider({ children, ...props }: HTMLElementProps) {
 		return channel;
 	};
 
-	// TODO: Implemente create on 'create == true'
-	const changeChannel = async (channelId: string, create?: boolean) => {
+	const changeChannel = async (channelId: string) => {
 		const targetChannel = await getChannel(channelId);
 		targetChannel && setActiveChannel(targetChannel);
 		return targetChannel;

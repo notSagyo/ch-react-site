@@ -52,8 +52,8 @@ function Cart({ children, ...props }: DivProps) {
 				>
 					<Title>The cart is empty...</Title>
 					<Text className={classes.emptyDescription}>
-						Try adding a plan to the cart and come back,
-						we'll be waiting for you... :-)
+						{`Try adding a plan to the cart and come back,
+						we'll be waiting for you... :-)`}
 					</Text>
 					<Link to={`/${PRICING_URL}`}>
 						<Button color={'brand'}>{'Go back to pricing >'}</Button>

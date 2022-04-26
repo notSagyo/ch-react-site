@@ -21,7 +21,7 @@ function ShopContextProvider({children, ...props}: HTMLElementProps) {
 	};
 
 	const getProducts = async () => {
-		let productsSnap = await getDocs(collection(db, 'products'));
+		const productsSnap = await getDocs(collection(db, 'products'));
 		const products = productsSnap.docs.map((doc) => doc.data() as iProduct);
 		return products;
 	};

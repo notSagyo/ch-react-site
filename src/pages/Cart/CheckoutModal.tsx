@@ -16,9 +16,9 @@ function CheckoutModal({ opened, setOpened }: CheckoutModalProps) {
 	const { itemList, getTotal, createOrder, clearCart } = useCartContext();
 	const { activeUser } = useUserContext();
 
-	const products = itemList.map((item) => {
+	const products = itemList.map((item, index) => {
 		return (
-			<Group position='apart'>
+			<Group position='apart' key={index}>
 				<div> {item.quantity} x {item.name} </div>
 				<div> ${(item.price * item.quantity).toFixed(2)} </div>
 			</Group>
