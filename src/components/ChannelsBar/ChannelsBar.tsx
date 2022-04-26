@@ -9,13 +9,13 @@ import { UserButton } from '../UserButton/UserButton';
 import { useChannelContext } from '../../context/ChannelContext';
 
 function ChannelsBar(props: DivProps) {
-	const { openChannels } = useChannelContext();
+	const { openChannels: openChannels } = useChannelContext();
 	const [links, setLinks] = useState<JSX.Element[]>([<React.Fragment key={''}/>]);
 	const [segments, setSegments] = useState<SegmentedControlItem[]>([]);
 	const [section, setSection] = useState('');
 	const { classes, cx } = useStyles();
 
-	// Create segments
+	// Create segments when the first "opened channel" changes
 	useEffect(() => {
 		const tabKeys = [...new Set(openChannels.map(channel => channel.type))].reverse();
 
@@ -28,7 +28,7 @@ function ChannelsBar(props: DivProps) {
 		})));
 
 		setSection(tabKeys[0]);
-	}, [openChannels]);
+	}, [openChannels[0]?.id]);
 
 	// Populate bar with channels' links
 	useEffect(() => {

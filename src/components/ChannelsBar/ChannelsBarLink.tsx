@@ -10,28 +10,32 @@ import UserCard from '../UserCard/UserCard';
 
 export type ChannelBarLinkProps = SidenavLinkProps & {
 	membersIds: string[],
-	label?: string
+	label?: string,
+	// Force update user data when open channels change, updating on "openChannels"
+	// state change would be triggered before the ChannelsBar mapping is done
+	forcedUpdateTime?: number
 }
 
 // TODO: Update to work with team channels too
-function ChannelsBarLink({membersIds, label, ...props}: ChannelBarLinkProps) {
-	const { activeChannel, getChannelByMembers, setLoading, openChannels } = useChannelContext();
+function ChannelsBarLink({membersIds, label, forcedUpdateTime = Date.now(), ...props}: ChannelBarLinkProps) {
+	const { activeChannel, getChannelByMembers, setLoading } = useChannelContext();
 	const { activeUser, getUser } = useUserContext();
 	const [remoteUser, setRemoteUser] = useState<iUser>();
 	const [icon, setIcon] = useState<string>();
 	const navigate = useNavigate();
 
-	// Update links when active channel / latest opened channel changes
+	// Update links when the channelsBar's links change
 	useEffect(() => {
 		if (activeChannel.type === 'user') {
 			const remoteUserId = membersIds.find(id => id !== activeUser.id) || activeUser.id;
+
 			if (!props.icon)
 				setIcon('user');
 
 			if (remoteUserId)
 				getUser(remoteUserId).then((user) => setRemoteUser(user));
 		}
-	}, [activeChannel.id, openChannels[0]?.id]);
+	}, [forcedUpdateTime]);
 
 	const handleClick = () => {
 		if (!remoteUser) return;
@@ -49,8 +53,8 @@ function ChannelsBarLink({membersIds, label, ...props}: ChannelBarLinkProps) {
 						activeLink={activeChannel.id}
 						{...props}
 						icon={props.icon || icon}
-						photoUrl={props.photoUrl || remoteUser?.photoURL}
-						label={label || remoteUser?.name}
+						photoUrl={remoteUser?.photoURL}
+						label={remoteUser?.name}
 						onClick={props.onClick || handleClick}
 					/>}
 				user={remoteUser || defaultUser}

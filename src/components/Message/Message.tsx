@@ -1,5 +1,6 @@
 import { Anchor, Text } from '@mantine/core';
 import { HTMLAttributes, useEffect, useState } from 'react';
+import { useChannelContext } from '../../context/ChannelContext';
 import { useUserContext } from '../../context/UserContext';
 import { iMessage, iUser } from '../../types';
 import UserCard from '../UserCard/UserCard';

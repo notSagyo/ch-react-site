@@ -9,7 +9,7 @@ import MessagesWindow from '../MessagesWindow/MessagesWindow';
 import useStyles from './Channel.styles';
 
 function Channel(props: DivProps) {
-	const { changeChannel, loading, setLoading } = useChannelContext();
+	const { changeChannel, isLoading, setLoading } = useChannelContext();
 	const { classes, cx } = useStyles();
 	const { id } = useParams();
 
@@ -26,7 +26,7 @@ function Channel(props: DivProps) {
 				className={classes.messagesWindow}
 				classNames={{root: classes.scrollRoot}}
 			>
-				<LoadingOverlay visible={loading} radius='sm'/>
+				<LoadingOverlay visible={isLoading()} radius='sm'/>
 			</MessagesWindow>
 			<MessageBar />
 		</Group>

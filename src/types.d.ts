@@ -27,6 +27,14 @@ export interface iChannel {
 	type: 'user' | 'team';
 }
 
+export interface iOpenChannel {
+	id: string;
+	label: string;
+	type: 'user' | 'team';
+	updatedAt: number;
+	membersIds: string[];
+}
+
 export interface iMessage {
 	id: string;
 	content: string;
@@ -108,10 +116,8 @@ export interface iUserContext {
 export interface iChannelContext {
 	activeChannel: iChannel;
 	setActiveChannel: React.Dispatch<SetStateAction<iChannel>>;
-	openChannels: iChannel[];
-	setOpenChannels: React.Dispatch<SetStateAction<iChannel[]>>;
-	loading: boolean;
-	setLoading: React.Dispatch<SetStateAction<boolean>>;
+	openChannels: iOpenChannel[];
+	setOpenChannels: React.Dispatch<SetStateAction<iOpenChannel[]>>;
 	getChannel: (id: string) => Promise<iChannel | undefined>;
 	getChannelByMembers: (membersIds: string[]) => Promise<iChannel | undefined>;
 	getMembersIds: (id?: string) => Promise<string[] | undefined>;
@@ -119,4 +125,6 @@ export interface iChannelContext {
 	createDM: (channel: iChannel) => Promise<iChannel>;
 	changeChannel: (id: string) => Promise<iChannel | undefined>;
 	pushMessage: (content: string) => Promise<iMessage>;
+	setLoading: (loading: boolean) => void;
+	isLoading: () => boolean;
 }

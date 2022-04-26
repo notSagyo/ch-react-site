@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { v4 } from 'uuid';
 import { defaultChannel, defaultUser, validateMessage } from '../pages/Chat/ChatHelper';
-import { HTMLElementProps, iChannel, iChannelContext, iMessage } from '../types';
+import { HTMLElementProps, iChannel, iChannelContext, iMessage, iOpenChannel } from '../types';
 import { useUserContext } from './UserContext';
 import { doc, getDoc, getDocs, setDoc, addDoc, updateDoc, onSnapshot, collection, query, where } from '@firebase/firestore';
 import { db } from '../firebaseConfig';
@@ -11,8 +11,8 @@ export const useChannelContext = () => useContext(ChannelContext);
 
 function ChannelContextProvider({ children, ...props }: HTMLElementProps) {
 	const [ activeChannel, setActiveChannel ] = useState<iChannel>(defaultChannel);
-	const [ openChannels, setOpenChannels ] = useState<iChannel[]>([]);
-	const [ loading, setLoading ] = useState(false);
+	const [ openChannels, setOpenChannels ] = useState<iOpenChannel[]>([]);
+	const [ loadingStack, setLoadingStack ] = useState<boolean[]>([]);
 	const { activeUser } = useUserContext();
 
 	const getChannel = async (channelId: string) => {
@@ -44,6 +44,7 @@ function ChannelContextProvider({ children, ...props }: HTMLElementProps) {
 		return members;
 	};
 
+	// !TODO: Convert messages[] to a collection
 	const getMessages = async (channelId: string = activeChannel.id) => {
 		if (channelId === activeChannel.id)
 			return activeChannel.messages;
@@ -106,6 +107,18 @@ function ChannelContextProvider({ children, ...props }: HTMLElementProps) {
 		return parsedMessage;
 	};
 
+	const setLoading = (loading: boolean) => {
+		if (loading)
+			setLoadingStack([ ...loadingStack, true ]);
+		else {
+			const newLoadingStack = [ ...loadingStack ];
+			newLoadingStack.pop();
+			setLoadingStack(newLoadingStack);
+		}
+	};
+
+	const isLoading = () => loadingStack.length > 0;
+
 	// Listen to active channel changes
 	useEffect(() => {
 		const activeChannelUnsub = onSnapshot(doc(db, 'channels', activeChannel.id),
@@ -114,14 +127,20 @@ function ChannelContextProvider({ children, ...props }: HTMLElementProps) {
 		return () => { activeChannelUnsub(); };
 	}, [activeChannel.id]);
 
+	// !TODO: Improve performance!
 	// Listen to open channels changes
 	useEffect(() => {
 		const q = query(collection(db, 'channels'), where('membersIds', 'array-contains', activeUser.id));
 		const openChannelsUnsub = onSnapshot(q, (querySnap) => {
-			const channels = querySnap.docs.map((doc) => doc.data() as iChannel);
+			const channels: iOpenChannel[] = querySnap.docs.map((doc) => ({
+				id: doc.id,
+				type: doc.data()?.type,
+				label: doc.data()?.label,
+				membersIds: doc.data()?.membersIds,
+				updatedAt: doc.data()?.updatedAt,
+			}));
 			channels.sort((a, b) => b.updatedAt - a.updatedAt);
 			setOpenChannels(channels);
-			console.log('Open channels:', channels);
 		});
 		return () => { openChannelsUnsub(); };
 	}, [activeUser.id]);
@@ -132,8 +151,6 @@ function ChannelContextProvider({ children, ...props }: HTMLElementProps) {
 			setActiveChannel: setActiveChannel,
 			openChannels: openChannels,
 			setOpenChannels: setOpenChannels,
-			loading: loading,
-			setLoading: setLoading,
 			getChannel: getChannel,
 			getChannelByMembers: getChannelByMembers,
 			getMembersIds: getMembersIds,
@@ -141,6 +158,8 @@ function ChannelContextProvider({ children, ...props }: HTMLElementProps) {
 			createDM: createDM,
 			changeChannel: changeChannel,
 			pushMessage: pushMessage,
+			setLoading: setLoading,
+			isLoading: isLoading,
 		}}>
 			{children}
 		</ChannelContext.Provider>
