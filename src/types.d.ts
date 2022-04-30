@@ -4,6 +4,7 @@ import { Icon } from 'tabler-icons-react';
 
 export type DivProps = React.HTMLAttributes<HTMLDivElement>;
 export type HTMLElementProps = React.HTMLProps<HTMLElement>;
+export type channelTypes = 'user' | 'team';
 
 export interface iUser {
 	id: string;
@@ -24,7 +25,7 @@ export interface iChannel {
 	messages: iMessage[];
 	createdAt: number;
 	updatedAt: number;
-	type: 'user' | 'team';
+	type: channelTypes;
 }
 
 export interface iOpenChannel {
@@ -124,7 +125,7 @@ export interface iChannelContext {
 	getMessages: (id?: string) => Promise<iMessage[] | undefined>;
 	createDM: (channel: iChannel) => Promise<iChannel>;
 	changeChannel: (id: string) => Promise<iChannel | undefined>;
-	pushMessage: (content: string) => Promise<iMessage>;
+	pushMessage: (content: string) => Promise<iMessage | undefined>;
 	setLoading: (loading: boolean) => void;
 	isLoading: () => boolean;
 }

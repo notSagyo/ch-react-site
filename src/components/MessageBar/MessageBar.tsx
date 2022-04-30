@@ -17,6 +17,7 @@ function MessageBar(props: HTMLAttributes<HTMLFormElement>) {
 			return;
 
 		e.preventDefault();
+		// FIXME: Fix err comunication method
 		pushMessage(inputRef.current.value)
 			.catch((err: Error) => setErrorState(`*${err.message}`));
 		inputRef.current.value = '';

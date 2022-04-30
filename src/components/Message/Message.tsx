@@ -1,6 +1,5 @@
 import { Anchor, Text } from '@mantine/core';
 import { HTMLAttributes, useEffect, useState } from 'react';
-import { useChannelContext } from '../../context/ChannelContext';
 import { useUserContext } from '../../context/UserContext';
 import { iMessage, iUser } from '../../types';
 import UserCard from '../UserCard/UserCard';
@@ -19,7 +18,7 @@ function Message({message, ...props}: MessageProps) {
 		.toLocaleTimeString([], {hour: 'numeric', minute: '2-digit'});
 
 	useEffect(() => {
-		getUser(message.authorId).then((user) => setAuthor(user));
+		getUser(message.authorId).then((user) => setAuthor(user)).catch(err => console.error(err));
 	}, [message]);
 
 	return (

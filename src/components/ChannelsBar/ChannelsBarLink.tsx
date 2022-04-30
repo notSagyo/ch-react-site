@@ -17,7 +17,7 @@ export type ChannelBarLinkProps = SidenavLinkProps & {
 }
 
 // TODO: Update to work with team channels too
-function ChannelsBarLink({membersIds, label, forcedUpdateTime = Date.now(), ...props}: ChannelBarLinkProps) {
+function ChannelsBarLink({membersIds, label, forcedUpdateTime, ...props}: ChannelBarLinkProps) {
 	const { activeChannel, getChannelByMembers, setLoading } = useChannelContext();
 	const { activeUser, getUser } = useUserContext();
 	const [remoteUser, setRemoteUser] = useState<iUser>();
@@ -58,6 +58,7 @@ function ChannelsBarLink({membersIds, label, forcedUpdateTime = Date.now(), ...p
 						onClick={props.onClick || handleClick}
 					/>}
 				user={remoteUser || defaultUser}
+				clickTrigger={'right'}
 			/>
 		</>
 	);

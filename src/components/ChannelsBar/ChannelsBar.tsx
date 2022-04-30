@@ -40,6 +40,7 @@ function ChannelsBar(props: DivProps) {
 				linkId={channel.id}
 				membersIds={channel.membersIds}
 				icon={channel.type}
+				forcedUpdateTime={Date.now()}
 			/>);
 		}));
 	}, [segments, section]);

@@ -1,0 +1,35 @@
+import { collection, getDocs, getDoc, doc } from '@firebase/firestore';
+import { db } from '../firebaseConfig';
+import { channelTypes, iChannel, iMessage } from '../types';
+
+// Refs ======================================================================//
+export const getMessagesRef = (channelId: string) =>
+	collection(db, 'channels', channelId, 'messages');
+
+export const getChannelsRef = () =>
+	collection(db, 'channels');
+
+export const getChannelRef = (channelId: string) =>
+	doc(db, 'channels', channelId);
+
+export const getChannelDoc = async (channelId: string ) =>
+	getDoc(doc(db, 'channels', channelId));
+
+// Helpers ===================================================================//
+export const getMessagesDocs = async (channelId: string) => {
+	const messagesRef = getMessagesRef(channelId);
+	const messagesSnap = await getDocs(messagesRef);
+	const messagesDocs = messagesSnap?.docs;
+	return messagesDocs;
+};
+
+export const parseChannel = (channel: iChannel): iChannel => ({
+	id: channel?.id as string || '',
+	label: channel?.label as string || '',
+	type: channel?.type as channelTypes || 'team',
+	description: channel?.description as string || '',
+	messages: channel?.messages as iMessage[] || [],
+	membersIds: channel?.membersIds as string[] || [],
+	createdAt: channel?.createdAt as number || Date.now(),
+	updatedAt: channel?.updatedAt as number || Date.now(),
+});

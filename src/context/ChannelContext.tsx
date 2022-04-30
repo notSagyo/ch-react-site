@@ -1,10 +1,10 @@
-import { createContext, useContext, useEffect, useState } from 'react';
-import { v4 } from 'uuid';
-import { defaultChannel, defaultUser, validateMessage } from '../pages/Chat/ChatHelper';
+import { getChannelDoc, getChannelRef, getChannelsRef, getMessagesDocs, getMessagesRef, parseChannel } from './ChannelContextHelper';
+import { getDocs, setDoc, addDoc, updateDoc, onSnapshot, query, where, Unsubscribe } from '@firebase/firestore';
 import { HTMLElementProps, iChannel, iChannelContext, iMessage, iOpenChannel } from '../types';
+import { defaultChannel, defaultUser, validateMessage } from '../pages/Chat/ChatHelper';
+import { createContext, useContext, useEffect, useState } from 'react';
 import { useUserContext } from './UserContext';
-import { doc, getDoc, getDocs, setDoc, addDoc, updateDoc, onSnapshot, collection, query, where } from '@firebase/firestore';
-import { db } from '../firebaseConfig';
+import { v4 } from 'uuid';
 
 const ChannelContext = createContext<iChannelContext | Record<string, never>>({});
 export const useChannelContext = () => useContext(ChannelContext);
@@ -13,22 +13,27 @@ function ChannelContextProvider({ children, ...props }: HTMLElementProps) {
 	const [ activeChannel, setActiveChannel ] = useState<iChannel>(defaultChannel);
 	const [ openChannels, setOpenChannels ] = useState<iOpenChannel[]>([]);
 	const [ loadingStack, setLoadingStack ] = useState<boolean[]>([]);
+	const [ onMessageUnsub, setOnMessageUnsub ] = useState<Unsubscribe | undefined>();
 	const { activeUser } = useUserContext();
 
 	const getChannel = async (channelId: string) => {
-		const channelsDoc = await getDoc(doc(db, 'channels', channelId));
+		const channelsDoc = await getChannelDoc(channelId);
 
 		if (!channelsDoc.exists()) {
 			console.warn(`(Firestore): channel ${channelId} not found`);
 			return undefined;
 		}
 
-		const channelData = channelsDoc.data() as iChannel;
+		const messages = await getMessages(channelId);
+		const channelData = parseChannel({
+			...channelsDoc.data() as iChannel,
+			messages: messages.sort((a, b) => a.createdAt - b.createdAt)
+		});
 		return channelData;
 	};
 
 	const getChannelByMembers = async (membersIds: string[]) => {
-		const q = query(collection(db, 'channels'), where('membersIds', '==', membersIds.sort()));
+		const q = query(getChannelsRef(), where('membersIds', '==', membersIds.sort()));
 		const querySnap = await getDocs(q);
 		const channel =  querySnap?.docs[0]?.data() as iChannel | undefined;
 		if (!channel)
@@ -44,12 +49,9 @@ function ChannelContextProvider({ children, ...props }: HTMLElementProps) {
 		return members;
 	};
 
-	// !TODO: Convert messages[] to a collection
 	const getMessages = async (channelId: string = activeChannel.id) => {
-		if (channelId === activeChannel.id)
-			return activeChannel.messages;
-		const channel = await getChannel(channelId);
-		const messages = channel?.messages as iMessage[] | undefined;
+		const docs = await getMessagesDocs(channelId);
+		const messages = docs?.map(doc => doc.data()) as iMessage[];
 		return messages;
 	};
 
@@ -65,21 +67,20 @@ function ChannelContextProvider({ children, ...props }: HTMLElementProps) {
 		}
 
 		channel.membersIds = channel.membersIds.sort();
-		const newChannelDoc = await addDoc(collection(db, 'channels'), channel);
+		const newChannelDoc = await addDoc(getChannelsRef(), channel);
 		channel.id = newChannelDoc.id;
-		await setDoc(doc(db, 'channels', channel.id), channel);
+		await setDoc(getChannelRef(channel.id), channel);
 		return channel;
 	};
 
 	const changeChannel = async (channelId: string) => {
 		const targetChannel = await getChannel(channelId);
-		targetChannel && setActiveChannel(targetChannel);
+		targetChannel && setActiveChannel(parseChannel(targetChannel));
 		return targetChannel;
 	};
 
 	const pushMessage = async (content: string) => {
 		const validatedContent = validateMessage(content);
-
 		const parsedMessage: iMessage = {
 			id: v4(),
 			authorName: activeUser.name,
@@ -90,20 +91,8 @@ function ChannelContextProvider({ children, ...props }: HTMLElementProps) {
 			updatedAt: Date.now(),
 		};
 
-		const channel = await getChannel(activeChannel.id);
-
-		if (channel) {
-			channel.messages.push(parsedMessage);
-			updateDoc(doc(db, 'channels', channel.id), {
-				messages: channel.messages,
-				updatedAt: Date.now(),
-			});
-		} else {
-			console.warn(`(Firestore): channel ${activeChannel.id} not found, creating...`);
-			const newChannel = await createDM({...activeChannel, messages: [parsedMessage]});
-			newChannel && setActiveChannel(newChannel);
-		}
-
+		addDoc(getMessagesRef(activeChannel.id), parsedMessage);
+		updateDoc(getChannelRef(activeChannel.id), { updatedAt: Date.now() });
 		return parsedMessage;
 	};
 
@@ -119,18 +108,27 @@ function ChannelContextProvider({ children, ...props }: HTMLElementProps) {
 
 	const isLoading = () => loadingStack.length > 0;
 
+	// !TODO: Improve performance!
 	// Listen to active channel changes
 	useEffect(() => {
-		const activeChannelUnsub = onSnapshot(doc(db, 'channels', activeChannel.id),
-			(doc) => doc.exists() && setActiveChannel(doc.data() as iChannel)
+		if (onMessageUnsub)
+			onMessageUnsub();
+
+		const messageSnapUnsub = onSnapshot(getMessagesRef(activeChannel.id),
+			(coll) => setActiveChannel(parseChannel({
+				...activeChannel,
+				messages: coll.docs.map(doc => doc.data() as iMessage)
+					.sort((a, b) => a.createdAt - b.createdAt)
+			}))
 		);
-		return () => { activeChannelUnsub(); };
+
+		setOnMessageUnsub(() => messageSnapUnsub);
+		return () => onMessageUnsub && onMessageUnsub();
 	}, [activeChannel.id]);
 
-	// !TODO: Improve performance!
 	// Listen to open channels changes
 	useEffect(() => {
-		const q = query(collection(db, 'channels'), where('membersIds', 'array-contains', activeUser.id));
+		const q = query(getChannelsRef(), where('membersIds', 'array-contains', activeUser.id));
 		const openChannelsUnsub = onSnapshot(q, (querySnap) => {
 			const channels: iOpenChannel[] = querySnap.docs.map((doc) => ({
 				id: doc.id,
