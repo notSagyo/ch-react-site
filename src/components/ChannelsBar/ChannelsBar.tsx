@@ -35,11 +35,8 @@ function ChannelsBar(props: DivProps) {
 		setLinks(openChannels.map((channel, index) => {
 			if (channel.type !== section) return <React.Fragment key={index}/>;
 			return (<ChannelsBarLink
-				label={channel.label}
 				key={index}
-				linkId={channel.id}
-				membersIds={channel.membersIds}
-				icon={channel.type}
+				channel={channel}
 				forcedUpdateTime={Date.now()}
 			/>);
 		}));

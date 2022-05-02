@@ -1,5 +1,5 @@
-import { getChannelDoc, getChannelRef, getChannelsRef, getMessagesDocs, getMessagesRef, parseChannel } from './ChannelContextHelper';
-import { getDocs, setDoc, addDoc, updateDoc, onSnapshot, query, where, Unsubscribe } from '@firebase/firestore';
+import { createChannel, getChannelDoc, getChannelRef, getChannelsRef, getMessagesDocs, getMessagesRef, parseChannel } from './ChannelContextHelper';
+import { getDocs, addDoc, updateDoc, onSnapshot, query, where, Unsubscribe } from '@firebase/firestore';
 import { HTMLElementProps, iChannel, iChannelContext, iMessage, iOpenChannel } from '../types';
 import { defaultChannel, defaultUser, validateMessage } from '../pages/Chat/ChatHelper';
 import { createContext, useContext, useEffect, useState } from 'react';
@@ -41,6 +41,12 @@ function ChannelContextProvider({ children, ...props }: HTMLElementProps) {
 		return channel;
 	};
 
+	const getMessages = async (channelId: string = activeChannel.id) => {
+		const docs = await getMessagesDocs(channelId);
+		const messages = docs?.map(doc => doc.data()) as iMessage[];
+		return messages;
+	};
+
 	const getMembersIds = async (channelId: string = activeChannel.id) => {
 		if (channelId === activeChannel.id)
 			return activeChannel.membersIds;
@@ -49,10 +55,10 @@ function ChannelContextProvider({ children, ...props }: HTMLElementProps) {
 		return members;
 	};
 
-	const getMessages = async (channelId: string = activeChannel.id) => {
-		const docs = await getMessagesDocs(channelId);
-		const messages = docs?.map(doc => doc.data()) as iMessage[];
-		return messages;
+	const changeChannel = async (channelId: string) => {
+		const targetChannel = await getChannel(channelId);
+		targetChannel && setActiveChannel(parseChannel(targetChannel));
+		return targetChannel;
 	};
 
 	const createDM = async (channel: iChannel) => {
@@ -67,16 +73,15 @@ function ChannelContextProvider({ children, ...props }: HTMLElementProps) {
 		}
 
 		channel.membersIds = channel.membersIds.sort();
-		const newChannelDoc = await addDoc(getChannelsRef(), channel);
-		channel.id = newChannelDoc.id;
-		await setDoc(getChannelRef(channel.id), channel);
-		return channel;
+		const newChannel = createChannel(channel);
+		return newChannel;
 	};
 
-	const changeChannel = async (channelId: string) => {
-		const targetChannel = await getChannel(channelId);
-		targetChannel && setActiveChannel(parseChannel(targetChannel));
-		return targetChannel;
+	const createTeam = async (channel: iChannel) => {
+		if (channel.membersIds.length < 1)
+			throw new Error('Can\'t create a Team with no members');
+		const newChannel = createChannel(channel);
+		return newChannel;
 	};
 
 	const pushMessage = async (content: string) => {
@@ -108,11 +113,10 @@ function ChannelContextProvider({ children, ...props }: HTMLElementProps) {
 
 	const isLoading = () => loadingStack.length > 0;
 
-	// !TODO: Improve performance!
+	// TODO: Improve performance!
 	// Listen to active channel changes
 	useEffect(() => {
-		if (onMessageUnsub)
-			onMessageUnsub();
+		if (onMessageUnsub) onMessageUnsub();
 
 		const messageSnapUnsub = onSnapshot(getMessagesRef(activeChannel.id),
 			(coll) => setActiveChannel(parseChannel({
@@ -140,7 +144,7 @@ function ChannelContextProvider({ children, ...props }: HTMLElementProps) {
 			channels.sort((a, b) => b.updatedAt - a.updatedAt);
 			setOpenChannels(channels);
 		});
-		return () => { openChannelsUnsub(); };
+		return () => openChannelsUnsub();
 	}, [activeUser.id]);
 
 	return (
@@ -154,6 +158,7 @@ function ChannelContextProvider({ children, ...props }: HTMLElementProps) {
 			getMembersIds: getMembersIds,
 			getMessages: getMessages,
 			createDM: createDM,
+			createTeam: createTeam,
 			changeChannel: changeChannel,
 			pushMessage: pushMessage,
 			setLoading: setLoading,

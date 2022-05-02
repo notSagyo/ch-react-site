@@ -1,6 +1,7 @@
 import { Avatar } from '@mantine/core';
 import { Link } from 'react-router-dom';
 import { User, Users } from 'tabler-icons-react';
+import { sidenavIcons } from '../../types';
 import useStyles from './SidenavLink.styles';
 
 export type SidenavLinkProps = React.HTMLAttributes<HTMLAnchorElement> & {
@@ -8,7 +9,7 @@ export type SidenavLinkProps = React.HTMLAttributes<HTMLAnchorElement> & {
 	label?: string,
 	link?: string,
 	photoUrl?: string,
-	icon?: string,
+	icon?: sidenavIcons,
 	activeLink?: string
 }
 
@@ -19,12 +20,12 @@ function SidenavLink({
 	label,
 	link='',
 	photoUrl,
-	icon: LinkIcon = 'Users',
+	icon = 'Users',
 	...props}: SidenavLinkProps)
 {
 	const { classes, cx } = useStyles();
 
-	const icon = LinkIcon === 'user'
+	const iconComponent = icon === 'User'
 		? <User className={classes.linkIcon} />
 		: <Users className={classes.linkIcon} />;
 
@@ -38,7 +39,7 @@ function SidenavLink({
 		>
 			{photoUrl
 				?	<Avatar src={photoUrl} size={24} radius='md' className={classes.linkImage} />
-				: icon
+				: iconComponent
 			}
 			<div className={classes.textWrapper}>
 				<span>{children || label}</span>

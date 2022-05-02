@@ -17,8 +17,8 @@ export const defaultUser: iUser = {
 
 export const defaultChannel: iChannel = {
 	id: '0',
-	type: 'user',
-	label: 'none',
+	type: 'team',
+	label: 'Global',
 	description: '',
 	membersIds: [],
 	messages: [],

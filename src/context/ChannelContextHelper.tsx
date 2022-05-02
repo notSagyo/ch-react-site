@@ -1,6 +1,6 @@
-import { collection, getDocs, getDoc, doc } from '@firebase/firestore';
-import { db } from '../firebaseConfig';
+import { collection, getDocs, getDoc, setDoc, addDoc, doc } from '@firebase/firestore';
 import { channelTypes, iChannel, iMessage } from '../types';
+import { db } from '../firebaseConfig';
 
 // Refs ======================================================================//
 export const getMessagesRef = (channelId: string) =>
@@ -21,6 +21,16 @@ export const getMessagesDocs = async (channelId: string) => {
 	const messagesSnap = await getDocs(messagesRef);
 	const messagesDocs = messagesSnap?.docs;
 	return messagesDocs;
+};
+
+export const createChannel = async (channel: iChannel, forceId = false) => {
+	if (!forceId) {
+		const newChannelDoc = await addDoc(getChannelsRef(), channel);
+		channel.id = newChannelDoc.id;
+	}
+	const { messages, ...channelData } = channel;
+	await setDoc(getChannelRef(channel.id), channelData);
+	return channel;
 };
 
 export const parseChannel = (channel: iChannel): iChannel => ({
