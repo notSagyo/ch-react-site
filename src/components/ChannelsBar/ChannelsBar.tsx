@@ -9,7 +9,7 @@ import { UserButton } from '../UserButton/UserButton';
 import { useChannelContext } from '../../context/ChannelContext';
 
 function ChannelsBar(props: DivProps) {
-	const { openChannels: openChannels } = useChannelContext();
+	const { openChannels, activeChannel } = useChannelContext();
 	const [links, setLinks] = useState<JSX.Element[]>([<React.Fragment key={''}/>]);
 	const [segments, setSegments] = useState<SegmentedControlItem[]>([]);
 	const [section, setSection] = useState('');
@@ -27,8 +27,8 @@ function ChannelsBar(props: DivProps) {
 			value: tabName
 		})));
 
-		setSection(tabKeys[0]);
-	}, [openChannels[0]?.id]);
+		setSection(tabKeys[activeChannel.type === 'user' ? 0 : 1]);
+	}, [openChannels[0]?.id, activeChannel.id]);
 
 	// Populate bar with channels' links
 	useEffect(() => {
