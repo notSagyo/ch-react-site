@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useChannelContext } from '../../context/ChannelContext';
 import { useUserContext } from '../../context/UserContext';
-import { defaultUser } from '../../pages/Chat/ChatHelper';
 import { iOpenChannel, iUser, sidenavIcons } from '../../types';
 import { CHANNEL_URL } from '../../utils';
 import SidenavLink, { SidenavLinkProps } from '../Sidenav/SidenavLink';
@@ -11,7 +10,7 @@ import UserCard from '../UserCard/UserCard';
 export type ChannelBarLinkProps = Partial<SidenavLinkProps> & {
 	channel: iOpenChannel,
 	// Force update user data when open channels change, updating on "openChannels"
-	// state change would be triggered before the ChannelsBar mapping is done
+	// state would be triggered before the ChannelsBar's Links mapping is done
 	forcedUpdateTime?: number
 }
 
@@ -68,7 +67,8 @@ function ChannelsBarLink({channel, forcedUpdateTime, ...props}: ChannelBarLinkPr
 						label={label}
 						onClick={props.onClick || handleClick}
 					/>}
-				user={remoteUser || defaultUser}
+				user={remoteUser}
+				channelId={channel.id}
 				clickTrigger={'right'}
 			/>
 		</>

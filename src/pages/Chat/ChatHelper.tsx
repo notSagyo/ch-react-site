@@ -24,6 +24,7 @@ export const defaultChannel: iChannel = {
 	messages: [],
 	createdAt: Date.now(),
 	updatedAt: Date.now(),
+	bannerUrl: 'https://picsum.photos/600/300',
 };
 
 // Functions =================================================================//

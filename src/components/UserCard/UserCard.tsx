@@ -1,37 +1,43 @@
+import { useEffect, useState } from 'react';
 import { Card, Avatar, Text, Group, Button, Popover, PopoverProps } from '@mantine/core';
 import { useWindowEvent } from '@mantine/hooks';
-import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useChannelContext } from '../../context/ChannelContext';
 import { useUserContext } from '../../context/UserContext';
-import { iUser } from '../../types';
+import { iChannel, iUser } from '../../types';
 import { CHANNEL_URL } from '../../utils';
 import { useStyles } from './UserCard.styles';
 
 export interface UserCardProps extends Partial<PopoverProps> {
 	parent: JSX.Element;
-	user: iUser | undefined;
+	channelId: string | undefined;
+	user?: iUser | undefined;
 	inline?: boolean;
 	clickTrigger?: 'left' | 'right' | 'both';
 	stats?: { label: string; value: string }[];
 }
 
-// TODO: add support for team channels
 function UserCard({
 	stats,
 	parent,
 	user,
+	channelId,
 	inline,
 	clickTrigger,
 	...props }: UserCardProps)
 {
-	const [ opened, setOpened ] = useState(false);
-	const navigate = useNavigate();
-	const { createDM, setLoading } = useChannelContext();
+	const { createDM, setLoading, getChannel } = useChannelContext();
 	const { activeUser } = useUserContext();
+	const [ opened, setOpened ] = useState(false);
+	const [ channel, setChannel ] = useState<iChannel>();
+
+	const navigate = useNavigate();
+	const { classes, theme, cx } = useStyles();
 	useWindowEvent('wheel', () => setOpened(false));
 
-	const { classes, theme, cx } = useStyles();
+	useEffect(() => {
+		channelId && getChannel(channelId).then(setChannel);
+	}, [channelId]);
 
 	function handleContextMenu(e: React.MouseEvent<HTMLDivElement>) {
 		if (clickTrigger !== 'both' && clickTrigger !== 'right')
@@ -53,20 +59,24 @@ function UserCard({
 		e.preventDefault();
 		e.stopPropagation();
 		setOpened(false);
-		if (!user) return;
 
 		setLoading(true);
-		const channel = await createDM({
-			type: 'user',
-			membersIds: [user.id, activeUser.id],
-			createdAt: Date.now(),
-			updatedAt: Date.now(),
-			id: '',
-			label: '',
-			description: '',
-			messages: [],
-		});
-		navigate(`../${CHANNEL_URL}/${channel.id}`);
+		if (user) {
+			const dm = await createDM({
+				type: 'user',
+				membersIds: [user.id, activeUser.id],
+				createdAt: Date.now(),
+				updatedAt: Date.now(),
+				id: '',
+				label: '',
+				description: '',
+				messages: [],
+			});
+			navigate(`../${CHANNEL_URL}/${dm.id}`);
+		} else {
+			console.log('called');
+			navigate(`../${CHANNEL_URL}/${channel?.id}`);
+		}
 		setLoading(false);
 	}
 
@@ -105,9 +115,9 @@ function UserCard({
 				radius="md"
 				className={cx(classes.card, props.className)}
 			>
-				<Card.Section sx={{ backgroundImage: `url(${user?.bannerURL})`, height: 140 }} />
-				<Avatar src={user?.photoURL} size={80} radius={80} mx="auto" mt={-30} className={classes.avatar} />
-				<Text align="center" size="lg" weight={500} mt="sm"> {user?.name} </Text>
+				<Card.Section sx={{ backgroundImage: `url(${user?.bannerURL || channel?.bannerUrl})`, height: 140 }} />
+				<Avatar src={user?.photoURL || channel?.photoUrl} size={80} radius={80} mx="auto" mt={-30} className={classes.avatar} />
+				<Text align="center" size="lg" weight={500} mt="sm"> {user?.name || channel?.label} </Text>
 				<Text align="center" size="sm" color="dimmed"> {user?.occupation}</Text>
 				<Group mt="md" position="center" spacing={30}> {statElements} </Group>
 				<Button

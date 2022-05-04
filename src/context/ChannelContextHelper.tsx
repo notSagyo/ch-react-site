@@ -42,4 +42,6 @@ export const parseChannel = (channel: iChannel): iChannel => ({
 	membersIds: channel?.membersIds as string[] || [],
 	createdAt: channel?.createdAt as number || Date.now(),
 	updatedAt: channel?.updatedAt as number || Date.now(),
+	photoUrl: channel?.photoUrl as string || undefined,
+	bannerUrl: channel?.bannerUrl as string || undefined,
 });

@@ -28,6 +28,7 @@ export interface iChannel {
 	updatedAt: number;
 	type: channelTypes;
 	photoUrl?: string;
+	bannerUrl?: string;
 }
 
 export interface iOpenChannel {
