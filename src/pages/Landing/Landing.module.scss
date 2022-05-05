@@ -5,7 +5,3 @@
 	align-items: center;
 	flex-grow: 1;
 }
-
-@include sm-down {
-	.hero { margin-top: $nav-sm-height; }
-}

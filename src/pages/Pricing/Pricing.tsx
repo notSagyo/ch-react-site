@@ -7,6 +7,7 @@ import { useShopContext } from '../../context/ShopContext';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 
+// TODO: Fix overflow on mobile
 function Pricing(props: DivProps) {
 	const [pricingCards, setPricingCards] = useState<JSX.Element[]>([]);
 	const { getProducts, getProductsByCategory } = useShopContext();
@@ -23,8 +24,8 @@ function Pricing(props: DivProps) {
 
 		for (const category in categories) {
 			newPricingCards.push(
-				<Group key={newPricingCards.length + 1}>
-					<div className={styles.categoryTitle}>
+				<Group key={newPricingCards.length}>
+					<div className={styles.categoryTitleWrapper}>
 						<Text className={styles.categoryTitle}>
 							{category}
 						</Text>

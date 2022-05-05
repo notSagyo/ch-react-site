@@ -5,10 +5,10 @@ import { Flame } from 'tabler-icons-react';
 import useStyles from './ProductDetails.styles';
 import PricingInput from '../../components/PricingCard/PricingInput';
 import Pricetag from '../../components/PricingCard/Pricetag';
-import { iProduct } from '../../types';
+import { DivProps, iProduct } from '../../types';
 import { useShopContext } from '../../context/ShopContext';
 
-function ProductDetails() {
+function ProductDetails(props: DivProps) {
 	const [quantity, setQuantity] = useState(1);
 	const [product, setProduct] = useState<iProduct>();
 	const { getProduct } = useShopContext();
@@ -43,7 +43,7 @@ function ProductDetails() {
 	));
 
 	return (
-		<div>
+		<div {...props}>
 			{product && (
 				<Grid gutter={80}>
 					<Col span={12} md={5} className={classes.infoColumn}>

@@ -15,7 +15,7 @@ interface Props {
 
 function Navbar({logo, className}: Props) {
 	const [isOpen, setOpened] = useState(false);
-	const [      , setScrollLocked] = useScrollLock();
+	const [, setScrollLocked] = useScrollLock();
 	const navRef = useClickOutside(() => closeNav());
 	const burgerTitle = isOpen ? 'Close navigation' : 'Open navigation';
 
@@ -25,6 +25,7 @@ function Navbar({logo, className}: Props) {
 	}
 
 	function closeNav() { isOpen && toggleNav(); }
+
 	return (
 		<div className={cn(styles.navWrapper, className)} ref={navRef}>
 			<Burger
@@ -33,23 +34,28 @@ function Navbar({logo, className}: Props) {
 				onClick={() => toggleNav()}
 				title={burgerTitle}
 			/>
+
 			<nav
 				className={cn(
 					styles.nav,
 					isOpen ? styles.open : '',
 					logo ? styles.withLogo: ''
 				)}
+				onClick={() => closeNav()}
 			>
 				<Group className={styles.content}>
-					<div className={styles.logo}>
-						{logo}
-					</div>
+					{logo ?
+						<div className={styles.logo}>
+							{logo}
+						</div>
+						:
+						// Empty div to keep flex structure
+						<div style={{visibility: 'hidden', margin: -9}} />
+					}
 					<ul className={styles.linkList}>
 						<li>
 							<NotificationTooltip>
-								<Anchor className={styles.link}>
-									<Link to={`/${BASE_URL}/chat`}> Go to App </Link>
-								</Anchor>
+								<Link className={styles.link} to={`/${BASE_URL}/chat`}> Go to App </Link>
 							</NotificationTooltip>
 						</li>
 						<li>
@@ -64,7 +70,7 @@ function Navbar({logo, className}: Props) {
 								/>
 							</Link>
 						</li>
-						<li><Anchor className={styles.link}>About</Anchor></li>
+						<li><div className={styles.link}>About</div></li>
 					</ul>
 				</Group>
 			</nav>

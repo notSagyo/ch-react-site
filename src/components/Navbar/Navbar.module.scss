@@ -23,6 +23,7 @@
 
 .linkList {
 	display: flex;
+	gap: 1rem;
 	a:hover { text-decoration: none; }
 }
 
@@ -66,7 +67,6 @@
 		flex-flow: column nowrap;
 		justify-content: center;
 		align-items: center;
-		gap: 0;
 
 		padding: $nav-padding;
 		overflow-y: auto;

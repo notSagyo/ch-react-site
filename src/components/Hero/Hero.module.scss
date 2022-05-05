@@ -1,5 +1,9 @@
 @use "/src/styles/abstracts" as *;
 
+.hero {
+	gap: 2rem;
+}
+
 .title, .subtitle {
 	display: block;
 	line-height: 1.25;

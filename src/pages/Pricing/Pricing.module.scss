@@ -6,8 +6,11 @@
 	flex-direction: column;
 }
 
-.categoryTitle {
+.categoryTitleWrapper {
 	@include mx-auto;
+}
+
+.categoryTitle {
 	@include h2;
 	font-weight: 400;
 	text-transform: capitalize;
@@ -15,9 +18,10 @@
 }
 
 .cardsWrapper {
-	width: 100%;
 	display: flex;
-	gap: 2rem;
+	flex-wrap: wrap;
 	justify-content: center;
+	gap: 2rem;
+	width: 100%;
 	margin-bottom: 1rem;
 }

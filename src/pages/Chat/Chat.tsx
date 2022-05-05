@@ -4,7 +4,7 @@ import ChannelsBar from '../../components/ChannelsBar/ChannelsBar';
 import ChannelContextProvider from '../../context/ChannelContext';
 import useStyles from './Chat.styles';
 
-// TODO: Participants sidebar
+// ?TODO: Participants sidebar
 function Chat() {
 	const { classes } = useStyles();
 
