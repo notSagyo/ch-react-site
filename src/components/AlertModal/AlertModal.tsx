@@ -1,4 +1,4 @@
-import { Group, Modal, Text, useMantineTheme } from '@mantine/core';
+import { Group, Text, useMantineTheme } from '@mantine/core';
 import { ContextModalProps } from '@mantine/modals';
 import { useEffect, useState } from 'react';
 import { AlertCircle, AlertOctagon, AlertTriangle, CircleCheck } from 'tabler-icons-react';
@@ -8,7 +8,7 @@ type alertModalProps = ContextModalProps<{
 	type: 'error' | 'success' | 'warning' | 'info';
 }>
 
-function AlertModal({ innerProps, id, context }: alertModalProps) {
+function AlertModal({ innerProps }: alertModalProps) {
 	const theme = useMantineTheme();
 	const [icon, setIcon] = useState(<></>);
 
