@@ -48,7 +48,6 @@ export const firebaseSignIn = async () => {
 			console.error(error);
 		});
 
-	window.location.reload();
 	return user;
 };
 

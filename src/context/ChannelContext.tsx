@@ -63,7 +63,7 @@ function ChannelContextProvider({ children, ...props }: HTMLElementProps) {
 
 	const createDM = async (channel: iChannel) => {
 		if (channel.membersIds.includes(defaultUser.id))
-			throw new Error('Can\'t start a conversation with a Guest user');
+			throw new Error('Can\'t start a conversation as/with a Guest user');
 
 		const foundChannel = await getChannelByMembers(channel.membersIds);
 
@@ -101,6 +101,17 @@ function ChannelContextProvider({ children, ...props }: HTMLElementProps) {
 		return parsedMessage;
 	};
 
+	const addMember = async(channelId: string, memberId: string) => {
+		const channel = await getChannel(channelId);
+		if (!channel)
+			throw new Error('(Firestore): Channel not found');
+		if (channel.membersIds.includes(memberId))
+			throw new Error('(Firestore): Member already in channel');
+		channel.membersIds.push(memberId);
+		updateDoc(getChannelRef(channelId), { membersIds: channel.membersIds });
+		return channel;
+	};
+
 	const setLoading = (loading: boolean) => {
 		if (loading)
 			setLoadingStack([ ...loadingStack, true ]);
@@ -132,6 +143,7 @@ function ChannelContextProvider({ children, ...props }: HTMLElementProps) {
 
 	// Listen to open channels changes
 	useEffect(() => {
+		addMember(defaultChannel.id, activeUser.id).catch(() => void(0));
 		const q = query(getChannelsRef(), where('membersIds', 'array-contains', activeUser.id));
 		const openChannelsUnsub = onSnapshot(q, (querySnap) => {
 			const channels: iOpenChannel[] = querySnap.docs.map((doc) => ({
@@ -161,6 +173,7 @@ function ChannelContextProvider({ children, ...props }: HTMLElementProps) {
 			createTeam: createTeam,
 			changeChannel: changeChannel,
 			pushMessage: pushMessage,
+			addMember: addMember,
 			setLoading: setLoading,
 			isLoading: isLoading,
 		}}>

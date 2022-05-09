@@ -1,6 +1,7 @@
 import { Button, Group, Text, Title } from '@mantine/core';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import AlertModal from '../../components/AlertModal/AlertModal';
 import { useCartContext } from '../../context/CartContext';
 import { useUserContext } from '../../context/UserContext';
 import { DivProps } from '../../types';

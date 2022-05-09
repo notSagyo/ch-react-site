@@ -1,4 +1,4 @@
-import { Menu, Anchor } from '@mantine/core';
+import { Menu } from '@mantine/core';
 import { Link } from 'react-router-dom';
 import styles from './DropdownItem.module.scss';
 

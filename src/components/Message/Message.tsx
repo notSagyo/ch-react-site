@@ -34,7 +34,7 @@ function Message({message, ...props}: MessageProps) {
 							{message.authorName || 'Guest'}:
 						</Anchor>}
 				/>
-				<span className={classes.content}> {props.children}</span>
+				<span className={classes.content}> {props.children} </span>
 			</Text>
 		</li>
 	);

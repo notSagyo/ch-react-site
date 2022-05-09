@@ -7,10 +7,11 @@ import { useUserContext } from '../../context/UserContext';
 import { iChannel, iUser } from '../../types';
 import { CHANNEL_URL } from '../../utils';
 import { useStyles } from './UserCard.styles';
+import { useModals } from '@mantine/modals';
 
 export interface UserCardProps extends Partial<PopoverProps> {
 	parent: JSX.Element;
-	channelId: string | undefined;
+	channelId?: string | undefined;
 	user?: iUser | undefined;
 	inline?: boolean;
 	clickTrigger?: 'left' | 'right' | 'both';
@@ -32,6 +33,7 @@ function UserCard({
 	const [ channel, setChannel ] = useState<iChannel>();
 
 	const navigate = useNavigate();
+	const modals = useModals();
 	const { classes, theme, cx } = useStyles();
 	useWindowEvent('wheel', () => setOpened(false));
 
@@ -71,13 +73,26 @@ function UserCard({
 				label: '',
 				description: '',
 				messages: [],
+			}).catch(err => {
+				(console.error(err));
+				openGuestModal();
 			});
-			navigate(`../${CHANNEL_URL}/${dm.id}`);
-		} else {
-			console.log('called');
-			navigate(`../${CHANNEL_URL}/${channel?.id}`);
-		}
+			dm && navigate(`../${CHANNEL_URL}/${dm.id}`);
+		} else if (channel)
+			navigate(`../${CHANNEL_URL}/${channel.id}`);
+		else
+			openGuestModal();
 		setLoading(false);
+	}
+
+	function openGuestModal() {
+		modals.openContextModal('alertModal', {
+			title: 'Guest user',
+			centered: true,
+			innerProps: {
+				modalBody: 'Can\'t start a conversation as/with a Guest user',
+				type: 'warning'
+			}});
 	}
 
 	const statElements = stats && stats.map((stat) => (

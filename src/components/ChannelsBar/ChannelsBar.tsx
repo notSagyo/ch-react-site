@@ -17,7 +17,8 @@ function ChannelsBar(props: DivProps) {
 
 	// Create segments when the first "opened channel" changes
 	useEffect(() => {
-		const tabKeys = [...new Set(openChannels.map(channel => channel.type))].reverse();
+		const tabKeys = [...new Set(openChannels.map(channel => channel.type))]
+			.sort((a, b) => b.localeCompare(a));
 
 		if (tabKeys.length < 1)
 			return;

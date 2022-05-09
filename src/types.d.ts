@@ -131,6 +131,7 @@ export interface iChannelContext {
 	createTeam: (channel: iChannel) => Promise<iChannel>;
 	changeChannel: (id: string) => Promise<iChannel | undefined>;
 	pushMessage: (content: string) => Promise<iMessage | undefined>;
+	addMember: (channelId: string, memberId: string) => Promise<iChannel | undefined>;
 	setLoading: (loading: boolean) => void;
 	isLoading: () => boolean;
 }

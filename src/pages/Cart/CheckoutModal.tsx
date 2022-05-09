@@ -51,6 +51,7 @@ function CheckoutModal({ opened, setOpened }: CheckoutModalProps) {
 			opened={opened}
 			title={<Text weight={600}>Your order</Text>}
 			onClose={() => setOpened(false)}
+			overlayBlur={0.75}
 		>
 			<LoadingOverlay visible={loading}/>
 			<Stack align='stretch' mt={'lg'}>
