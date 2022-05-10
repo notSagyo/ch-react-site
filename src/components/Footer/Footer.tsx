@@ -3,7 +3,7 @@ import { BrandFacebook, BrandInstagram, BrandTelegram, BrandTwitter, Mail } from
 import cn from 'classnames/bind';
 import styles from './Footer.module.scss';
 import { Link } from 'react-router-dom';
-import { BASE_URL } from '../../utils';
+import { TO_DETAILS_URL } from '../../utils';
 
 function Footer() {
 	return (
@@ -31,9 +31,9 @@ function Footer() {
 						<Group align={'start'}>
 							<ul>
 								<li><Text className={styles.header}>Pricing</Text></li>
-								<li><Link to={`/${BASE_URL}/pricing`}><Anchor>Free</Anchor></Link></li>
-								<li><Link to={`/${BASE_URL}/pricing`}><Anchor>Pro</Anchor></Link></li>
-								<li><Link to={`/${BASE_URL}/pricing`}><Anchor>Pro+</Anchor></Link></li>
+								<li><Link to={`${TO_DETAILS_URL('personal', '0')}`}><Text>Free</Text></Link></li>
+								<li><Link to={`${TO_DETAILS_URL('personal', '1')}`}><Text>Pro</Text></Link></li>
+								<li><Link to={`${TO_DETAILS_URL('personal', '2')}`}><Text>Pro+</Text></Link></li>
 							</ul>
 							<ul>
 								<li><Text className={styles.header}>Info</Text></li>

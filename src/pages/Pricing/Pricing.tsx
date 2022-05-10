@@ -5,13 +5,14 @@ import styles from './Pricing.module.scss';
 import { Group, Text } from '@mantine/core';
 import { useShopContext } from '../../context/ShopContext';
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
+import { BASE_URL } from '../../utils';
 
-// TODO: Fix overflow on mobile
 function Pricing(props: DivProps) {
 	const [pricingCards, setPricingCards] = useState<JSX.Element[]>([]);
 	const { getProducts, getProductsByCategory } = useShopContext();
 	const { productCategory } = useParams();
+	const navigate = useNavigate();
 
 	const mapProdsToCards = (prods: iProduct[]) => {
 		const categories: {[key: string]: JSX.Element[]} = {};
@@ -43,13 +44,13 @@ function Pricing(props: DivProps) {
 	useEffect(() => {
 		if (productCategory) {
 			getProductsByCategory(productCategory)
-				.then((prods) => prods && mapProdsToCards(prods));
+				.then((prods) => (prods && prods?.length > 0)
+					? mapProdsToCards(prods)
+					: navigate(`/${BASE_URL}/404`));
 		} else {
 			getProducts().then(mapProdsToCards);
 		}
 	}, []);
-
-	getProducts();
 
 	return (
 		<section {...props} className={cn(props.className, styles.pricing)}>

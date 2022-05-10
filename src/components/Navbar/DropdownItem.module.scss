@@ -6,7 +6,7 @@
 .link { @extend navbar, .link !optional; }
 
 // Desktop ===================================================================//
-.dropDownMenu { @include hide-sm-down; }
+.dropDownMenu { @include hide-md-down; }
 
 .menuItemIcon {
 	@extend t, .material-icons !optional;
@@ -14,7 +14,7 @@
 }
 
 // Mobile ====================================================================//
-.itemListContainer { @include hide-sm-up; }
+.itemListContainer { @include hide-md-up; }
 
 .itemList {
 	padding: 0 1rem;

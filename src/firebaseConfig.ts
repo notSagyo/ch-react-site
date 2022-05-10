@@ -1,4 +1,3 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from 'firebase/app';
 import { getFirestore, enableMultiTabIndexedDbPersistence } from '@firebase/firestore';
 import {
@@ -11,7 +10,6 @@ import {
 	User,
 } from '@firebase/auth';
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
 	apiKey: 'AIzaSyAXZbpwGIYAyEuU0maP2pBI4nh7QrtXmO0',
 	authDomain: 'portfolio-85693.firebaseapp.com',
@@ -21,7 +19,6 @@ const firebaseConfig = {
 	appId: '1:20009869405:web:929394e2e932096dd02db4'
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
 export const db = getFirestore(app);
 

@@ -124,7 +124,7 @@ function ChannelContextProvider({ children, ...props }: HTMLElementProps) {
 
 	const isLoading = () => loadingStack.length > 0;
 
-	// TODO: Improve performance!
+	// TODO: Improve performance
 	// Listen to active channel changes
 	useEffect(() => {
 		if (onMessageUnsub) onMessageUnsub();

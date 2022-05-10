@@ -10,8 +10,8 @@ body {
 
 br { height: 0; }
 
-.hide-sm-up { @include hide-sm-up; }
-.hide-sm-down { @include hide-sm-down; }
+.hide-md-up { @include hide-md-up; }
+.hide-md-down { @include hide-md-down; }
 
 .container {
 	margin: 0 auto;

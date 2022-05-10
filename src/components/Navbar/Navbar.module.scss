@@ -12,7 +12,7 @@
 	@extend base, .container !optional;
 }
 
-.burger { @include hide-sm-up; }
+.burger { @include hide-md-up; }
 
 .content {
 	justify-content: space-between;
@@ -36,11 +36,11 @@
 	margin-left: 4rem;
 	border-radius: 8px;
 
-	@include sm-up { font-size: min(3vw, $h4-fs); }
+	@include md-up { font-size: min(3vw, $h4-fs); }
 }
 
 // Media =====================================================================//
-@include sm-down {
+@include md-down {
 	.burger {
 		position: fixed;
 		right: $nav-padding;

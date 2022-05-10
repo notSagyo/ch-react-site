@@ -1,5 +1,5 @@
 import { ReactNode, useState } from 'react';
-import { Burger, Group, Anchor } from '@mantine/core';
+import { Burger, Group } from '@mantine/core';
 import { useScrollLock, useClickOutside } from '@mantine/hooks';
 import cn from 'classnames/bind';
 import NotificationTooltip from '../NotificationTooltip/NotificationTooltip';
@@ -13,6 +13,7 @@ interface Props {
 	className?: string
 }
 
+// TODO: Remove nested anchors
 function Navbar({logo, className}: Props) {
 	const [isOpen, setOpened] = useState(false);
 	const [, setScrollLocked] = useScrollLock();
@@ -54,6 +55,7 @@ function Navbar({logo, className}: Props) {
 					}
 					<ul className={styles.linkList}>
 						<li>
+							{/* TODO: Make the notifications work in real time! */}
 							<NotificationTooltip>
 								<Link className={styles.link} to={`/${BASE_URL}/chat`}> Go to App </Link>
 							</NotificationTooltip>

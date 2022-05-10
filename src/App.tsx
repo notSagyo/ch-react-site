@@ -16,6 +16,8 @@ function App() {
 			theme={{
 				colorScheme: 'dark',
 				colors: {
+					// This hack was needed before latest version of Mantine
+					// but the code is already structured to use this
 					primary: ['#F03E3E', '#F03E3E', '#F03E3E', '#F03E3E', '#F03E3E', '#F03E3E', '#F03E3E', '#F03E3E', '#F03E3E', '#F03E3E'],
 					brand: theme.colors.red,
 				},
