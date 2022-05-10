@@ -6,31 +6,27 @@ import styles from './Hero.module.scss';
 
 function Hero() {
 	return (
-		<Group className={styles.hero} direction='column' sx={{gap: '2rem'}}>
-			<Group>
-				<h1 className={cn(styles.title, styles.fadeIn)}>
+		<Group className={styles.hero} direction='column'>
+			<h1 className={cn(styles.title, styles.fadeIn)}>
 						Welcome to
-					<Text
-						component='span'
-						className={styles.brand}
-						variant='gradient'
-						gradient={{from: 'primary', to: 'pink', deg: 135}}
-						inherit
-					> portfol.io </Text>
-				</h1>
-				<h2 className={cn(styles.subtitle, styles.fadeIn)}>
+				<Text
+					component='span'
+					className={styles.brand}
+					variant='gradient'
+					gradient={{from: 'primary', to: 'pink', deg: 135}}
+					inherit
+				> portfol.io </Text>
+			</h1>
+			<h2 className={cn(styles.subtitle, styles.fadeIn)}>
 						Connect, create, practice, learn, grow.
-				</h2>
-			</Group>
-			<Group>
-				<h3 className={cn(styles.info, styles.fadeIn)}>
+			</h2>
+			<h3 className={cn(styles.info, styles.fadeIn)}>
 						Connect with people
-					<em className={styles.infoStrong}> just like you</em>.
+				<em className={styles.infoStrong}> just like you</em>.
 						Learn to work as part of a team.
-					<br />
+				<br />
 						Get first hand experience and show off the result in your portfolio.
-				</h3>
-			</Group>
+			</h3>
 			<Group className={cn(styles.buttons, styles.fadeIn)}>
 				<Link to={`/${BASE_URL}/chat`}>
 					<Button

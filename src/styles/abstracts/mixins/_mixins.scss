@@ -3,8 +3,8 @@
 @use "media" as *;
 
 // Custom ====================================================================//
-@mixin hide-sm-down { @include sm-down { display: none; } }
-@mixin hide-sm-up { @include sm-up { display: none; } }
+@mixin hide-md-down { @include md-down { display: none; } }
+@mixin hide-md-up { @include md-up { display: none; } }
 
 // Typography ================================================================//
 @mixin page-title { font-size: v.$page-title-fs; font-weight: 600; }
@@ -16,7 +16,6 @@
 @mixin h6 { font-size: v.$h6-fs; font-weight: 500; }
 
 // Hacks / Fixes =============================================================//
-// !TODO: Add to template
 @mixin clamp-width($min, $max, $width: "") {
 	min-width: $min;
 	max-width: $max;

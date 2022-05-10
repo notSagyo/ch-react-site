@@ -6,6 +6,8 @@ import Home from './pages/Home/Home';
 import '/src/styles/main.scss';
 import ShopContextProvider from './context/ShopContext';
 import UserContextProvider from './context/UserContext';
+import { ModalsProvider } from '@mantine/modals';
+import AlertModal from './components/AlertModal/AlertModal';
 
 function App() {
 	const theme = useMantineTheme();
@@ -14,12 +16,15 @@ function App() {
 			theme={{
 				colorScheme: 'dark',
 				colors: {
+					// This hack was needed before latest version of Mantine
+					// but the code is already structured to use this
 					primary: ['#F03E3E', '#F03E3E', '#F03E3E', '#F03E3E', '#F03E3E', '#F03E3E', '#F03E3E', '#F03E3E', '#F03E3E', '#F03E3E'],
-					brand: theme.colors.red
+					brand: theme.colors.red,
 				},
+				primaryColor: 'red',
+				primaryShade: 7,
 				white: '#fafaff',
 				black: '#101113',
-				primaryColor: 'primary',
 				fontFamily: 'Poppins, sans-serif',
 				other: {
 					navbarHeight: '8rem',
@@ -30,13 +35,15 @@ function App() {
 			<UserContextProvider>
 				<ShopContextProvider>
 					<Container px='0' fluid>
-						<BrowserRouter>
-							<Routes>
-								<Route path={`${BASE_URL}/*`} element={<Home />} />
-								<Route path={`${BASE_URL}/${APP_URL}`} element={<Chat />} />
-								<Route path={`${BASE_URL}/${APP_URL}/:id`} element={<Chat />} />
-							</Routes>
-						</BrowserRouter>
+						<ModalsProvider modals={{ alertModal: AlertModal }}>
+							<BrowserRouter>
+								<Routes>
+									<Route path={`${BASE_URL}/*`} element={<Home />} />
+									<Route path={`${BASE_URL}/${APP_URL}`} element={<Chat />} />
+									<Route path={`${BASE_URL}/${APP_URL}/:id`} element={<Chat />} />
+								</Routes>
+							</BrowserRouter>
+						</ModalsProvider>
 					</Container>
 				</ShopContextProvider>
 			</UserContextProvider>

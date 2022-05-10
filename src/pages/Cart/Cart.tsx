@@ -1,6 +1,7 @@
 import { Button, Group, Text, Title } from '@mantine/core';
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import AlertModal from '../../components/AlertModal/AlertModal';
 import { useCartContext } from '../../context/CartContext';
 import { useUserContext } from '../../context/UserContext';
 import { DivProps } from '../../types';
@@ -52,8 +53,8 @@ function Cart({ children, ...props }: DivProps) {
 				>
 					<Title>The cart is empty...</Title>
 					<Text className={classes.emptyDescription}>
-						Try adding a plan to the cart and come back,
-						we'll be waiting for you... :-)
+						{`Try adding a plan to the cart and come back,
+						we'll be waiting for you... :-)`}
 					</Text>
 					<Link to={`/${PRICING_URL}`}>
 						<Button color={'brand'}>{'Go back to pricing >'}</Button>

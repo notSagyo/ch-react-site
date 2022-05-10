@@ -1,38 +1,75 @@
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useChannelContext } from '../../context/ChannelContext';
 import { useUserContext } from '../../context/UserContext';
+import { iOpenChannel, iUser, sidenavIcons } from '../../types';
 import { CHANNEL_URL } from '../../utils';
 import SidenavLink, { SidenavLinkProps } from '../Sidenav/SidenavLink';
 import UserCard from '../UserCard/UserCard';
 
-export type ChannelBarLinkProps = SidenavLinkProps & {
-	membersId: number[],
-	label?: string
+export type ChannelBarLinkProps = Partial<SidenavLinkProps> & {
+	channel: iOpenChannel,
+	// Force update user data when open channels change, updating on "openChannels"
+	// state would be triggered before the ChannelsBar's Links mapping is done
+	forcedUpdateTime?: number
 }
 
-// TODO: Update to work with team channels too
-function ChannelsBarLink({membersId, ...props}: ChannelBarLinkProps) {
-	const { activeChannel } = useChannelContext();
-	const { activeUser } = useUserContext();
+function ChannelsBarLink({channel, forcedUpdateTime, ...props}: ChannelBarLinkProps) {
+	const { activeChannel, getChannelByMembers, setLoading } = useChannelContext();
+	const { activeUser, getUser } = useUserContext();
+	const [remoteUser, setRemoteUser] = useState<iUser>();
+	const [icon, setIcon] = useState<sidenavIcons>();
+	const [label, setLabel] = useState('');
+	const [photoUrl, setPhotoUrl] = useState(channel.photoUrl);
+	const navigate = useNavigate();
 
-	// !TODO: CHANGE TO USE CONTEXT
-	// const remoteUserId = membersId.find(id => id !== localUser.id) ?? localUser.id;
-	// const remoteUser = getUser(remoteUserId);
+	// Update links when the channelsBar's links change
+	useEffect(() => {
+		if (channel.type === 'user') {
+			const remoteUserId = channel.membersIds.find(id => id !== activeUser.id) || activeUser.id;
 
-	const link = `../${CHANNEL_URL}/`;
+			if (!props.icon) setIcon('User');
+			if (!remoteUserId) return;
+
+			getUser(remoteUserId).then((user) => {
+				user && setLabel(user.name);
+				setPhotoUrl(user?.photoURL);
+				setRemoteUser(user);
+			});
+		} else if (channel.type === 'team') {
+			setLabel(channel.label);
+			setIcon('Users');
+			setPhotoUrl(channel?.photoUrl);
+		}
+	}, [forcedUpdateTime]);
+
+	const handleClick = () => {
+		setLoading(true);
+		if (channel.type === 'user') {
+			getChannelByMembers(channel.membersIds)
+				.then((channelRes) => navigate(`../${CHANNEL_URL}/${channelRes?.id}`))
+				.catch(err => console.error(err));
+		} else
+			setTimeout(() => navigate(`../${CHANNEL_URL}/${channel.id}`), 0);
+		setLoading(false);
+	};
 
 	return (
 		<>
 			<UserCard
-				parent={<SidenavLink
-					{...props}
-					activeLink={activeChannel.id}
-					link={link}
-				/>}
-				// avatar={remoteUser?.avatarURL}
-				// banner={remoteUser?.bannerURL}
-				// link={link}
-				// name={remoteUser?.name}
-				// occupation={remoteUser?.occupation }
+				parent={
+					<SidenavLink
+						activeLink={activeChannel.id}
+						{...props}
+						linkId={props.linkId || channel.id}
+						icon={props.icon || icon}
+						photoUrl={photoUrl}
+						label={label}
+						onClick={props.onClick || handleClick}
+					/>}
+				user={remoteUser}
+				channelId={channel.id}
+				clickTrigger={'right'}
 			/>
 		</>
 	);

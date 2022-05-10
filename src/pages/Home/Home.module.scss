@@ -19,6 +19,7 @@
 .main {
 	justify-content: center;
 	min-height: calc(100vh - $nav-height);
+	overflow: hidden;
 }
 
 .mainSection {
@@ -29,3 +30,8 @@
 	@extend t, .h2 !optional;
 }
 
+// Mobile ====================================================================//
+@include md-down {
+	.main { min-height: 100vh; }
+	.mainSection { padding-top: $nav-height * 0.5; }
+}

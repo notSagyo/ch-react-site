@@ -1,4 +1,4 @@
-import { Menu, Anchor } from '@mantine/core';
+import { Menu } from '@mantine/core';
 import { Link } from 'react-router-dom';
 import styles from './DropdownItem.module.scss';
 
@@ -46,9 +46,9 @@ function DropdownItem({ title, items }: Props) {
 				delay={250}
 				size={'sm'}
 				control={
-					<Anchor className={styles.link}>
+					<div className={styles.link}>
 						{title} <i className='material-icons'>arrow_drop_down</i>
-					</Anchor>
+					</div>
 				}
 			>
 				{menuItems}
@@ -56,7 +56,7 @@ function DropdownItem({ title, items }: Props) {
 
 			{/* MOBILE: STATIC LIST */}
 			<div className={styles.itemListContainer}>
-				<Anchor className={styles.link}> {title} </Anchor>
+				<div className={styles.link}> {title} </div>
 				<ul className={styles.itemList}>
 					{listItems}
 				</ul>

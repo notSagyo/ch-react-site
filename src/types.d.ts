@@ -4,6 +4,8 @@ import { Icon } from 'tabler-icons-react';
 
 export type DivProps = React.HTMLAttributes<HTMLDivElement>;
 export type HTMLElementProps = React.HTMLProps<HTMLElement>;
+export type channelTypes = 'user' | 'team';
+export type sidenavIcons = 'User' | 'Users';
 
 export interface iUser {
 	id: string;
@@ -12,7 +14,7 @@ export interface iUser {
 	email: string;
 	createdAt: number;
 	updatedAt: number;
-	avatarURL: string;
+	photoURL: string;
 	bannerURL: string;
 }
 
@@ -20,11 +22,22 @@ export interface iChannel {
 	id: string;
 	label: string;
 	description: string;
-	members: iUser[];
+	membersIds: string[];
 	messages: iMessage[];
 	createdAt: number;
 	updatedAt: number;
+	type: channelTypes;
+	photoUrl?: string;
+	bannerUrl?: string;
+}
+
+export interface iOpenChannel {
+	id: string;
+	label: string;
 	type: 'user' | 'team';
+	updatedAt: number;
+	membersIds: string[];
+	photoUrl?: string;
 }
 
 export interface iMessage {
@@ -72,7 +85,7 @@ export interface iOrder {
 
 export interface iSidebarChannel extends iChannel {
 	icon: Icon;
-	avatarURL?: string;
+	photoURL?: string;
 }
 
 export interface iShopContext {
@@ -108,10 +121,17 @@ export interface iUserContext {
 export interface iChannelContext {
 	activeChannel: iChannel;
 	setActiveChannel: React.Dispatch<SetStateAction<iChannel>>;
+	openChannels: iOpenChannel[];
+	setOpenChannels: React.Dispatch<SetStateAction<iOpenChannel[]>>;
 	getChannel: (id: string) => Promise<iChannel | undefined>;
-	getMembers: (id?: string) => Promise<iUser[] | undefined>;
+	getChannelByMembers: (membersIds: string[]) => Promise<iChannel | undefined>;
+	getMembersIds: (id?: string) => Promise<string[] | undefined>;
 	getMessages: (id?: string) => Promise<iMessage[] | undefined>;
-	createChannel: (channel: iChannel) => Promise<iChannel | false>;
-	changeChannel: (id: string) => Promise<iChannel>;
-	pushMessage: (content: string) => Promise<iMessage>;
+	createDM: (channel: iChannel) => Promise<iChannel>;
+	createTeam: (channel: iChannel) => Promise<iChannel>;
+	changeChannel: (id: string) => Promise<iChannel | undefined>;
+	pushMessage: (content: string) => Promise<iMessage | undefined>;
+	addMember: (channelId: string, memberId: string) => Promise<iChannel | undefined>;
+	setLoading: (loading: boolean) => void;
+	isLoading: () => boolean;
 }

@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from 'react';
 import { firebaseSignIn, fireBaseSignOut } from '../firebaseConfig';
 import { User, getAuth } from '@firebase/auth';
-import { getDoc, setDoc, updateDoc, doc } from '@firebase/firestore';
+import { getDoc, setDoc, updateDoc, doc, getDocFromCache, getDocFromServer } from '@firebase/firestore';
 import { defaultUser } from '../pages/Chat/ChatHelper';
 import { db } from '../firebaseConfig';
 import { HTMLElementProps, iUser, iUserContext } from '../types';
@@ -31,15 +31,20 @@ function UserContextProvider({ children, ...props }: HTMLElementProps) {
 	};
 
 	const getUser = async (userId: string) => {
-		// TODO: Implement
-		console.log('getUser not implemented');
-		return defaultUser;
+		let userDoc = await getDocFromCache(doc(db, 'users', userId))
+			.catch(() => console.warn(`(Firestore): user '${userId}' not found in cache`));
+
+		if (!userDoc)
+			userDoc = await getDocFromServer(doc(db, 'users', userId));
+
+		const user = userDoc?.data() as iUser | undefined;
+		return user;
 	};
 
 	const createUser = async (user: iUser) => {
-		const usersDoc = await getDoc(doc(db, 'users', user.id));
+		const userDoc = await getDoc(doc(db, 'users', user.id));
 
-		if (usersDoc.exists()) {
+		if (userDoc.exists()) {
 			console.warn(`(Firestore): user ${user.id} already exists`);
 			return false;
 		}
