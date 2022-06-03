@@ -161,21 +161,21 @@ function ChannelContextProvider({ children, ...props }: HTMLElementProps) {
 
 	return (
 		<ChannelContext.Provider {...props} value={{
-			activeChannel: activeChannel,
-			setActiveChannel: setActiveChannel,
-			openChannels: openChannels,
-			setOpenChannels: setOpenChannels,
-			getChannel: getChannel,
-			getChannelByMembers: getChannelByMembers,
-			getMembersIds: getMembersIds,
-			getMessages: getMessages,
-			createDM: createDM,
-			createTeam: createTeam,
-			changeChannel: changeChannel,
-			pushMessage: pushMessage,
-			addMember: addMember,
-			setLoading: setLoading,
-			isLoading: isLoading,
+			activeChannel,
+			setActiveChannel,
+			openChannels,
+			setOpenChannels,
+			getChannel,
+			getChannelByMembers,
+			getMembersIds,
+			getMessages,
+			createDM,
+			createTeam,
+			changeChannel,
+			pushMessage,
+			addMember,
+			setLoading,
+			isLoading,
 		}}>
 			{children}
 		</ChannelContext.Provider>

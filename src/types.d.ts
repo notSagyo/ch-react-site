@@ -34,7 +34,7 @@ export interface iChannel {
 export interface iOpenChannel {
 	id: string;
 	label: string;
-	type: 'user' | 'team';
+	type: channelTypes;
 	updatedAt: number;
 	membersIds: string[];
 	photoUrl?: string;
@@ -83,11 +83,6 @@ export interface iOrder {
 	createdAt: number;
 }
 
-export interface iSidebarChannel extends iChannel {
-	icon: Icon;
-	photoURL?: string;
-}
-
 export interface iShopContext {
 	getProduct: (id: string) => Promise<iProduct | undefined>;
 	getProducts: () => Promise<iProduct[]>;
@@ -102,7 +97,7 @@ export interface iCartContext {
 	removeItem: (id: string) => void;
 	getTotal: () => number;
 	clearCart: () => void;
-	createOrder: (order: iOrder)  => Promise<iOrder>;
+	createOrder: (order: iOrder) => Promise<iOrder>;
 	productToCartItem: (product: iProduct, quantity: number) => iCartItem;
 }
 

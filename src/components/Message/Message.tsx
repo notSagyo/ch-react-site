@@ -14,8 +14,10 @@ function Message({message, ...props}: MessageProps) {
 	const { getUser } = useUserContext();
 	const { classes, cx } = useStyles();
 
-	const timestamp = new Date(message.createdAt)
-		.toLocaleTimeString([], {hour: 'numeric', minute: '2-digit'});
+
+	const timestamp = Date.now() - message.createdAt > 86400000
+		? new Date().toLocaleDateString([], {day: 'numeric', month: 'numeric', year: 'numeric'})
+		: new Date().toLocaleTimeString([], {hour: 'numeric', minute: '2-digit'});
 
 	useEffect(() => {
 		getUser(message.authorId).then((user) => setAuthor(user)).catch(err => console.error(err));
