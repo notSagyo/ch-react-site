@@ -1,9 +1,9 @@
-import { Group, Text, Anchor, Container } from '@mantine/core';
-import { BrandFacebook, BrandInstagram, BrandTelegram, BrandTwitter, Mail } from 'tabler-icons-react';
-import cn from 'classnames/bind';
-import styles from './Footer.module.scss';
+import { Anchor, Container, Group, Text } from '@mantine/core';
+import cn from 'classnames';
 import { Link } from 'react-router-dom';
+import { BrandFacebook, BrandInstagram, BrandTelegram, BrandTwitter, Mail } from 'tabler-icons-react';
 import { TO_DETAILS_URL } from '../../utils';
+import styles from './Footer.module.scss';
 
 function Footer() {
 	return (

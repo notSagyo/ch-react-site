@@ -1,15 +1,15 @@
+import { Container, Text } from '@mantine/core';
+import cn from 'classnames';
 import { Link, matchPath, Route, Routes, useLocation } from 'react-router-dom';
-import { Text, Container } from '@mantine/core';
-import { BASE_URL } from '../../utils';
-import cn from 'classnames/bind';
-import Navbar from '../../components/Navbar/Navbar';
 import Footer from '../../components/Footer/Footer';
-import Landing from '../Landing/Landing';
-import Pricing from '../Pricing/Pricing';
-import styles from './Home.module.scss';
-import ProductDetails from '../ProductDetails/ProductDetails';
+import Navbar from '../../components/Navbar/Navbar';
+import { BASE_URL } from '../../utils';
 import Cart from '../Cart/Cart';
 import Error404 from '../Error/Error404';
+import Landing from '../Landing/Landing';
+import Pricing from '../Pricing/Pricing';
+import ProductDetails from '../ProductDetails/ProductDetails';
+import styles from './Home.module.scss';
 
 function Home() {
 	const currentURL = useLocation().pathname;
