@@ -1,13 +1,13 @@
-import { useState } from 'react';
 import { Card, CardProps, Divider, Group, Text } from '@mantine/core';
-import cn from 'classnames/bind';
-import styles from './PricingCard.module.scss';
-import { TO_DETAILS_URL } from '../../utils';
-import { Check } from 'tabler-icons-react';
-import PricingInput from './PricingInput';
-import { DivProps, iProduct } from '../../types';
-import Pricetag from './Pricetag';
+import cn from 'classnames';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { Check } from 'tabler-icons-react';
+import { DivProps, iProduct } from '../../types';
+import { TO_DETAILS_URL } from '../../utils';
+import Pricetag from './Pricetag';
+import styles from './PricingCard.module.scss';
+import PricingInput from './PricingInput';
 
 type Props =
 	& Partial<CardProps<'div'>>

@@ -1,5 +1,5 @@
-import { Text, Group, Button } from '@mantine/core';
-import cn from 'classnames/bind';
+import { Button, Group, Text } from '@mantine/core';
+import cn from 'classnames';
 import { Link } from 'react-router-dom';
 import { BASE_URL } from '../../utils';
 import styles from './Hero.module.scss';

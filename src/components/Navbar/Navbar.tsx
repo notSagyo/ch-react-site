@@ -1,12 +1,12 @@
-import { ReactNode, useState } from 'react';
 import { Burger, Group } from '@mantine/core';
-import { useScrollLock, useClickOutside } from '@mantine/hooks';
-import cn from 'classnames/bind';
+import { useClickOutside, useScrollLock } from '@mantine/hooks';
+import cn from 'classnames';
+import { ReactNode, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { BASE_URL, TO_DETAILS_URL } from '../../utils';
 import NotificationTooltip from '../NotificationTooltip/NotificationTooltip';
 import DropdownItem from './DropdownItem';
 import styles from './Navbar.module.scss';
-import { Link } from 'react-router-dom';
-import { BASE_URL, TO_DETAILS_URL } from '../../utils';
 
 interface Props {
 	logo?: ReactNode,
