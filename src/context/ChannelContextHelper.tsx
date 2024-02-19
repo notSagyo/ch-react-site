@@ -1,6 +1,6 @@
-import { collection, getDocs, getDoc, setDoc, addDoc, doc } from '@firebase/firestore';
-import { channelTypes, iChannel, iMessage } from '../types';
+import { addDoc, collection, doc, getDoc, getDocs, setDoc } from 'firebase/firestore';
 import { db } from '../firebaseConfig';
+import { channelTypes, iChannel, iMessage } from '../types';
 
 // Refs ======================================================================//
 export const getMessagesRef = (channelId: string) =>

@@ -12,20 +12,24 @@
 .title {
 	@include page-title;
 	@include lg-up { font-size: min(5vw, $page-title-fs); }
+	
+	font-size: min(14vw, $page-title-fs);
 }
 
 .subtitle {
 	@include h1;
 	@include lg-up { font-size: min(4vw, $h1-fs); }
+
+	font-size: min(10vw, $h1-fs);
 }
 
 .info {
 	@include h3;
+	@include lg-up { font-size: min(2.5vw, $h3-fs); }
 
 	line-height: 1.5;
 	font-weight: 200;
-
-	@include lg-up { font-size: min(2.5vw, $h3-fs); }
+	font-size: min(7vw, $h3-fs);
 }
 
 // Animation =========================//

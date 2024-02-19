@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Title, SimpleGrid, Text, ThemeIcon, Grid, Col } from '@mantine/core';
-import { useParams } from 'react-router';
+import { useParams } from 'react-router-dom';
 import { Flame } from 'tabler-icons-react';
 import useStyles from './ProductDetails.styles';
 import PricingInput from '../../components/PricingCard/PricingInput';

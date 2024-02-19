@@ -4,6 +4,8 @@ const useStyles = createStyles((theme) => ({
 	wrapper: {
 		display: 'flex',
 		alignItems: 'center',
+		justifyContent: 'space-around',
+		width: 'fit-content'
 	},
 
 	controlWrapper: {

@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { getFirestore, enableMultiTabIndexedDbPersistence } from '@firebase/firestore';
+import { getFirestore, enableMultiTabIndexedDbPersistence } from 'firebase/firestore';
 import {
 	GoogleAuthProvider,
 	signInWithPopup,
@@ -8,7 +8,7 @@ import {
 	setPersistence,
 	browserLocalPersistence,
 	User,
-} from '@firebase/auth';
+} from 'firebase/auth';
 
 const firebaseConfig = {
 	apiKey: 'AIzaSyAXZbpwGIYAyEuU0maP2pBI4nh7QrtXmO0',

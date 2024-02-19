@@ -1,10 +1,10 @@
-import { createChannel, getChannelDoc, getChannelRef, getChannelsRef, getMessagesDocs, getMessagesRef, parseChannel } from './ChannelContextHelper';
-import { getDocs, addDoc, updateDoc, onSnapshot, query, where, Unsubscribe } from '@firebase/firestore';
-import { HTMLElementProps, iChannel, iChannelContext, iMessage, iOpenChannel } from '../types';
-import { defaultChannel, defaultUser, validateMessage } from '../pages/Chat/ChatHelper';
+import { Unsubscribe, addDoc, getDocs, onSnapshot, query, updateDoc, where } from 'firebase/firestore';
 import { createContext, useContext, useEffect, useState } from 'react';
-import { useUserContext } from './UserContext';
 import { v4 } from 'uuid';
+import { defaultChannel, defaultUser, validateMessage } from '../pages/Chat/ChatHelper';
+import { HTMLElementProps, iChannel, iChannelContext, iMessage, iOpenChannel } from '../types';
+import { createChannel, getChannelDoc, getChannelRef, getChannelsRef, getMessagesDocs, getMessagesRef, parseChannel } from './ChannelContextHelper';
+import { useUserContext } from './UserContext';
 
 const ChannelContext = createContext<iChannelContext | Record<string, never>>({});
 export const useChannelContext = () => useContext(ChannelContext);

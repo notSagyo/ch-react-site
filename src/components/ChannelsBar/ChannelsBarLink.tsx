@@ -9,8 +9,8 @@ import UserCard from '../UserCard/UserCard';
 
 export type ChannelBarLinkProps = Partial<SidenavLinkProps> & {
 	channel: iOpenChannel,
-	// Force update user data when open channels change, updating on "openChannels"
-	// state would be triggered before the ChannelsBar's Links mapping is done
+	// Force update user data when open channels change, updating on "channel"
+	// would be triggered before the ChannelsBar's Links mapping is done
 	forcedUpdateTime?: number
 }
 

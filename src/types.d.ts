@@ -1,5 +1,5 @@
+import { User } from 'firebase/auth';
 import { SetStateAction } from 'react';
-import { User } from '@firebase/auth';
 import { Icon } from 'tabler-icons-react';
 
 export type DivProps = React.HTMLAttributes<HTMLDivElement>;

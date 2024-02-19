@@ -1,8 +1,8 @@
+import { collection, doc, getDoc, getDocFromCache, getDocs, query, setDoc, where } from 'firebase/firestore';
 import { createContext, useContext } from 'react';
+import { db } from '../firebaseConfig';
 import { HTMLElementProps, iProduct, iShopContext } from '../types';
 import CartContextProvider from './CartContext';
-import { doc, setDoc, getDocs, collection, getDoc, query, where, getDocFromCache } from '@firebase/firestore';
-import { db } from '../firebaseConfig';
 
 const ShopContext = createContext<iShopContext | Record<string, never>>({});
 export const useShopContext = () => useContext(ShopContext);

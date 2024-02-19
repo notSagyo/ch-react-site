@@ -1,8 +1,8 @@
-import { createContext, useContext } from 'react';
-import { DivProps, iCartContext, iCartItem, iOrder, iProduct } from '../types';
-import { addDoc, collection } from '@firebase/firestore';
-import { db } from '../firebaseConfig';
 import { useLocalStorage } from '@mantine/hooks';
+import { addDoc, collection } from 'firebase/firestore';
+import { createContext, useContext } from 'react';
+import { db } from '../firebaseConfig';
+import { DivProps, iCartContext, iCartItem, iOrder, iProduct } from '../types';
 
 const CartContext = createContext<iCartContext | Record<string, never>>({});
 export const useCartContext = () => useContext(CartContext);
